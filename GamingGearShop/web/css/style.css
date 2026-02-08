@@ -1,0 +1,55 @@
+.banner h1{
+    text-align: center;
+    margin-bottom: 10px;    /* Tạo khoảng cách với giá tiền bên dưới */
+}
+
+.banner p{
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.product-list{
+    display: flex;           /*Phần tử con trong div: Nằm dọc thành nằm ngang*/
+    justify-content: space-evenly; /* Căn giữa các sản phẩm trên kệ */
+    gap: 20px;               /* Khoảng cách giữa các sản phẩm (khe hở) */
+    flex-wrap: wrap;         /* Nếu hết chỗ (màn hình nhỏ) thì tự rớt xuống dòng */
+}
+
+.product{
+    border: 1px solid #ddd; /* Viền xám nhạt */
+    border-radius: 8px;     /* Bo tròn góc */
+    width: 250px;           /* Chiều rộng cố định */
+    padding: 15px;          /* Khoảng cách bên trong */
+    text-align: center;     /* Căn giữa nội dung */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Đổ bóng nhẹ */
+    
+    position: relative;
+    background: white;
+}
+
+.product h3{
+    font-size: 16px;        /* Chỉnh chữ nhỏ lại một chút cho gọn */
+    height: 40px;           /* Chiều cao cố định */
+    line-height: 20px;      /* Khoảng cách giữa các dòng chữ */
+    overflow: hidden;       /* Ẩn phần chữ thừa */
+    margin-bottom: 10px;    /* Tạo khoảng cách với giá tiền bên dưới */
+    transition: all 0.3s;   /* Hiệu ứng chuyển động mượt mà */
+}
+
+.product:hover h3 {
+    height: auto;           
+    overflow: visible;      /* Hiện hết chữ */
+    
+    /* Chế độ nổi */
+    position: absolute;     /* Giúp h3 bay lơ lửng */
+    bottom: 0;              
+    left: 0;                
+    right: 0;               
+    
+    background-color: white; 
+    padding: 10px;          
+    box-shadow: 0 -5px 10px rgba(0,0,0,0.1); 
+    z-index: 10;            /* Nổi lên trên cùng */
+    border-radius: 0 0 8px 8px; /* Bo góc dưới cho khớp với thẻ cha */
+}
