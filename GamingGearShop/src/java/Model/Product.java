@@ -1,20 +1,20 @@
 package Model;
 
 public class Product {
-    private int id;
+    private String id;
     private String name;
     private double price;
     private String image;
     private String description;
-    private int cateID;      
+    private String cateID;      
     private int brandID;
 
     public Product() {
     }
 
-    public Product(int id, String name, double price, String image, String description, int cateID, int brandID) {
-        this.id = id;
-        this.name = name;
+    public Product(String id, String name, double price, String image, String description, String cateID, int brandID) {
+        setId(id);
+        setName(name);
         setPrice(price);
         this.image = image;
         this.description = description;
@@ -22,19 +22,23 @@ public class Product {
         this.brandID = brandID;
     }
     
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public final void setId(String id) {
+        if(!id.trim().isEmpty() && id.length() <= 10){
+            this.id = id;
+        }else{
+            throw new IllegalArgumentException("Id không được để trống!");
+        }
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public final void setName(String name) {
         if(!name.trim().isEmpty()){
             this.name = name;
         }else{
@@ -70,11 +74,11 @@ public class Product {
         this.description = description;
     }
 
-    public int getCateID() {
+    public String getCateID() {
         return cateID;
     }
 
-    public void setCateID(int cateID) {
+    public void setCateID(String cateID) {
         this.cateID = cateID;
     }
 
