@@ -1,6 +1,6 @@
 package DAO;
 
-import Model.Product;
+import Model.ProductDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,9 +11,9 @@ import utils.dbutils;
 
 public class ProductDAO {
 
-    private Product mapProduct(ResultSet rs) {
+    private ProductDTO mapDTO(ResultSet rs) {
         try {
-            return new Product(
+            return new ProductDTO(
                     rs.getString("productID"),
                     rs.getString("productName"),
                     rs.getDouble("price"),
@@ -30,15 +30,15 @@ public class ProductDAO {
         }
     }
 
-    public List<Product> getAll() {
-        List<Product> list = new ArrayList<>();
+    public List<ProductDTO> getAll() {
+        List<ProductDTO> list = new ArrayList<>();
         String sql = "SELECT * FROM tblProducts";
         
         try ( Connection conn = dbutils.getConnection();  PreparedStatement pst = conn.prepareStatement(sql)) {
 
             try ( ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
-                    Product checkMapProduct = mapProduct(rs);
+                    ProductDTO checkMapProduct = mapDTO(rs);
                     
                     if(checkMapProduct != null){
                         list.add(checkMapProduct);

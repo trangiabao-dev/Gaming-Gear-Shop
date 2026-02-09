@@ -1,6 +1,6 @@
 package Model;
 
-public class Product {
+public class ProductDTO {
     private String productID;  
     private String productName;  
     private double price;
@@ -11,10 +11,10 @@ public class Product {
     private String catID;        
     private String brandID;      
 
-    public Product() {
+    public ProductDTO() {
     }
 
-    public Product(String productID, String productName, double price, int quantity, 
+    public ProductDTO(String productID, String productName, double price, int quantity, 
                    String description, String imageURL, boolean status, 
                    String catID, String brandID) {
         setProductID(productID);
