@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static utils.URL.PAGE_HOME;
+import static utils.URL.PAGE_LOGIN;
 
 /**
  *
@@ -29,13 +31,13 @@ public class LoginController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String ERROR = "login.jsp";
-    private static final String SUCCESS = "welcome.jsp";
+    
+   
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = PAGE_LOGIN ;
 
         try {
             String userID = request.getParameter("userID");
@@ -50,7 +52,7 @@ public class LoginController extends HttpServlet {
                 if (user != null) {
                     HttpSession session = request.getSession();
                     session.setAttribute("LOGIN_USER", user);
-                    url = SUCCESS;
+                    url = PAGE_HOME;
                 } else {
                     request.setAttribute("ERROR", "Invalid User ID or Password!");
                 }
