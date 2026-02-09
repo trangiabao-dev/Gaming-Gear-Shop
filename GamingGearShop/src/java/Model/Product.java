@@ -1,48 +1,54 @@
 package Model;
 
 public class Product {
-    private String id;
-    private String name;
+    private String productID;  
+    private String productName;  
     private double price;
-    private String image;
+    private int quantity;        
     private String description;
-    private String cateID;      
-    private int brandID;
+    private String imageURL;     
+    private boolean status;      
+    private String catID;        
+    private String brandID;      
 
     public Product() {
     }
 
-    public Product(String id, String name, double price, String image, String description, String cateID, int brandID) {
-        setId(id);
-        setName(name);
+    public Product(String productID, String productName, double price, int quantity, 
+                   String description, String imageURL, boolean status, 
+                   String catID, String brandID) {
+        setProductID(productID);
+        setProductName(productName);
         setPrice(price);
-        setImage(image);
+        setQuantity(quantity);
         this.description = description;
-        this.cateID = cateID;
+        setImageURL(imageURL);
+        this.status = status;
+        this.catID = catID;
         this.brandID = brandID;
     }
-    
-    public String getId() {
-        return id;
+
+    public String getProductID() {
+        return productID;
     }
 
-    public final void setId(String id) {
-        if(!id.trim().isEmpty() && id.length() <= 10){
-            this.id = id;
-        }else{
-            throw new IllegalArgumentException("Id không được để trống!");
+    public final void setProductID(String productID) {
+        if (productID != null && !productID.trim().isEmpty() && productID.length() <= 10) {
+            this.productID = productID;
+        } else {
+            throw new IllegalArgumentException("ID không được để trống và tối đa 10 ký tự!");
         }
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public final void setName(String name) {
-        if(!name.trim().isEmpty()){
-            this.name = name;
-        }else{
-            throw new IllegalArgumentException("Tên không được để trống!");
+    public final void setProductName(String productName) {
+        if (productName != null && !productName.trim().isEmpty() && productName.length() <= 100) {
+            this.productName = productName;
+        } else {
+            throw new IllegalArgumentException("Tên không được để trống và tối đa 100 ký tự!");
         }
     }
 
@@ -51,22 +57,24 @@ public class Product {
     }
 
     public final void setPrice(double price) {
-        if(price > 0){
+        if (price > 0) {
             this.price = price;
-        }else{
+        } else {
             throw new IllegalArgumentException("Giá phải lớn hơn 0");
         }
     }
 
-    public String getImage() {
-        return image;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setImage(String image) {
-        if(image != null && image.length() > 500){
-            throw new IllegalArgumentException("Đường dẫn ảnh quá dài! Tối đa 500 ký tự.");
+    // Check số lượng không âm
+    public final void setQuantity(int quantity) {
+        if (quantity >= 0) {
+            this.quantity = quantity;
+        } else {
+            throw new IllegalArgumentException("Số lượng phải >= 0");
         }
-        this.image = image;
     }
 
     public String getDescription() {
@@ -77,20 +85,39 @@ public class Product {
         this.description = description;
     }
 
-    public String getCateID() {
-        return cateID;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setCateID(String cateID) {
-        this.cateID = cateID;
+    // SQL: varchar(200) -> Check length <= 200
+    public final void setImageURL(String imageURL) {
+        if (imageURL != null && imageURL.length() > 200) {
+            throw new IllegalArgumentException("Link ảnh quá dài! Tối đa 200 ký tự.");
+        }
+        this.imageURL = imageURL;
     }
 
-    public int getBrandID() {
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getCatID() {
+        return catID;
+    }
+
+    public void setCatID(String catID) {
+        this.catID = catID;
+    }
+
+    public String getBrandID() {
         return brandID;
     }
 
-    public void setBrandID(int brandID) {
+    public void setBrandID(String brandID) {
         this.brandID = brandID;
     }
-
 }
