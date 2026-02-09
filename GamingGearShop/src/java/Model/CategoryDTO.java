@@ -1,14 +1,14 @@
 package Model;
 
-public class Category {
+public class CategoryDTO {
     private String id;
     private String name;
     private boolean status;
 
-    public Category() {
+    public CategoryDTO() {
     }
 
-    public Category(String id, String name, boolean status) {
+    public CategoryDTO(String id, String name, boolean status) {
         setId(id);
         setName(name);
         this.status = status;
