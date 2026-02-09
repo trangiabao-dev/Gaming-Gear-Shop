@@ -16,7 +16,7 @@ public class Product {
         setId(id);
         setName(name);
         setPrice(price);
-        this.image = image;
+        setImage(image);
         this.description = description;
         this.cateID = cateID;
         this.brandID = brandID;
@@ -63,6 +63,9 @@ public class Product {
     }
 
     public void setImage(String image) {
+        if(image != null && image.length() > 500){
+            throw new IllegalArgumentException("Đường dẫn ảnh quá dài! Tối đa 500 ký tự.");
+        }
         this.image = image;
     }
 
