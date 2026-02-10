@@ -3,9 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/web/view/home.jsp</file>
             <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/web/WEB-INF/web.xml</file>
             <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/src/java/controller/LoginController.java</file>
+=======
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/web/view/home.jsp</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/utils/dbutils.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/DAO/CategoryDAO.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/web/css/style.css</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/controller/LoginController.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/DAO/ProductDAO.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/Model/CategoryDTO.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/controller/LogoutController.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/controller/MainController.java</file>
+>>>>>>> b330ae3348366715ca9a49ac5dadf0a49273cb19
         </group>
     </open-files>
 </project-private>
