@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&display=swap" rel="stylesheet"><!-- comment -->
+        <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&display=swap" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
@@ -27,10 +27,24 @@
 
                     <h3>${product.productName}</h3>
 
-                    <p>Giá: ${product.price} VNĐ</p>
+                    <p>Giá: ${product.priceFormat} VNĐ</p>
                 </div>
             </c:forEach>
         </div>
+
+        <ul>
+            <c:forEach items="${listCategory}" var="category">
+                <li>
+                    <form action="MainController" method="POST" style="display:inline;">
+                        <input type="hidden" name="action" value="home"/>
+                        <input type="hidden" name="catID" value="${category.catID}" />
+                        <button type="submit" style="background:none; border:none; color:blue; cursor:pointer; text-decoration:underline;">
+                            ${category.catName}
+                        </button>
+                    </form>
+                </li>
+            </c:forEach>
+        </ul>
 
     </body>
 </html>
