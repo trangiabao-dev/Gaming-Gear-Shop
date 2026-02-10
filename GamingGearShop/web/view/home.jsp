@@ -16,28 +16,27 @@
     </head>
     <body>
         <%-- LOGIN --%> 
-        <c:if test="${sessionScope.LOGIN_USER == null}"> 
-            <a href="view/login.jsp" class="btn-header btn-header-login"> 
+        <c:if test="${empty sessionScope.LOGIN_USER}"> 
+            <%-- Gọi qua Controller thay vì gọi trực tiếp file .jsp --%>
+            <a href="MainController?action=login" class="btn-header btn-header-login"> 
                 <i class="fa-solid fa-user"></i>
                 Đăng nhập 
             </a> 
         </c:if> 
-        <%-- LOGOUT --%>
-        <c:if test="${sessionScope.LOGIN_USER != null}">
 
-            <!-- Xin chào: nền đen chữ vàng -->
+        <%-- LOGOUT --%>
+        <c:if test="${not empty sessionScope.LOGIN_USER}">
             <div class="btn-header btn-header-logout">
                 <span class="user-name">
                     Xin chào, ${sessionScope.LOGIN_USER.fullName}
                 </span>
             </div>
 
-            <!-- Nút thoát: giống nút đăng nhập -->
-            <a href="LogoutController" class="btn-header btn-header-login">
+            <%-- Điều hướng về MainController để xử lý xóa Session --%>
+            <a href="MainController?action=logout" class="btn-header btn-header-login">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 Thoát
             </a>
-
         </c:if>
 
         <div class="banner"> 
