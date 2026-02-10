@@ -4,8 +4,11 @@
  */
 package controller;
 
+import DAO.ProductDAO;
+import Model.ProductDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,11 +35,39 @@ public class MainController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
-        String url = URL.PAGE_ERROR;
-        
-    }
 
+        String url = URL.PAGE_ERROR;
+
+        try {
+            String action = request.getParameter("action");
+            if (action == null) {
+                action = "home";
+            } else if (action.trim().isEmpty()) {
+                action = "home";
+            }
+            switch (action) {
+                case "home":
+                    ProductDAO pDAO = new ProductDAO();
+                    List<ProductDTO> listProduct = pDAO.getAllProductDTO();
+
+                    request.setAttribute("listProduct", listProduct);
+                    url = URL.PAGE_HOME;
+                    break;
+                case "login":
+                    url = URL.PAGE_LOGIN;
+                    break;
+                default:
+                    url = URL.PAGE_HOME;
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
+        }
+
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

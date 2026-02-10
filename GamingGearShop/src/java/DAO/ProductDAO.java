@@ -30,7 +30,7 @@ public class ProductDAO {
         }
     }
 
-    public List<ProductDTO> getAll() {
+    public List<ProductDTO> getAllProductDTO() {
         List<ProductDTO> list = new ArrayList<>();
         String sql = "SELECT * FROM tblProducts";
         
