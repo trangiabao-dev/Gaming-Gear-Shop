@@ -56,13 +56,16 @@ public class MainController extends HttpServlet {
                 case "login":
                     url = URL.PAGE_LOGIN;
                     break;
+                case "logout":
+                    url = "LogoutController";
+                    break;
                 default:
                     url = URL.PAGE_HOME;
                     break;
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
