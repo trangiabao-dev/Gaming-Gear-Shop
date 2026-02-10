@@ -32,19 +32,43 @@
             </c:forEach>
         </div>
 
-        <ul>
+        <style>
+            /* 1. Xóa bỏ mọi định dạng mặc định của button */
+            .menu-item {
+                background: none;
+                border: none;
+                padding: 10px 15px;
+                margin: 5px 0;
+                width: 100%;
+                text-align: left;
+                font-size: 16px;
+                color: #333;
+                cursor: pointer;
+                transition: all 0.3s ease; /* Hiệu ứng mượt mà khi rê chuột */
+                border-radius: 5px;
+            }
+
+            /* 2. Hiệu ứng khi di chuột vào (Hover) */
+            .menu-item:hover {
+                background-color: #f0f0f0; /* Đổi nền xám nhạt */
+                color: #ff4757;           /* Đổi chữ sang màu đỏ thương hiệu */
+                padding-left: 25px;       /* Đẩy chữ sang phải một chút tạo cảm giác động */
+            }
+        </style>
+
+        <div class="sidebar">
+            <h3>Danh mục sản phẩm</h3>
             <c:forEach items="${listCategory}" var="category">
                 <li>
                     <form action="MainController" method="POST" style="display:inline;">
                         <input type="hidden" name="action" value="home"/>
                         <input type="hidden" name="catID" value="${category.catID}" />
-                        <button type="submit" style="background:none; border:none; color:blue; cursor:pointer; text-decoration:underline;">
-                            ${category.catName}
+                        <button type="submit" class="menu-item">
+                            <i class="fa fa-chevron-right"></i> ${category.catName}
                         </button>
                     </form>
                 </li>
             </c:forEach>
-        </ul>
-
+        </div>
     </body>
 </html>
