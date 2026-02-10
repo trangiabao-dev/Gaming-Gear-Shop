@@ -45,7 +45,7 @@ public class ProductDTO {
     }
 
     public final void setProductName(String productName) {
-        if (productName != null && !productName.trim().isEmpty() && productName.length() <= 100) {
+        if (productName != null && !productName.trim().isEmpty() && productName.length() <= 500) {
             this.productName = productName;
         } else {
             throw new IllegalArgumentException("Tên không được để trống và tối đa 100 ký tự!");

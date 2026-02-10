@@ -1,12 +1,33 @@
+body {
+    background-color: #f0f2f5; /* Mã màu xám nhạt dịu mắt (giống Facebook) */
+    font-family: 'Chakra Petch', sans-serif;
+    color: #333333;
+    margin: 0; /* Xóa khoảng trắng thừa ở mép màn hình */
+}
+
+.banner {
+    text-align: center;
+}
+
 .banner h1{
     text-align: center;
     margin-bottom: 10px;    /* Tạo khoảng cách với giá tiền bên dưới */
 }
 
-.banner p{
+.banner p {
     text-align: center;
-    margin-top: 0;
-    margin-bottom: 30px;
+    font-family: 'Chakra Petch', sans-serif; /* Dùng luôn font Gaming cho đồng bộ */
+    font-size: 16px;            /* Chữ to vừa phải */
+    color: #d0011b;             /* Màu Đỏ Gaming nổi bật trên nền xám */
+    text-transform: uppercase;  /* Viết hoa toàn bộ -> Trông quyền lực hơn */
+    letter-spacing: 3px;        /* Kéo giãn chữ ra -> Nhìn rất "thoáng" và sang */
+    margin-top: 5px;
+    margin-bottom: 40px;
+    font-weight: 600;           /* Chữ đậm vừa phải */
+    
+    /* Hiệu ứng gạch dưới mờ ảo (Optional) */
+    border-bottom: 1px solid #ccc; 
+    padding-bottom: 10px;       /* Khoảng cách giữa chữ và đường gạch */
 }
 
 .product-list{
@@ -23,7 +44,7 @@
     padding: 15px;          /* Khoảng cách bên trong */
     text-align: center;     /* Căn giữa nội dung */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Đổ bóng nhẹ */
-    
+
     position: relative;
     background: white;
 }
@@ -38,24 +59,24 @@
 }
 
 .product:hover h3 {
-    height: auto;           
+    height: auto;
     overflow: visible;      /* Hiện hết chữ */
-    
+
     /* Chế độ nổi */
     position: absolute;     /* Giúp h3 bay lơ lửng */
-    bottom: 0;              
-    left: 0;                
-    right: 0;               
-    
-    background-color: white; 
-    padding: 10px;          
-    box-shadow: 0 -5px 10px rgba(0,0,0,0.1); 
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0 -5px 10px rgba(0,0,0,0.1);
     z-index: 10;            /* Nổi lên trên cùng */
     border-radius: 0 0 8px 8px; /* Bo góc dưới cho khớp với thẻ cha */
 }
 
 
-                    /*--TEST DECOR LOGIN--*/
+/*--TEST DECOR LOGIN--*/
 /* --- PHẦN LOGIN STYLE (Thêm vào cuối file) --- */
 
 /* 1. Khung chứa form đăng nhập -> Căn giữa màn hình */
