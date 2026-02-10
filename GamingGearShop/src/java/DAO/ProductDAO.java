@@ -11,7 +11,7 @@ import utils.dbutils;
 
 public class ProductDAO {
 
-    private ProductDTO mapDTO(ResultSet rs) {
+    private ProductDTO mapProDTO(ResultSet rs) {
         try {
             return new ProductDTO(
                     rs.getString("productID"),
@@ -35,10 +35,10 @@ public class ProductDAO {
         String sql = "SELECT * FROM tblProducts";
         
         try ( Connection conn = dbutils.getConnection();  PreparedStatement pst = conn.prepareStatement(sql)) {
-
+            
             try ( ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
-                    ProductDTO checkMapProduct = mapDTO(rs);
+                    ProductDTO checkMapProduct = mapProDTO(rs);
                     
                     if(checkMapProduct != null){
                         list.add(checkMapProduct);

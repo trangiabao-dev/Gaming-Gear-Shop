@@ -1,38 +1,40 @@
 package Model;
 
+import utils.Validation;
+
 public class CategoryDTO {
-    private String id;
-    private String name;
+    private String catID;
+    private String catName;
     private boolean status;
 
     public CategoryDTO() {
     }
 
-    public CategoryDTO(String id, String name, boolean status) {
-        setId(id);
-        setName(name);
+    public CategoryDTO(String catID, String catName, boolean status) {
+        setCatID(catID);
+        setCatName(catName);
         this.status = status;
     }
 
-    public String getId() {
-        return id;
+    public String getCatID() {
+        return catID;
     }
 
-    public final void setId(String id) {
-        if(!id.trim().isEmpty() && id.length() <= 10){
-            this.id = id;
+    public final void setCatID(String catID) {
+        if(Validation.checkInput(catID, 10)){
+            this.catID = catID;
         }else{
             throw new IllegalArgumentException("Id không được để trống!");
         }
     }
 
-    public String getName() {
-        return name;
+    public String getCatName() {
+        return catName;
     }
 
-    public final void setName(String name) {
-        if(!name.trim().isEmpty() && name.length() <= 50){
-            this.name = name;
+    public final void setCatName(String catName) {
+        if(Validation.checkInput(catName, 50)){
+            this.catName = catName;
         }else{
             throw new IllegalArgumentException("Tên không được để trống!");
         }
@@ -44,6 +46,11 @@ public class CategoryDTO {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "CategoryDTO{" + "catID=" + catID + ", catName=" + catName + ", status=" + status + '}';
     }
     
 }

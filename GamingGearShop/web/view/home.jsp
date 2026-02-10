@@ -1,4 +1,4 @@
-s<%-- 
+<%-- 
     Document   : index
     Created on : Feb 8, 2026, 4:25:41 PM
     Author     : ACER
@@ -11,6 +11,7 @@ s<%--
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&displSay=swap" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
@@ -47,6 +48,7 @@ s<%--
         </div>
 
         <div class="product-list"> 
+
             <div class="product">
                 <img src="images/Mouse-Wireless-X7.jpg" alt="Chuột Không Dây Máy Tính Bluetooth X7 Wireless" width="200"/>
                 <h3>Chuột Không Dây Máy Tính Bluetooth X7 Wireless Pin Sạc Kết Nối 2 Chế Độ Cho Mọi Thiết Bị Máy Tính, Laptop</h3>
@@ -54,7 +56,10 @@ s<%--
             </div>
 
             <div class="product"> 
-                <img src="images/Mouse-Wolf-X8.jpg" alt="Chuột Không Dây Gaming Wolf X8 LED 7" width="200"/>
+                <img src="images/Mouse-Free-Wolf-X8.jpg"
+                     alt="Chuột Không Dây Free Wolf X8"
+                     width="200"/>
+
                 <h3>Chuột Không Dây Gaming Wolf X8 LED 7 Màu RGB, Pin Có Thể Sạc Dùng Cực Lâu, Chuột Chơi Game Không Dây</h3>
                 <p>Giá: 149.000 VNĐ</p>
             </div>
@@ -70,6 +75,32 @@ s<%--
                 <h3>Chuột Không Dây Free Wolf X8 - Thiết Kế Gaming Pin Sạc, Led RGB 7 Màu, Kết Nối Không Dây Usb 2.4G</h3>
                 <p>Giá: 189.000 VNĐ</p>
             </div>
+
+            <c:forEach items="${listProduct}" var="product" end="3">
+                <div class="product">
+                    <img src="${product.imageURL}" alt="${product.productName}" width="100%"/>
+
+                    <h3>${product.productName}</h3>
+
+                    <p>Giá: ${product.priceFormat} VNĐ</p>
+                </div>
+            </c:forEach>
+
         </div>
+
+        <ul>
+            <c:forEach items="${listCategory}" var="category">
+                <li>
+                    <form action="MainController" method="POST" style="display:inline;">
+                        <input type="hidden" name="action" value="home"/>
+                        <input type="hidden" name="catID" value="${category.catID}" />
+                        <button type="submit" style="background:none; border:none; color:blue; cursor:pointer; text-decoration:underline;">
+                            ${category.catName}
+                        </button>
+                    </form>
+                </li>
+            </c:forEach>
+        </ul>
+
     </body>
 </html>

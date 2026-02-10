@@ -1,5 +1,9 @@
 package Model;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+import utils.Validation;
+
 public class ProductDTO {
     private String productID;  
     private String productName;  
@@ -33,7 +37,7 @@ public class ProductDTO {
     }
 
     public final void setProductID(String productID) {
-        if (productID != null && !productID.trim().isEmpty() && productID.length() <= 10) {
+        if (Validation.checkInput(productID, 10)) {
             this.productID = productID;
         } else {
             throw new IllegalArgumentException("ID không được để trống và tối đa 10 ký tự!");
@@ -45,10 +49,10 @@ public class ProductDTO {
     }
 
     public final void setProductName(String productName) {
-        if (productName != null && !productName.trim().isEmpty() && productName.length() <= 100) {
+        if (Validation.checkInput(productName, 500)) {
             this.productName = productName;
         } else {
-            throw new IllegalArgumentException("Tên không được để trống và tối đa 100 ký tự!");
+            throw new IllegalArgumentException("Tên không được để trống và tối đa 500 ký tự!");
         }
     }
 
@@ -68,7 +72,6 @@ public class ProductDTO {
         return quantity;
     }
 
-    // Check số lượng không âm
     public final void setQuantity(int quantity) {
         if (quantity >= 0) {
             this.quantity = quantity;
@@ -89,12 +92,12 @@ public class ProductDTO {
         return imageURL;
     }
 
-    // SQL: varchar(200) -> Check length <= 200
     public final void setImageURL(String imageURL) {
-        if (imageURL != null && imageURL.length() > 200) {
+        if (Validation.checkInput(imageURL, 200)) {
+            this.imageURL = imageURL;
+        }else{
             throw new IllegalArgumentException("Link ảnh quá dài! Tối đa 200 ký tự.");
         }
-        this.imageURL = imageURL;
     }
 
     public boolean isStatus() {
@@ -120,4 +123,17 @@ public class ProductDTO {
     public void setBrandID(String brandID) {
         this.brandID = brandID;
     }
+    
+    // Chỉnh FORMAT Giá lại
+    public String getPriceFormat(){
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat PriceFormat = NumberFormat.getInstance(localeVN);
+        return PriceFormat.format(this.price);
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDTO{" + "productID=" + productID + ", productName=" + productName + ", price=" + price + ", quantity=" + quantity + ", status=" + status + ", catID=" + catID + ", brandID=" + brandID + '}';
+    }
+    
 }

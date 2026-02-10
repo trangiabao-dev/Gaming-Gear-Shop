@@ -196,22 +196,4 @@ body {
 }
 
 
-/* =========================================
-    NÚT LOGOUT TẠI TRANG CHỦ SAU KHI ĐĂNG NHẬP THÀNH CONG (HOME)
-   ========================================= */
-/* Nút Logout riêng biệt */
-.btn-logout-red {
-    background-color: #d0011b;
-    color: white;
-    padding: 5px 12px;
-    border-radius: 15px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 12px;
-    transition: 0.3s;
-}
-
-.btn-logout-red:hover {
-    background-color: #a80014;
-}
 
