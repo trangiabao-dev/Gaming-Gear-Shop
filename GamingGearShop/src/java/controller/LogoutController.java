@@ -4,24 +4,20 @@
  */
 package controller;
 
-import DAO.CategoryDAO;
-import DAO.ProductDAO;
-import Model.CategoryDTO;
-import Model.ProductDTO;
 import java.io.IOException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import utils.URL;
+import javax.servlet.http.HttpSession;
+import static utils.URL.PAGE_HOME;
 
 /**
  *
  * @author thinh
  */
-public class MainController extends HttpServlet {
+public class LogoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,52 +31,22 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
-        String url = URL.PAGE_ERROR;
-
-        try {
-            String action = request.getParameter("action");
-            if (action == null) {
-                action = "home";
-            } else if (action.trim().isEmpty()) {
-                action = "home";
-            }
-            switch (action) {
-                case "home":
-                    String catID = request.getParameter("catID");
-                    
-                    ProductDAO pDAO = new ProductDAO();
-                    CategoryDAO cDAO = new CategoryDAO();
-                    
-                    List<ProductDTO> listProduct = pDAO.getAllProductDTO();
-                    List<CategoryDTO> listCategory = cDAO.getAllCategories();
-                    
-                    request.setAttribute("listProduct", listProduct);
-                    request.setAttribute("listCategory", listCategory);
-                    
-                    url = URL.PAGE_HOME;
-                    break;
-                case "login":
-                    url = URL.PAGE_LOGIN;
-                    break;
-                case "logout":
-                    url = "LogoutController";
-                    break;
-                default:
-                    url = URL.PAGE_HOME;
-                    break;
+       try {
+            // 1. Lấy session hiện tại (false nghĩa là nếu chưa có thì đừng tạo mới)
+            HttpSession session = request.getSession(false);
+            
+            if (session != null) {
+                // 2. Xóa sạch sành sanh dữ liệu trong session
+                session.invalidate();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log("Error at LogoutController: " + e.toString());
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
-        }
-
+            // 3. Xóa xong thì chuyển về trang chủ (MainController)
+        // Để khách xem hàng tiếp, không nhất thiết bắt họ đăng nhập lại ngay.
+        response.sendRedirect(PAGE_HOME);
     }
-
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

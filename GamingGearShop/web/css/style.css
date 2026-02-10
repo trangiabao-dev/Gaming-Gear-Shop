@@ -1,6 +1,6 @@
 body {
-    background-color: #f0f2f5; /* Mã màu xám nhạt dịu mắt (giống Facebook) */
-    margin: 0; /* Xóa khoảng trắng thừa ở mép màn hình */
+    background-color: #f0f2f5; 
+    margin: 0; 
     padding: 0;
     width: 100%;
     overflow-x: hidden;
@@ -12,7 +12,7 @@ body {
     width: 100%;
     font-family: 'Chakra Petch', sans-serif;
     color: #333333;
-    margin: 0;         /* Không có lề bên ngoài */
+    margin: 0;         
     margin-bottom: 20px;
     padding: 1px 1px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -20,18 +20,17 @@ body {
 
 .banner h1{
     text-align: center;
-    margin-bottom: 10px;    /* Tạo khoảng cách với giá tiền bên dưới */
+    margin-bottom: 10px;    
 }
 
 .banner p {
     text-align: center;
     font-family: 'Chakra Petch', sans-serif;
     font-size: 16px;            
-/*    color: #d0011b;             */
     color: white;
-    text-transform: uppercase;  /* Viết hoa toàn bộ  */
+    text-transform: uppercase;  /* Viết hoa toàn bộ */
     letter-spacing: 3px;        /* Kéo giãn chữ ra */
-    margin-top: 5px;
+    margin-top: 5px;            /* Bạn giữ 5px hoặc đổi thành 0 theo ý Thịnh */
     margin-bottom: 40px;
     font-weight: 600;           /* Chữ đậm */
     
@@ -54,7 +53,7 @@ body {
     padding: 15px;          /* Khoảng cách bên trong */
     text-align: center;     /* Căn giữa nội dung */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Đổ bóng nhẹ */
-
+    
     position: relative;
     background: white;
 }
@@ -69,90 +68,119 @@ body {
 }
 
 .product:hover h3 {
-    height: auto;
+    height: auto;           
     overflow: visible;      /* Hiện hết chữ */
-
+    
     /* Chế độ nổi */
     position: absolute;     /* Giúp h3 bay lơ lửng */
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    background-color: white;
-    padding: 10px;
-    box-shadow: 0 -5px 10px rgba(0,0,0,0.1);
+    bottom: 0;              
+    left: 0;                
+    right: 0;               
+    
+    background-color: white; 
+    padding: 10px;          
+    box-shadow: 0 -5px 10px rgba(0,0,0,0.1); 
     z-index: 10;            /* Nổi lên trên cùng */
     border-radius: 0 0 8px 8px; /* Bo góc dưới cho khớp với thẻ cha */
 }
 
 
-/*--TEST DECOR LOGIN--*/
+                    /*--TEST DECOR LOGIN--*/
 /* --- PHẦN LOGIN STYLE (Thêm vào cuối file) --- */
 
-/* 1. Khung chứa form đăng nhập -> Căn giữa màn hình */
+/* =========================================
+/* 1. Reset trang web để không bị viền trắng thừa */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+    
+    /* QUAN TRỌNG: Dùng Flexbox để căn giữa body */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Căn giữa theo chiều ngang */
+    min-height: 100vh;
+}
+
+/* 2. Tiêu đề Logo to ở trên */
+.header-logo {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+.header-logo h1 {
+    color: #d0011b;
+    margin: 0;
+    font-size: 32px;
+}
+
+/* 3. KHUNG LOGIN (Căn giữa hoàn hảo) */
 .login-box {
     width: 400px;           /* Độ rộng cố định */
-    margin: 100px auto;     /* Cách trên 100px, TRÁI PHẢI TỰ ĐỘNG CĂN GIỮA (Quan trọng) */
-    padding: 40px;
     background-color: white;
-    border-radius: 10px;    /* Bo góc mềm mại */
-    box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Đổ bóng nhẹ xung quanh */
-    border: 1px solid #eee;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    
+    /* Flexbox để xếp các con thành hàng dọc */
+    display: flex;
+    flex-direction: column; /* Xếp dọc từ trên xuống dưới */
+    align-items: center;    /* Căn giữa tất cả các con bên trong */
 }
 
-/* 2. Tiêu đề form */
+/* 4. Tiêu đề "Đăng Nhập" */
 .login-box h2 {
-    text-align: center;
-    margin-bottom: 30px;
     color: #333;
     text-transform: uppercase;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
-/* 3. Gom nhóm Label và Input để xử lý khoảng cách */
+/* 5. Form Group (Bao quanh Label và Input) */
 .form-group {
-    margin-bottom: 20px;    /* Mỗi ô cách nhau 20px */
+    width: 100%;            /* Chiếm hết chiều ngang của khung */
+    margin-bottom: 20px;
+    text-align: center;     /* Căn giữa chữ Label */
 }
 
-/* 4. Nhãn (Tên đăng nhập / Mật khẩu) -> Nằm riêng 1 dòng */
 .form-group label {
-    display: block;         /* Bắt buộc xuống dòng */
-    margin-bottom: 8px;     /* Cách ô nhập 1 chút */
+    display: block;
     font-weight: bold;
     color: #555;
-    text-align: left;       /* Căn trái cho dễ đọc */
+    margin-bottom: 8px;
 }
 
-/* 5. Ô nhập liệu -> Dài hết khổ */
+/* 6. Ô Input */
 .form-control {
-    width: 100%;            /* Chiếm hết chiều ngang của khung */
-    padding: 12px;          /* Ô to dễ nhập */
+    width: 100%;            /* Full chiều rộng */
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box; /* Để padding không làm vỡ khung */
+    box-sizing: border-box; /* Không làm vỡ khung */
+    text-align: center;     /* Căn giữa chữ khi gõ */
     font-size: 14px;
 }
 
-/* Hiệu ứng khi bấm vào ô nhập */
 .form-control:focus {
-    border-color: #d0011b;  /* Viền đỏ Gaming */
+    border-color: #d0011b;
     outline: none;
 }
 
-/* 6. Nút đăng nhập */
-.btn-login {
-    width: 100%;            /* Nút dài hết khổ */
-    padding: 12px;
-    background-color: #d0011b; /* Màu đỏ Gaming */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background 0.3s;
+/* =========================================
+    NÚT LOGIN/LOGOUT TẠI TRANG CHỦ (HOME)
+   ========================================= */
+
+/* Định vị góc trên bên phải */
+.auth-section {
+    position: absolute;
+    top: 20px;
+    right: 40px; /* Cách lề phải một chút cho thoáng */
+    z-index: 9999; /* Luôn nổi lên trên cùng */
+    font-family: Arial, sans-serif;
 }
 
+<<<<<<< HEAD
 .btn-login:hover {
     background-color: #a80015; /* Đậm hơn khi di chuột */
 }
@@ -184,3 +212,52 @@ body {
     font-family: inherit;
     color: #333333;
 }
+=======
+/* Style chung cho nút Home */
+.btn-header {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Khoảng cách giữa icon và chữ */
+    
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px; /* Bo tròn kiểu viên thuốc */
+    font-size: 13px;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* TRẠNG THÁI 1: Chưa đăng nhập (Nút đỏ giống CellphoneS) */
+.btn-header-login {
+    background-color: #d0011b; /* Đỏ Gaming */
+    color: white;
+    border: 1px solid #d0011b;
+}
+
+.btn-header-login:hover {
+    background-color: white;
+    color: #d0011b; /* Đổi ngược màu khi di chuột */
+}
+
+/* TRẠNG THÁI 2: Đã đăng nhập (Nút đen hoặc xám đậm) */
+.btn-header-logout {
+    background-color: #333;
+    color: white;
+    border: 1px solid #333;
+}
+
+.btn-header-logout:hover {
+    background-color: #d0011b; /* Hover vào thì đỏ lên báo hiệu Logout */
+    border-color: #d0011b;
+}
+
+/* Chữ tên người dùng */
+.user-name {
+    margin-right: 5px;
+    color: #ffd700; /* Màu vàng kim cho tên nổi bật trên nền đen */
+}
+
+
+
+>>>>>>> 0d5b5094b05cb6dd5451548a30c4a442dfb7dc73

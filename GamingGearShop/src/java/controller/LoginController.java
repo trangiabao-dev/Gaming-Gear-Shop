@@ -34,34 +34,46 @@ public class LoginController extends HttpServlet {
    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String url = PAGE_LOGIN ;
+        throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    
+    // Mặc định url là trang login để hứng lỗi
+    String url = PAGE_LOGIN;
 
-        try {
-            String userID = request.getParameter("userID");
-            String password = request.getParameter("password");
+    try {
+        String userID = request.getParameter("userID");
+        String password = request.getParameter("password");
 
-            if (userID == null || userID.trim().isEmpty() || password == null || password.trim().isEmpty()) {
-                request.setAttribute("ERROR", "Please enter both User ID and Password!");
+        // 1. Kiểm tra validation
+        if (userID == null || userID.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+            request.setAttribute("ERROR", "Vui lòng nhập đầy đủ thông tin!");
+        } else {
+            // 2. Gọi DAO kiểm tra
+            UserDAO dao = new UserDAO();
+            UserDTO user = dao.checkLogin(userID, password);
+
+            if (user != null) {
+                // === TRƯỜNG HỢP ĐĂNG NHẬP THÀNH CÔNG ===
+                HttpSession session = request.getSession();
+                session.setAttribute("LOGIN_USER", user);
+                
+                // QUAN TRỌNG: Dùng sendRedirect để gọi MainController
+                // MainController sẽ lo việc lấy sản phẩm và hiện trang home
+                response.sendRedirect("MainController"); 
+                return; // Dừng code ở đây ngay lập tức, không chạy xuống finally nữa
+                
             } else {
-                UserDAO dao = new UserDAO();
-                UserDTO user = dao.checkLogin(userID, password); //  UserDAO
-
-                if (user != null) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("LOGIN_USER", user);
-                    url = PAGE_HOME;
-                } else {
-                    request.setAttribute("ERROR", "Invalid User ID or Password!");
-                }
+                request.setAttribute("ERROR", "Sai tên đăng nhập hoặc mật khẩu!");
             }
-        } catch (Exception e) {
-            log("Error at LoginController: " + e.toString());
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
         }
-    }
+    } catch (Exception e) {
+        log("Error at LoginController: " + e.toString());
+    } 
+    
+    // === TRƯỜNG HỢP THẤT BẠI ===
+    // Chỉ chạy xuống đây nếu đăng nhập SAI
+    request.getRequestDispatcher(url).forward(request, response);
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
