@@ -22,7 +22,7 @@
                 <i class="fa-solid fa-user"></i>
                 Đăng nhập 
             </a> 
-        </c:if> 
+        </c:if>
 
         <%-- LOGOUT --%>
         <c:if test="${not empty sessionScope.LOGIN_USER}">
