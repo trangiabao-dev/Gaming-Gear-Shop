@@ -50,16 +50,16 @@ public class MainController extends HttpServlet {
             switch (action) {
                 case "home":
                     String catID = request.getParameter("catID");
-                    
+
                     ProductDAO pDAO = new ProductDAO();
                     CategoryDAO cDAO = new CategoryDAO();
-                    
+
                     List<ProductDTO> listProduct = pDAO.getAllProductDTO();
                     List<CategoryDTO> listCategory = cDAO.getAllCategories();
-                    
+
                     request.setAttribute("listProduct", listProduct);
                     request.setAttribute("listCategory", listCategory);
-                    
+
                     url = URL.PAGE_HOME;
                     break;
                 case "login":
