@@ -1,12 +1,42 @@
-.banner h1{
-    text-align: center;
-    margin-bottom: 10px;    /* Tạo khoảng cách với giá tiền bên dưới */
+body {
+    background-color: #f0f2f5; 
+    margin: 0; 
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
 }
 
-.banner p{
+.banner {
     text-align: center;
-    margin-top: 0;
-    margin-bottom: 30px;
+    background-image: linear-gradient(rgb(228, 84, 100) 0%, rgb(215, 0, 24) 100%);
+    width: 100%;
+    font-family: 'Chakra Petch', sans-serif;
+    color: #333333;
+    margin: 0;         
+    margin-bottom: 20px;
+    padding: 1px 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.banner h1{
+    text-align: center;
+    margin-bottom: 10px;    
+}
+
+.banner p {
+    text-align: center;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 16px;            
+    color: white;
+    text-transform: uppercase;  /* Viết hoa toàn bộ */
+    letter-spacing: 3px;        /* Kéo giãn chữ ra */
+    margin-top: 5px;            /* Bạn giữ 5px hoặc đổi thành 0 theo ý Thịnh */
+    margin-bottom: 40px;
+    font-weight: 600;           /* Chữ đậm */
+    
+    border-bottom: 1px solid #ccc; 
+    display: inline-block;      /* Để đường gạch chân chỉ dài bằng dòng chữ */
+    padding-bottom: 10px;
 }
 
 .product-list{
@@ -150,6 +180,38 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.btn-login:hover {
+    background-color: #a80015; /* Đậm hơn khi di chuột */
+}
+
+.menu-item {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px 0;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Hiệu ứng mượt mà khi rê chuột */
+    border-radius: 5px;
+}
+
+/* 2. Hiệu ứng khi di chuột vào (Hover) */
+.menu-item:hover {
+    background-color: #f0f0f0; /* Đổi nền xám nhạt */
+    color: #ff4757;           /* Đổi chữ sang màu đỏ thương hiệu */
+    padding-left: 25px;       /* Đẩy chữ sang phải một chút tạo cảm giác động */
+}
+
+.sidebar h3{
+    text-align: center;
+    font-size: 30px;
+    font-family: inherit;
+    color: #333333;
+}
+
 /* Style chung cho nút Home */
 .btn-header {
     display: flex;
@@ -194,6 +256,3 @@ body {
     margin-right: 5px;
     color: #ffd700; /* Màu vàng kim cho tên nổi bật trên nền đen */
 }
-
-
-
