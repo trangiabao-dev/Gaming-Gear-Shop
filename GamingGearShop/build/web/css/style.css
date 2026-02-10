@@ -211,7 +211,7 @@ body {
     font-family: inherit;
     color: #333333;
 }
-=======
+
 /* Style chung cho nút Home */
 .btn-header {
     display: flex;
@@ -256,7 +256,3 @@ body {
     margin-right: 5px;
     color: #ffd700; /* Màu vàng kim cho tên nổi bật trên nền đen */
 }
-
-
-
->>>>>>> 0d5b5094b05cb6dd5451548a30c4a442dfb7dc73
