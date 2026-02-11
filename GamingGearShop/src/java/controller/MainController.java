@@ -53,7 +53,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     ProductDAO pDAO = new ProductDAO();
                     CategoryDAO cDAO = new CategoryDAO();
 
-                    List<ProductDTO> listProduct = pDAO.getAllProductDTO();
+                    List<ProductDTO> listProduct = pDAO.getAllProducts();
                     List<CategoryDTO> listCategory = cDAO.getAllCategories();
 
                     request.setAttribute("listProduct", listProduct);

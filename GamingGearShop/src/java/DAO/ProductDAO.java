@@ -29,26 +29,52 @@ public class ProductDAO {
             return null;
         }
     }
-
-    public List<ProductDTO> getAllProductDTO() {
+    
+    // Tái sử dụng HÀM
+    private List<ProductDTO> getProducts(String sql, Object... params) { // Object... params: có tham số hay không đều dược
         List<ProductDTO> list = new ArrayList<>();
-        String sql = "SELECT * FROM tblProducts";
-        
-        try ( Connection conn = dbutils.getConnection();  PreparedStatement pst = conn.prepareStatement(sql)) {
+
+        try( Connection conn = dbutils.getConnection();  PreparedStatement pst = conn.prepareStatement(sql)) {
             
-            try ( ResultSet rs = pst.executeQuery()) {
-                while (rs.next()) {
-                    ProductDTO checkMapProduct = mapProDTO(rs);
-                    
-                    if(checkMapProduct != null){
-                        list.add(checkMapProduct);
-                    }                    
+            System.out.println("Chạy Lệnh SQL: " + sql); // Dòng để Debug
+            
+            if(params != null && params.length > 0){
+                for(int i = 0; i < params.length; i++){
+                    pst.setObject(i + 1, params[i]);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();    // sẽ chỉ điểm chính xác dòng code nào gây ra lỗi
+            
+            try(ResultSet rs = pst.executeQuery()){
+                while(rs.next()){
+                    ProductDTO pDTO = mapProDTO(rs);
+                    
+                    if(pDTO != null){
+                        list.add(pDTO);
+                    }
+                }
+            }
+            
+        }catch(Exception e) {
+            e.printStackTrace();
         }
         return list;
     }
-
+    
+    // Lấy toàn bộ sản phẩm
+    public List<ProductDTO> getAllProducts(){
+        String sql = "SELECT * FROM tblProducts WHERE status = 1";
+        return getProducts(sql);
+    }
+    
+    // Lọc sản phẩm theo mã catID
+    public List<ProductDTO> getByCategory(String catID){
+        String sql = "SELECT * FROM tblProducts WHERE status = 1 AND catID = ?";
+        return getProducts(sql, catID);
+    }
+    
+    // Tìm sản phẩm theo Name
+    public List<ProductDTO> searchByName(String keyword){
+        String sql = "SELECT * FROM tblProducts WHERE status = 1 AND productName LIKE ?";
+        return getProducts(sql, "%" + keyword + "%");
+    }
 }
