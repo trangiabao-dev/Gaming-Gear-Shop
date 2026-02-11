@@ -4,22 +4,18 @@
  */
 package controller;
 
-import Model.UserDAO;
-import Model.UserDTO;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import static utils.URL.PAGE_LOGIN;
 
 /**
  *
- * @author thinh
+ * @author ACER
  */
-public class LoginController extends HttpServlet {
+public class SearchController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,44 +31,7 @@ public class LoginController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
-        // Mặc định url là trang login để hứng lỗi
-        String url = PAGE_LOGIN;
-
-        try {
-            String userID = request.getParameter("userID");
-            String password = request.getParameter("password");
-
-            // 1. Kiểm tra validation
-            if (userID == null || userID.trim().isEmpty() || password == null || password.trim().isEmpty()) {
-                request.setAttribute("ERROR", "Vui lòng nhập đầy đủ thông tin!");
-            } else {
-                // 2. Gọi DAO kiểm tra
-                UserDAO dao = new UserDAO();
-                UserDTO user = dao.checkLogin(userID, password);
-
-                if (user != null) {
-                    // === TRƯỜNG HỢP ĐĂNG NHẬP THÀNH CÔNG ===
-                    HttpSession session = request.getSession();
-                    session.setAttribute("LOGIN_USER", user);
-
-                    // QUAN TRỌNG: Dùng sendRedirect để gọi MainController
-                    // MainController sẽ lo việc lấy sản phẩm và hiện trang home
-                    response.sendRedirect("MainController");
-                    return; // Dừng code ở đây ngay lập tức, không chạy xuống finally nữa
-
-                } else {
-                    request.setAttribute("ERROR", "Sai tên đăng nhập hoặc mật khẩu!");
-                }
-            }
-        } catch (Exception e) {
-            log("Error at LoginController: " + e.toString());
-        }
-
-        // === TRƯỜNG HỢP THẤT BẠI ===
-        // Chỉ chạy xuống đây nếu đăng nhập SAI
-        RequestDispatcher rd = request.getRequestDispatcher(url);
-        rd.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

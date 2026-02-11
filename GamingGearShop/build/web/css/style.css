@@ -7,15 +7,29 @@ body {
 }
 
 .banner {
+    display: flex;
     text-align: center;
     background-image: linear-gradient(rgb(228, 84, 100) 0%, rgb(215, 0, 24) 100%);
     width: 100%;
     font-family: 'Chakra Petch', sans-serif;
     color: #fff828;
     margin: 0;         
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding: 1px 1px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    
+    /* Đăng nhập */
+    /* Xếp các phần tử con (H1, P, Nút) theo chiều dọc (từ trên xuống) */
+    flex-direction: column;
+    
+    /* Căn giữa theo trục ngang (Đây là lệnh đưa nút vô giữa) */
+    align-items: center;
+    
+    /* Căn giữa theo trục dọc (nếu banner có chiều cao cố định) */
+    justify-content: center;
+
+    /* Các thuộc tính màu sắc cũ của bạn giữ nguyên */
+    color: white;
 }
 
 .banner h1{
@@ -31,7 +45,7 @@ body {
     text-transform: uppercase;  /* Viết hoa toàn bộ */
     letter-spacing: 3px;        /* Kéo giãn chữ ra */
     margin-top: 5px;            /* Bạn giữ 5px hoặc đổi thành 0 theo ý Thịnh */
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     font-weight: 600;           /* Chữ đậm */
     
     border-bottom: 1px solid #ccc; 
@@ -84,6 +98,73 @@ body {
     border-radius: 0 0 8px 8px; /* Bo góc dưới cho khớp với thẻ cha */
 }
 
+/* 1. Khung Sidebar */
+.sidebar {
+    width: 264px; /* Sửa lại lỗi 2px của bạn */
+    height: 392px; /* Hoặc để auto nếu muốn nó tự dài theo nội dung */
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    padding: 0; /* QUAN TRỌNG: Để padding 0 để cái header và nút bấm tràn viền */
+    overflow: hidden; /* Bo góc cả nội dung bên trong */
+    flex-shrink: 0;
+}
+
+/* 2. Tiêu đề danh mục */
+.sidebar-title {
+    background-color: #f8f9fa; /* Màu nền nhẹ cho tiêu đề */
+    padding: 15px;
+    margin: 0;
+    font-size: 18px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+/* 3. Reset danh sách (Khắc phục lỗi bị thụt đầu dòng) */
+.category-list {
+    list-style: none; /* Bỏ dấu chấm tròn */
+    padding: 0;       /* Bỏ khoảng cách thụt lề mặc định của trình duyệt */
+    margin: 0;
+}
+
+/* 4. Từng dòng sản phẩm */
+.category-list li {
+    border-bottom: 1px solid #f0f0f0; /* Gạch ngang mờ giữa các dòng */
+}
+
+/* 5. Nút bấm (Menu Item) */
+.menu-item {
+    width: 100%;        /* Chiếm hết chiều ngang */
+    text-align: left;   /* Chữ canh trái */
+    background: none;
+    border: none;
+    padding: 12px 20px; /* Khoảng cách trên dưới và trái phải */
+    cursor: pointer;
+    font-size: 16px;
+    color: #555;
+    transition: all 0.2s ease-in-out; /* Hiệu ứng mượt */
+    display: flex;      /* Canh icon và chữ thẳng hàng */
+    align-items: center;
+}
+
+.menu-item i {
+    margin-right: 10px; /* Khoảng cách giữa icon mũi tên và chữ */
+    font-size: 12px;
+    color: #999;
+}
+
+/* 6. Hiệu ứng Hover (Khi di chuột vào) */
+.menu-item:hover {
+    background-color: #ffebec; /* Màu nền hồng nhạt khi hover (hợp với màu đỏ chủ đạo) */
+    color: #d63031;            /* Chữ đổi màu đỏ */
+    padding-left: 25px;        /* Hiệu ứng chữ chạy sang phải 1 chút */
+}
+
+.menu-item:hover i {
+    color: #d63031; /* Icon cũng đỏ theo */
+}
 
 /*--TEST DECOR LOGIN--*/
 
@@ -196,31 +277,29 @@ body {
     color: #333333;
 }
 
-/* Style chung cho nút Home */
+/* 2. Trang trí nút Đăng nhập cho đẹp và tách biệt ra */
 .btn-header {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Khoảng cách giữa icon và chữ */
+    /* Biến thẻ a thành khối để chỉnh padding/margin */
+    display: inline-block; 
     
-    text-decoration: none;
-    padding: 8px 15px;
-    border-radius: 20px; /* Bo tròn kiểu viên thuốc */
-    font-size: 13px;
+    /* Tạo khoảng cách với dòng slogan phía trên */
+    margin-top: 15px; 
+    margin-bottom: 20px;
+    /* Trang trí nút */
+    background-color: white;
+    color: #dc3545; /* Chữ đỏ nền trắng cho nổi trên nền đỏ */
+    padding: 12px 30px;
+    border-radius: 8px; /* Bo góc */
+    text-decoration: none; /* Bỏ gạch chân của thẻ a */
     font-weight: bold;
     transition: 0.3s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* TRẠNG THÁI 1: Chưa đăng nhập (Nút đỏ giống CellphoneS) */
-.btn-header-login {
-    background-color: #d0011b; /* Đỏ Gaming */
-    color: white;
-    border: 1px solid #d0011b;
-}
-
-.btn-header-login:hover {
-    background-color: white;
-    color: #d0011b; /* Đổi ngược màu khi di chuột */
+/* Hiệu ứng khi di chuột vào nút */
+.btn-header:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.05); /* Phóng to nhẹ tạo cảm giác bấm được */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* TRẠNG THÁI 2: Đã đăng nhập (Nút đen hoặc xám đậm) */
