@@ -305,7 +305,7 @@ body {
 
 /* --- STYLE RIÊNG CHO NÚT ĐĂNG KÝ --- */
 .btn-header-register {
-    background-color: transparent; /* Nền trong suốt */
+    background-color: white; /* Nền trong suốt */
     border: 2px solid white;       /* Viền trắng */
     color: black;                  /* Chữ đen */
 }
