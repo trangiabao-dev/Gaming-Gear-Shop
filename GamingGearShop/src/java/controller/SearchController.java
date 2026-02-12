@@ -4,12 +4,20 @@
  */
 package controller;
 
+import DAO.CategoryDAO;
+import DAO.ProductDAO;
+import Model.CategoryDTO;
+import Model.ProductDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import utils.URL;
 
 /**
  *
@@ -32,6 +40,39 @@ public class SearchController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         
+        String url = URL.PAGE_HOME;
+        
+        try{
+            String keyword = request.getParameter("keyword");
+            
+            CategoryDAO cDAO = new CategoryDAO();
+            List<CategoryDTO> listCategory = cDAO.getAllCategories();
+            request.setAttribute("listCategory", listCategory);
+            
+            ProductDAO pDAO = new ProductDAO();
+            List<ProductDTO> listProduct = new ArrayList<>();
+            
+            if(keyword == null || keyword.trim().isEmpty()){
+                listProduct = pDAO.getAllProducts();
+            }else{
+                listProduct = pDAO.searchByName(keyword);
+                
+                System.out.println("Tu khoa tim kiem: " + keyword); // DEGUG OUTPUT
+                
+                if(listProduct.isEmpty()){
+                    request.setAttribute("message", "Không tìm thấy sản phẩm nào với từ khóa: " + keyword);
+                }
+            }
+            
+            request.setAttribute("listProduct", listProduct);
+            request.setAttribute("searchKeyword", keyword);     // Giữ lại từ khóa để hiện ở ô TÌM KIẾM
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

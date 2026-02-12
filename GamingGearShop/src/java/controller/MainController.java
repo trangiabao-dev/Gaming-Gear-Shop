@@ -4,12 +4,7 @@
  */
 package controller;
 
-import DAO.CategoryDAO;
-import DAO.ProductDAO;
-import Model.CategoryDTO;
-import Model.ProductDTO;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -55,6 +50,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     break;
                 case "logout":
                     url = URL.LOGOUT_CONTROLLER;
+                    break;
+                case "search":
+                    url = URL.SEARCH_CONTROLLER;
                     break;
                 default:
                     url = URL.PAGE_HOME;
