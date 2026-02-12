@@ -36,7 +36,7 @@
                     </span>
 
                     <a href="MainController?action=logout" class="btn-header">
-                        <i class="fa-solid fa-right-from-bracket"></i> Thoát
+                        Thoát
                     </a>
                 </div>
             </c:if>
