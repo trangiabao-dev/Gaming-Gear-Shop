@@ -12,9 +12,7 @@ public class URL {
     public static final String LOGOUT_CONTROLLER = "LogoutController";
     public static final String PRODUCT_CONTROLLER = "ProductController";
     public static final String HOME_CONTROLLER = "HomeController";
-
-    public static final String  REGISTER_CONTROLLER = "RegisterController";
-
+    public static final String REGISTER_CONTROLLER = "RegisterController";
     public static final String SEARCH_CONTROLLER = "SearchController";
 
 }

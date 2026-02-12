@@ -17,7 +17,7 @@
     </head>
     <body>
 
-<<<<<<< HEAD
+
         <div class="banner"> 
             <h1>Gaming Gear Shop</h1>
             <p>Chuyên chuột, bàn phím, tai nghe chính hãng</p>
@@ -54,107 +54,107 @@
                     <a href="MainController?action=logout" class="btn-header">
                         Thoát
                     </a>
-=======
-        <div class="banner">
-            <h1>Gaming Gear Shop</h1>
-            <p>Chuyên chuột, bàn phím, tai nghe chính hãng</p>
 
-            <div class="header-action-group">
-                
-                <c:if test="${empty sessionScope.LOGIN_USER}"> 
-                    <a href="MainController?action=login" class="btn-header-custom"> 
-                        Đăng nhập 
-                    </a> 
-                </c:if>
+                    <div class="banner">
+                        <h1>Gaming Gear Shop</h1>
+                        <p>Chuyên chuột, bàn phím, tai nghe chính hãng</p>
 
-                <c:if test="${not empty sessionScope.LOGIN_USER}">
-                    <div class="user-info-custom"> 
-                        <span class="user-name-custom">
-                            Xin chào, <b>${sessionScope.LOGIN_USER.fullName}</b>
-                        </span>
-                        <a href="MainController?action=logout" class="btn-logout-custom">
-                            Đăng xuất
-                        </a>
-                    </div>
-                </c:if>
+                        <div class="header-action-group">
 
-                <form action="MainController" method="GET" class="search-form-custom">
-                    <input type="hidden" name="action" value="search" />
+                            <c:if test="${empty sessionScope.LOGIN_USER}"> 
+                                <a href="MainController?action=login" class="btn-header-custom"> 
+                                    Đăng nhập 
+                                </a> 
+                            </c:if>
 
-                    <input type="text" 
-                           name="keyword" 
-                           class="search-input-custom" 
-                           value="${requestScope.searchKeyword}" 
-                           placeholder="Tìm sản phẩm..."/>
+                            <c:if test="${not empty sessionScope.LOGIN_USER}">
+                                <div class="user-info-custom"> 
+                                    <span class="user-name-custom">
+                                        Xin chào, <b>${sessionScope.LOGIN_USER.fullName}</b>
+                                    </span>
+                                    <a href="MainController?action=logout" class="btn-logout-custom">
+                                        Đăng xuất
+                                    </a>
+                                </div>
+                            </c:if>
 
-                    <button type="submit" class="search-btn-custom">
-                        Tìm
-                    </button>
-                </form>
+                            <form action="MainController" method="GET" class="search-form-custom">
+                                <input type="hidden" name="action" value="search" />
 
-            </div>
-            
-            <c:if test="${not empty requestScope.message}">
-                <div class="search-error-msg">
-                    ${requestScope.message}
-                    <a href="MainController?action=home" class="search-error-link">Quay lại</a>
->>>>>>> 15575b8ea8fd997ef1edbd0dc47f536ef38eb5fa
-                </div>
-            </c:if>
+                                <input type="text" 
+                                       name="keyword" 
+                                       class="search-input-custom" 
+                                       value="${requestScope.searchKeyword}" 
+                                       placeholder="Tìm sản phẩm..."/>
 
-        </div>
-
-        <div class="product-list">
-
-            <div class="sidebar">
-                <h3 class="sidebar-title">Danh mục sản phẩm</h3>
-
-                <ul class="category-list"> 
-<<<<<<< HEAD
-                    <c:forEach items="${listCategory}" var="category">
-                        <li>
-                            <form action="MainController" method="POST">
-                                <input type="hidden" name="action" value="home"/>
-                                <input type="hidden" name="catID" value="${category.catID}" />
-
-                                <button type="submit" class="menu-item">
-                                    <i class="fa fa-chevron-right"></i> ${category.catName}
-=======
-                    <li>
-                         <form action="MainController" method="GET">
-                            <input type="hidden" name="action" value="home"/>
-                            <button type="submit" class="menu-item">Tất cả sản phẩm</button>
-                        </form>
-                    </li>
-                    
-                    <c:forEach items="${listCategory}" var="category">
-                        <li>
-                            <form action="MainController" method="GET">
-                                <input type="hidden" name="action" value="home"/>
-                                <input type="hidden" name="catID" value="${category.catID}" />
-                                <button type="submit" class="menu-item">
-                                    ${category.catName}
->>>>>>> 15575b8ea8fd997ef1edbd0dc47f536ef38eb5fa
+                                <button type="submit" class="search-btn-custom">
+                                    Tìm
                                 </button>
                             </form>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </div>
 
-            <c:forEach items="${listProduct}" var="product">
-                <div class="product">
-                    <img src="${product.imageURL}" alt="${product.productName}" width="100%"/>
-<<<<<<< HEAD
+                        </div>
 
-                    <h3>${product.productName}</h3>
+                        <c:if test="${not empty requestScope.message}">
+                            <div class="search-error-msg">
+                                ${requestScope.message}
+                                <a href="MainController?action=home" class="search-error-link">Quay lại</a>
 
-=======
-                    <h3>${product.productName}</h3>
->>>>>>> 15575b8ea8fd997ef1edbd0dc47f536ef38eb5fa
-                    <p>Giá: ${product.priceFormat} VNĐ</p>
-                </div>
-            </c:forEach>
-        </div>
-    </body>
-</html>
+                            </div>
+                        </c:if>
+
+                    </div>
+
+                    <div class="product-list">
+
+                        <div class="sidebar">
+                            <h3 class="sidebar-title">Danh mục sản phẩm</h3>
+
+                            <ul class="category-list"> 
+
+                                <c:forEach items="${listCategory}" var="category">
+                                    <li>
+                                        <form action="MainController" method="POST">
+                                            <input type="hidden" name="action" value="home"/>
+                                            <input type="hidden" name="catID" value="${category.catID}" />
+
+                                            <button type="submit" class="menu-item">
+                                                <i class="fa fa-chevron-right"></i> ${category.catName}
+
+                                                <li>
+                                                    <form action="MainController" method="GET">
+                                                        <input type="hidden" name="action" value="home"/>
+                                                        <button type="submit" class="menu-item">Tất cả sản phẩm</button>
+                                                    </form>
+                                                </li>
+
+                                                <c:forEach items="${listCategory}" var="category">
+                                                    <li>
+                                                        <form action="MainController" method="GET">
+                                                            <input type="hidden" name="action" value="home"/>
+                                                            <input type="hidden" name="catID" value="${category.catID}" />
+                                                            <button type="submit" class="menu-item">
+                                                                ${category.catName}
+
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </c:forEach>
+                                                </ul>
+                                                </div>
+
+                                                <c:forEach items="${listProduct}" var="product">
+                                                    <div class="product">
+                                                        <img src="${product.imageURL}" alt="${product.productName}" width="100%"/>
+
+
+                                                        <h3>${product.productName}</h3>
+
+
+                                                        <h3>${product.productName}</h3>
+
+                                                        <p>Giá: ${product.priceFormat} VNĐ</p>
+                                                    </div>
+                                                </c:forEach>
+                                                </div>
+                                                </body>
+                                                </html>
