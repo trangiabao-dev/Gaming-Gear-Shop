@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Gaming Gear Shop</title>
         <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
@@ -39,7 +40,7 @@
                     </div>
                 </c:if>
 
-                <form action="MainController" method="POST" class="search-form-custom">
+                <form action="MainController" method="GET" class="search-form-custom">
                     <input type="hidden" name="action" value="search" />
 
                     <input type="text" 
