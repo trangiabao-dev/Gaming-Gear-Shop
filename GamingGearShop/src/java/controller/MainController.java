@@ -52,6 +52,7 @@ public class MainController extends HttpServlet {
                 case "logout":
                     url = URL.LOGOUT_CONTROLLER;
                     break;
+<<<<<<< HEAD
                 case "register":
                     url = URL.PAGE_REGISTER; // Mở file register.jsp
                     break;
@@ -59,6 +60,10 @@ public class MainController extends HttpServlet {
                 case "Create":
                     // "Create" là value của input hidden trong register.jsp
                     url = URL.REGISTER_CONTROLLER; // Chuyển sang Servlet xử lý logic
+=======
+                case "search":
+                    url = URL.SEARCH_CONTROLLER;
+>>>>>>> 15575b8ea8fd997ef1edbd0dc47f536ef38eb5fa
                     break;
                 default:
                     url = URL.PAGE_HOME;

@@ -13,23 +13,21 @@ body {
     width: 100%;
     font-family: 'Chakra Petch', sans-serif;
     color: #fff828;
-    margin: 0;         
+    margin: 0;          
     margin-bottom: 10px;
     padding: 1px 1px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     
-    /* Đăng nhập */
-    /* Xếp các phần tử con (H1, P, Nút) theo chiều dọc (từ trên xuống) */
+    /* Layout dọc cho Banner */
     flex-direction: column;
-    
-    /* Căn giữa theo trục ngang (Đây là lệnh đưa nút vô giữa) */
     align-items: center;
-    
-    /* Căn giữa theo trục dọc (nếu banner có chiều cao cố định) */
     justify-content: center;
 
-    /* Các thuộc tính màu sắc cũ của bạn giữ nguyên */
     color: white;
+    
+    /* Padding để banner thoáng hơn */
+    padding-bottom: 20px; 
+    padding-top: 20px;
 }
 
 .banner h1{
@@ -42,78 +40,74 @@ body {
     font-family: 'Chakra Petch', sans-serif;
     font-size: 16px;            
     color: white;
-    text-transform: uppercase;  /* Viết hoa toàn bộ */
-    letter-spacing: 3px;        /* Kéo giãn chữ ra */
-    margin-top: 5px;            /* Bạn giữ 5px hoặc đổi thành 0 theo ý Thịnh */
+    text-transform: uppercase;  
+    letter-spacing: 3px;        
+    margin-top: 5px;            
     margin-bottom: 20px;
-    font-weight: 600;           /* Chữ đậm */
+    font-weight: 600;           
     
     border-bottom: 1px solid #ccc; 
-    display: inline-block;      /* Để đường gạch chân chỉ dài bằng dòng chữ */
+    display: inline-block;      
     padding-bottom: 10px;
 }
 
 .product-list{
-    display: flex;           /*Phần tử con trong div: Nằm dọc thành nằm ngang*/
-    justify-content: space-evenly; /* Căn giữa các sản phẩm trên kệ */
-    gap: 20px;               /* Khoảng cách giữa các sản phẩm (khe hở) */
-    flex-wrap: wrap;         /* Nếu hết chỗ (màn hình nhỏ) thì tự rớt xuống dòng */
+    display: flex;            
+    justify-content: space-evenly; 
+    gap: 20px;                
+    flex-wrap: wrap;          
 }
 
 .product{
-    border: 1px solid #ddd; /* Viền xám nhạt */
-    border-radius: 8px;     /* Bo tròn góc */
-    width: 250px;           /* Chiều rộng cố định */
-    padding: 15px;          /* Khoảng cách bên trong */
-    text-align: center;     /* Căn giữa nội dung */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Đổ bóng nhẹ */
+    border: 1px solid #ddd; 
+    border-radius: 8px;     
+    width: 250px;           
+    padding: 15px;          
+    text-align: center;     
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
     
     position: relative;
     background: white;
 }
 
 .product h3{
-    font-size: 16px;        /* Chỉnh chữ nhỏ lại một chút cho gọn */
-    height: 40px;           /* Chiều cao cố định */
-    line-height: 20px;      /* Khoảng cách giữa các dòng chữ */
-    overflow: hidden;       /* Ẩn phần chữ thừa */
-    margin-bottom: 10px;    /* Tạo khoảng cách với giá tiền bên dưới */
-    transition: all 0.3s;   /* Hiệu ứng chuyển động mượt mà */
+    font-size: 16px;        
+    height: 40px;           
+    line-height: 20px;      
+    overflow: hidden;       
+    margin-bottom: 10px;    
+    transition: all 0.3s;   
 }
 
 .product:hover h3 {
     height: auto;           
-    overflow: visible;      /* Hiện hết chữ */
-    
-    /* Chế độ nổi */
-    position: absolute;     /* Giúp h3 bay lơ lửng */
+    overflow: visible;      
+    position: absolute;     
     bottom: 0;              
     left: 0;                
     right: 0;               
-    
     background-color: white; 
     padding: 10px;          
     box-shadow: 0 -5px 10px rgba(0,0,0,0.1); 
-    z-index: 10;            /* Nổi lên trên cùng */
-    border-radius: 0 0 8px 8px; /* Bo góc dưới cho khớp với thẻ cha */
+    z-index: 10;            
+    border-radius: 0 0 8px 8px; 
 }
 
-/* 1. Khung Sidebar */
+/* Sidebar & Menu */
 .sidebar {
-    width: 264px; /* Sửa lại lỗi 2px của bạn */
-    height: 392px; /* Hoặc để auto nếu muốn nó tự dài theo nội dung */
+    width: 264px; 
+    height: 392px; 
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-    padding: 0; /* QUAN TRỌNG: Để padding 0 để cái header và nút bấm tràn viền */
-    overflow: hidden; /* Bo góc cả nội dung bên trong */
+    padding: 0; 
+    overflow: hidden; 
     flex-shrink: 0;
 }
 
-/* 2. Tiêu đề danh mục */
 .sidebar-title {
-    background-color: #f8f9fa; /* Màu nền nhẹ cho tiêu đề */
+    background-color: #f8f9fa; 
     padding: 15px;
     margin: 0;
     font-size: 18px;
@@ -122,53 +116,47 @@ body {
     color: #333;
 }
 
-/* 3. Reset danh sách (Khắc phục lỗi bị thụt đầu dòng) */
 .category-list {
-    list-style: none; /* Bỏ dấu chấm tròn */
-    padding: 0;       /* Bỏ khoảng cách thụt lề mặc định của trình duyệt */
+    list-style: none; 
+    padding: 0;       
     margin: 0;
 }
 
-/* 4. Từng dòng sản phẩm */
 .category-list li {
-    border-bottom: 1px solid #f0f0f0; /* Gạch ngang mờ giữa các dòng */
+    border-bottom: 1px solid #f0f0f0; 
 }
 
-/* 5. Nút bấm (Menu Item) */
 .menu-item {
-    width: 100%;        /* Chiếm hết chiều ngang */
-    text-align: left;   /* Chữ canh trái */
+    width: 100%;        
+    text-align: left;   
     background: none;
     border: none;
-    padding: 12px 20px; /* Khoảng cách trên dưới và trái phải */
+    padding: 12px 20px; 
     cursor: pointer;
     font-size: 16px;
     color: #555;
-    transition: all 0.2s ease-in-out; /* Hiệu ứng mượt */
-    display: flex;      /* Canh icon và chữ thẳng hàng */
+    transition: all 0.2s ease-in-out; 
+    display: flex;      
     align-items: center;
 }
 
 .menu-item i {
-    margin-right: 10px; /* Khoảng cách giữa icon mũi tên và chữ */
+    margin-right: 10px; 
     font-size: 12px;
     color: #999;
 }
 
-/* 6. Hiệu ứng Hover (Khi di chuột vào) */
 .menu-item:hover {
-    background-color: #ffebec; /* Màu nền hồng nhạt khi hover (hợp với màu đỏ chủ đạo) */
-    color: #d63031;            /* Chữ đổi màu đỏ */
-    padding-left: 25px;        /* Hiệu ứng chữ chạy sang phải 1 chút */
+    background-color: #ffebec; 
+    color: #d63031;            
+    padding-left: 25px;        
 }
 
 .menu-item:hover i {
-    color: #d63031; /* Icon cũng đỏ theo */
+    color: #d63031; 
 }
 
-/*--TEST DECOR LOGIN--*/
-
-/* 2. Tiêu đề Logo to ở trên */
+/* Login Decor Test */
 .header-logo {
     text-align: center;
     margin-top: 50px;
@@ -180,21 +168,17 @@ body {
     font-size: 32px;
 }
 
-/* 3. KHUNG LOGIN (Căn giữa hoàn hảo) */
 .login-box {
-    width: 400px;           /* Độ rộng cố định */
+    width: 400px;           
     background-color: white;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    
-    /* Flexbox để xếp các con thành hàng dọc */
     display: flex;
-    flex-direction: column; /* Xếp dọc từ trên xuống dưới */
-    align-items: center;    /* Căn giữa tất cả các con bên trong */
+    flex-direction: column; 
+    align-items: center;    
 }
 
-/* 4. Tiêu đề "Đăng Nhập" */
 .login-box h2 {
     color: #333;
     text-transform: uppercase;
@@ -202,11 +186,10 @@ body {
     text-align: center;
 }
 
-/* 5. Form Group (Bao quanh Label và Input) */
 .form-group {
-    width: 100%;            /* Chiếm hết chiều ngang của khung */
+    width: 100%;            
     margin-bottom: 20px;
-    text-align: center;     /* Căn giữa chữ Label */
+    text-align: center;     
 }
 
 .form-group label {
@@ -216,14 +199,13 @@ body {
     margin-bottom: 8px;
 }
 
-/* 6. Ô Input */
 .form-control {
-    width: 100%;            /* Full chiều rộng */
+    width: 100%;            
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box; /* Không làm vỡ khung */
-    text-align: center;     /* Căn giữa chữ khi gõ */
+    box-sizing: border-box; 
+    text-align: center;     
     font-size: 14px;
 }
 
@@ -232,42 +214,16 @@ body {
     outline: none;
 }
 
-/* =========================================
-    NÚT LOGIN/LOGOUT TẠI TRANG CHỦ (HOME)
-   ========================================= */
-
-/* Định vị góc trên bên phải */
 .auth-section {
     position: absolute;
     top: 20px;
-    right: 40px; /* Cách lề phải một chút cho thoáng */
-    z-index: 9999; /* Luôn nổi lên trên cùng */
+    right: 40px; 
+    z-index: 9999; 
     font-family: Arial, sans-serif;
 }
 
 .btn-login:hover {
-    background-color: #a80015; /* Đậm hơn khi di chuột */
-}
-
-.menu-item {
-    background: none;
-    border: none;
-    padding: 10px 15px;
-    margin: 5px 0;
-    width: 100%;
-    text-align: left;
-    font-size: 16px;
-    color: #333;
-    cursor: pointer;
-    transition: all 0.3s ease; /* Hiệu ứng mượt mà khi rê chuột */
-    border-radius: 5px;
-}
-
-/* 2. Hiệu ứng khi di chuột vào (Hover) */
-.menu-item:hover {
-    background-color: #f0f0f0; /* Đổi nền xám nhạt */
-    color: #ff4757;           /* Đổi chữ sang màu đỏ thương hiệu */
-    padding-left: 25px;       /* Đẩy chữ sang phải một chút tạo cảm giác động */
+    background-color: #a80015; 
 }
 
 .sidebar h3{
@@ -277,32 +233,25 @@ body {
     color: #333333;
 }
 
-/* 2. Trang trí nút Đăng nhập cho đẹp và tách biệt ra */
 .btn-header {
-    /* Biến thẻ a thành khối để chỉnh padding/margin */
     display: inline-block; 
-    
-    /* Tạo khoảng cách với dòng slogan phía trên */
     margin-top: 15px; 
     margin-bottom: 20px;
-    /* Trang trí nút */
     background-color: white;
-    color: #dc3545; /* Chữ đỏ nền trắng cho nổi trên nền đỏ */
+    color: #dc3545; 
     padding: 12px 30px;
-    border-radius: 8px; /* Bo góc */
-    text-decoration: none; /* Bỏ gạch chân của thẻ a */
+    border-radius: 8px; 
+    text-decoration: none; 
     font-weight: bold;
     transition: 0.3s;
 }
 
-/* Hiệu ứng khi di chuột vào nút */
 .btn-header:hover {
     background-color: #f8f9fa;
-    transform: scale(1.05); /* Phóng to nhẹ tạo cảm giác bấm được */
+    transform: scale(1.05); 
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* TRẠNG THÁI 2: Đã đăng nhập (Nút đen hoặc xám đậm) */
 .btn-header-logout {
     background-color: #333;
     color: white;
@@ -310,13 +259,13 @@ body {
 }
 
 .btn-header-logout:hover {
-    background-color: #d0011b; /* Hover vào thì đỏ lên báo hiệu Logout */
+    background-color: #d0011b; 
     border-color: #d0011b;
 }
 
-/* Chữ tên người dùng */
 .user-name {
     margin-right: 5px;
+<<<<<<< HEAD
     color: #ffd700; /* Màu vàng kim cho tên nổi bật trên nền đen */
 }
 
@@ -365,4 +314,121 @@ body {
     background-color: white;       /* Hover vào thì nền trắng */
     color: #d0011b;                /* Chữ chuyển đỏ */
     transform: scale(1.05);
+=======
+    color: #ffd700; 
+}
+
+
+/* =========================================================================
+   PHẦN FIX HEADER & SEARCH (Đã cập nhật đầy đủ Style)
+   ========================================================================= */
+
+/* 1. Group bao quanh Login + Search */
+.header-action-group {
+    display: flex;            
+    justify-content: center;  
+    align-items: center;      
+    gap: 15px;                
+    margin-top: 15px;         
+    width: 100%;
+}
+
+/* 2. Nút Đăng nhập MỚI */
+.btn-header-custom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: #d0011b;
+    padding: 0 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    height: 40px;             
+    white-space: nowrap;      
+    transition: 0.3s;
+}
+.btn-header-custom:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+/* 3. Form Tìm kiếm MỚI */
+.search-form-custom {
+    display: flex;
+    margin: 0;
+}
+
+.search-input-custom {
+    height: 40px;             
+    width: 250px;             
+    padding: 0 15px;
+    border: none;
+    border-radius: 5px 0 0 5px; 
+    outline: none;
+    font-size: 14px;
+}
+
+.search-btn-custom {
+    height: 40px;             
+    background-color: #333;   
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0; 
+    padding: 0 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+.search-btn-custom:hover {
+    background-color: #555;
+}
+
+/* 4. User Info */
+.user-info-custom {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+}
+.user-name-custom b {
+    color: #ffd700; 
+}
+.btn-logout-custom {
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    padding: 0 15px;
+    height: 30px; 
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.btn-logout-custom:hover {
+    background-color: #d0011b;
+}
+
+/* 5. Thông báo lỗi tìm kiếm (MỚI THÊM) */
+.search-error-msg {
+    margin-top: 15px;
+    color: #ffcccc; /* Màu chữ hồng phấn */
+    font-weight: bold;
+    background: rgba(0,0,0,0.2); /* Nền đen mờ */
+    padding: 5px 15px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.search-error-link {
+    color: #fff828; /* Màu vàng */
+    margin-left: 10px;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.search-error-link:hover {
+    color: white;
+>>>>>>> 15575b8ea8fd997ef1edbd0dc47f536ef38eb5fa
 }
