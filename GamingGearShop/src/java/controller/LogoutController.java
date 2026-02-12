@@ -30,6 +30,8 @@ public class LogoutController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
        try {
             // 1. Lấy session hiện tại (false nghĩa là nếu chưa có thì đừng tạo mới)
             HttpSession session = request.getSession(false);

@@ -48,24 +48,13 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             }
             switch (action) {
                 case "home":
-                    String catID = request.getParameter("catID");
-
-                    ProductDAO pDAO = new ProductDAO();
-                    CategoryDAO cDAO = new CategoryDAO();
-
-                    List<ProductDTO> listProduct = pDAO.getAllProductDTO();
-                    List<CategoryDTO> listCategory = cDAO.getAllCategories();
-
-                    request.setAttribute("listProduct", listProduct);
-                    request.setAttribute("listCategory", listCategory);
-
-                    url = URL.PAGE_HOME;
+                    url = URL.HOME_CONTROLLER;
                     break;
                 case "login":
-                    url = URL.PAGE_LOGIN;
+                    url = URL.LOGIN_CONTROLLER;
                     break;
                 case "logout":
-                    url = "LogoutController";
+                    url = URL.LOGOUT_CONTROLLER;
                     break;
                 default:
                     url = URL.PAGE_HOME;

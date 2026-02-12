@@ -6,7 +6,9 @@ public class URL {
     public static final String PAGE_LOGIN = "view/Login.jsp";
     public static final String PAGE_ERROR = "view/error.jsp";
 
-    public static final String CTL_MAIN = "MainController";
-    public static final String CTL_PRODUCT = "ProductController";
-    public static final String CTL_LOGOUT = "LogoutController";
+    public static final String MAIN_CONTROLLER = "MainController";
+    public static final String LOGIN_CONTROLLER = "LoginController";
+    public static final String LOGOUT_CONTROLLER = "LogoutController";
+    public static final String PRODUCT_CONTROLLER = "ProductController";
+    public static final String HOME_CONTROLLER = "HomeController";
 }
