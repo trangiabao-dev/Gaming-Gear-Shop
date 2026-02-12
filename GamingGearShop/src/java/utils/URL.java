@@ -3,7 +3,7 @@ package utils;
 public class URL {
 
     public static final String PAGE_HOME = "view/home.jsp";
-    public static final String PAGE_LOGIN = "view/Login.jsp";
+    public static final String PAGE_LOGIN = "view/login.jsp";
     public static final String PAGE_ERROR = "view/error.jsp";
 
     public static final String MAIN_CONTROLLER = "MainController";
