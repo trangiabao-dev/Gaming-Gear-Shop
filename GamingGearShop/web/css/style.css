@@ -265,7 +265,7 @@ body {
 
 .user-name {
     margin-right: 5px;
-<<<<<<< HEAD
+
     color: #ffd700; /* Màu vàng kim cho tên nổi bật trên nền đen */
 }
 
@@ -314,7 +314,7 @@ body {
     background-color: white;       /* Hover vào thì nền trắng */
     color: #d0011b;                /* Chữ chuyển đỏ */
     transform: scale(1.05);
-=======
+
     color: #ffd700; 
 }
 
@@ -430,5 +430,5 @@ body {
 
 .search-error-link:hover {
     color: white;
->>>>>>> 15575b8ea8fd997ef1edbd0dc47f536ef38eb5fa
+
 }
