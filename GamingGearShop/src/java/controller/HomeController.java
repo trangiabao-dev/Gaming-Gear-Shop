@@ -44,6 +44,14 @@ public class HomeController extends HttpServlet {
         try{
             String catID = request.getParameter("catID");   // Nếu có thì nhận
             
+            // Cho vừa vào Web là TRANG 1
+            String indexPage = request.getParameter("index");
+            if(indexPage == null){
+                indexPage = "1";
+            }
+            int index = Integer.parseInt(indexPage);
+            // ----------------------
+            
             ProductDAO pDAO = new ProductDAO();
             CategoryDAO cDAO = new CategoryDAO();
             
@@ -51,10 +59,21 @@ public class HomeController extends HttpServlet {
             List<CategoryDTO> listCategory = cDAO.getAllCategories();
             request.setAttribute("listCategory", listCategory);
             
-            // Lọc Theo Menu
+            // Lọc Theo Menu và Phân trang
             List<ProductDTO> listProduct = new ArrayList<>();
             if(catID == null || catID.trim().isEmpty()){
-                listProduct = pDAO.getAllProducts();
+                
+                // Tính số trang cần dùng
+                int totalProducts = pDAO.getTotalProduct();
+                int numberProductPage = 8;
+                int endPage = totalProducts / numberProductPage;
+                
+                if(totalProducts % numberProductPage != 0){ // Nếu sản phẩm chẵn không +, lẽ sẽ ++
+                    endPage++;
+                }
+                listProduct = pDAO.numberProductOnPage(index);
+                request.setAttribute("endPage", endPage);
+                request.setAttribute("tag", index);
             }else{
                 listProduct = pDAO.getByCategory(catID);
             }
