@@ -5,7 +5,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Đăng Nhập - Gaming Gear Shop</title>
+<<<<<<< HEAD
         <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+=======
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+>>>>>>> 4cf4c1093a9cff30bc658de933bb18b32ad3160a
     </head>
 
     <body> 
@@ -41,6 +45,10 @@
                     <label>Mật khẩu</label>
                     <input type="password" name="password" class="form-control" 
                            placeholder="Nhập mật khẩu..." required>
+<<<<<<< HEAD
+=======
+                    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+>>>>>>> 4cf4c1093a9cff30bc658de933bb18b32ad3160a
                 </div>
 
                 <button type="submit" class="btn-submit">ĐĂNG NHẬP NGAY</button>

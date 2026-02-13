@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import utils.URL;
+
+
 /**
  *
  * @author thinh
@@ -26,7 +28,7 @@ public class MainController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -51,8 +53,18 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 case "logout":
                     url = URL.LOGOUT_CONTROLLER;
                     break;
+
+                case "register":
+                    url = URL.PAGE_REGISTER; // Mở file register.jsp
+                    break;
+                //Case XỬ LÝ ĐĂNG KÝ(Khi bấm nút "Submit" trong form
+                case "Create":
+                    // "Create" là value của input hidden trong register.jsp
+                    url = URL.REGISTER_CONTROLLER; // Chuyển sang Servlet xử lý logic
+
                 case "search":
                     url = URL.SEARCH_CONTROLLER;
+
                     break;
                 default:
                     url = URL.PAGE_HOME;

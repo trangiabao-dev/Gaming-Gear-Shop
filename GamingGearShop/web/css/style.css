@@ -265,6 +265,56 @@ body {
 
 .user-name {
     margin-right: 5px;
+
+    color: #ffd700; /* Màu vàng kim cho tên nổi bật trên nền đen */
+}
+
+/* --- NÚT ĐĂNG KÝ RIÊNG (Nền trắng - Chữ đen) --- */
+.btn-register-custom {
+    width: 100%;
+    padding: 12px;
+    background-color: #ffffff; /* Nền trắng */
+    color: #000000;            /* Chữ đen */
+    border: 2px solid #000000; /* Viền đen dày cho ngầu */
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Hiệu ứng chuyển màu mượt */
+    margin-top: 10px;
+}
+
+/* Hiệu ứng khi di chuột vào: Đổi thành nền đen, chữ trắng */
+.btn-register-custom:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* --- GROUP BUTTONS (Để 2 nút nằm ngang) --- */
+.auth-buttons {
+    display: flex;           /* Xếp các nút con thành hàng ngang */
+    gap: 15px;               /* Khoảng cách giữa 2 nút là 15px */
+    margin-top: 15px;        /* Cách dòng slogan phía trên */
+    margin-bottom: 20px;     /* Cách phần bên dưới */
+}
+
+/* Ghi đè margin cũ của .btn-header để không bị lệch */
+.auth-buttons .btn-header {
+    margin: 0; 
+}
+
+/* --- STYLE RIÊNG CHO NÚT ĐĂNG KÝ --- */
+.btn-header-register {
+    background-color: white; /* Nền trong suốt */
+    border: 2px solid white;       /* Viền trắng */
+    color: black;                  /* Chữ đen */
+}
+
+.btn-header-register:hover {
+    background-color: white;       /* Hover vào thì nền trắng */
+    color: #d0011b;                /* Chữ chuyển đỏ */
+    transform: scale(1.05);
+
     color: #ffd700; 
 }
 
@@ -380,6 +430,7 @@ body {
 
 .search-error-link:hover {
     color: white;
+<<<<<<< HEAD
 }
 
 /* PHÂN TRANG */
@@ -412,4 +463,7 @@ body {
     background-color: #d0011b; /* Màu đỏ nổi bật */
     color: white;
     border: 1px solid #d0011b;
+=======
+
+>>>>>>> 4cf4c1093a9cff30bc658de933bb18b32ad3160a
 }

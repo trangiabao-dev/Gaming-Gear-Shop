@@ -20,6 +20,13 @@
         <servlet-name>HomeController</servlet-name>
         <servlet-class>controller.HomeController</servlet-class>
     </servlet>
+<<<<<<< HEAD
+=======
+    <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>controller.RegisterController</servlet-class>
+    </servlet>
+>>>>>>> 4cf4c1093a9cff30bc658de933bb18b32ad3160a
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -40,6 +47,13 @@
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/HomeController</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
+=======
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/RegisterController</url-pattern>
+    </servlet-mapping>
+>>>>>>> 4cf4c1093a9cff30bc658de933bb18b32ad3160a
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

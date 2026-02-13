@@ -31,6 +31,13 @@ public class UserDTO {
         this.status = status;
     }
 
+    public UserDTO(String userID, String fullName, int roleID, String password) {
+        this.userID = userID;
+        this.fullName = fullName;
+        this.roleID = roleID; // Gán int vào int -> OK
+        this.password = password;
+    }
+
     // Chỉ Get và Set 
     public String getUserID() {
         return userID;

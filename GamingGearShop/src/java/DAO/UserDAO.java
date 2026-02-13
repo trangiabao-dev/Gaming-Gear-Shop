@@ -63,4 +63,78 @@ public class UserDAO {
         }
         return user;
     }
+<<<<<<< HEAD
+=======
+// Hàm kiểm tra xem userID đã tồn tại trong Database chưa
+
+    public boolean checkDuplicate(String userID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = dbutils.getConnection(); // Lưu ý chữ DBUtils viết hoa đúng tên Class của bạn
+            if (conn != null) {
+                // Câu lệnh chỉ lấy ra userID để kiểm tra
+                String sql = "SELECT userID FROM tblUsers WHERE userID=?";
+                ptm = conn.prepareStatement(sql);
+                ptm.setString(1, userID);
+
+                rs = ptm.executeQuery();
+
+                // Nếu rs.next() trả về true -> Có tìm thấy dòng dữ liệu -> Đã tồn tại -> check = true
+                if (rs.next()) {
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+// Thêm khách hàng
+
+    public boolean insert(UserDTO user) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = dbutils.getConnection();
+            if (conn != null) {
+                // SỬA CÂU SQL: Thêm cột status và gán cứng là 1 (True) để tài khoản Active ngay
+                String sql = "INSERT INTO tblUsers(userID, fullName, password, roleID, status, address, phone) "
+                        + "VALUES(?,?,?,?,1,'','')";
+                // Lưu ý: 1 là True. address và phone tạm thời để trống ('')
+
+                ptm = conn.prepareStatement(sql);
+                ptm.setString(1, user.getUserID());
+                ptm.setString(2, user.getFullName());
+                ptm.setString(3, user.getPassword());
+                ptm.setInt(4, user.getRoleID()); // Lúc này roleID sẽ là "2"
+
+                check = ptm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+>>>>>>> 4cf4c1093a9cff30bc658de933bb18b32ad3160a
 }
