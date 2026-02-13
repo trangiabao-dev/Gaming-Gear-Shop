@@ -5,6 +5,7 @@
 package controller;
 
 import java.io.IOException;
+import static java.rmi.server.LogStream.log;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,6 @@ import static utils.URL.PAGE_HOME;
 
 /**
  *
- * @author thinh
  */
 public class LogoutController extends HttpServlet {
 

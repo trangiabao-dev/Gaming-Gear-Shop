@@ -430,7 +430,6 @@ body {
 
 .search-error-link:hover {
     color: white;
-<<<<<<< HEAD
 }
 
 /* PHÂN TRANG */
@@ -463,7 +462,4 @@ body {
     background-color: #d0011b; /* Màu đỏ nổi bật */
     color: white;
     border: 1px solid #d0011b;
-=======
-
->>>>>>> 4cf4c1093a9cff30bc658de933bb18b32ad3160a
 }

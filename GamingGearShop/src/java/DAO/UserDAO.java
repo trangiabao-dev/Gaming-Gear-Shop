@@ -63,8 +63,7 @@ public class UserDAO {
         }
         return user;
     }
-<<<<<<< HEAD
-=======
+
 // Hàm kiểm tra xem userID đã tồn tại trong Database chưa
 
     public boolean checkDuplicate(String userID) throws SQLException {
@@ -136,5 +135,4 @@ public class UserDAO {
         }
         return check;
     }
->>>>>>> 4cf4c1093a9cff30bc658de933bb18b32ad3160a
 }
