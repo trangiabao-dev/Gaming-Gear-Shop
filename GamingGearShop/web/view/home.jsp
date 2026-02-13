@@ -69,21 +69,6 @@
                 <h3 class="sidebar-title">Danh mục sản phẩm</h3>
 
                 <ul class="category-list"> 
-
-                    <c:forEach items="${listCategory}" var="category">
-                        <li>
-                            <form action="MainController" method="POST">
-                                <input type="hidden" name="action" value="home"/>
-                                <input type="hidden" name="catID" value="${category.catID}" />
-
-                                <button type="submit" class="menu-item">
-                                    <i class="fa fa-chevron-right"></i> 
-                                    ${category.catName}
-                                </button>
-                            </form>
-                        </li>
-                    </c:forEach>
-
                     <li>
                         <form action="MainController" method="GET">
                             <input type="hidden" name="action" value="home"/>
@@ -104,7 +89,6 @@
                             </form>
                         </li>
                     </c:forEach>
-
                 </ul>
             </div>
 
@@ -115,15 +99,13 @@
                          width="100%"/>
 
                     <h3>${product.productName}</h3>
-                    <h3>${product.productName}</h3>
 
                     <p>Giá: ${product.priceFormat} VNĐ</p>
                 </div>
             </c:forEach>
 
         </div>
-<<<<<<< HEAD
-                  
+
         <c:if test="${endPage != null}">
             <div class="pagination">
                 <c:forEach begin="1" end="${endPage}" var="i">
@@ -133,8 +115,5 @@
                 </c:forEach>
             </div>
         </c:if>
-=======
-
->>>>>>> 4cf4c1093a9cff30bc658de933bb18b32ad3160a
     </body>
 </html>
