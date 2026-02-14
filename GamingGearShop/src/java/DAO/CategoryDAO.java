@@ -28,17 +28,16 @@ public class CategoryDAO {
         List<CategoryDTO> list = new ArrayList<>();
         String sql = "SELECT * FROM tblCategories WHERE status = 1";
 
-        try ( Connection conn = dbutils.getConnection();  PreparedStatement pst = conn.prepareStatement(sql)) {
-
-            try ( ResultSet rs = pst.executeQuery()) {
-                while (rs.next()) {
-                    CategoryDTO checkMapCategory = mapCateDTO(rs);
-                    if (checkMapCategory != null) {
-                        list.add(checkMapCategory);
-                    }
+        try ( Connection conn = dbutils.getConnection();
+                PreparedStatement pst = conn.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery()){
+            
+            while (rs.next()) {
+                CategoryDTO checkMapCategory = mapCateDTO(rs);
+                if (checkMapCategory != null) {
+                    list.add(checkMapCategory);
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
