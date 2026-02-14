@@ -463,3 +463,48 @@ body {
     color: white;
     border: 1px solid #d0011b;
 }
+/* =========================================================================
+   PHẦN CART(Giỏ hàng)
+   ========================================================================= */
+.cart-container {
+                width: 90%;
+                margin: 30px auto;
+                background: white;
+                padding: 20px;
+                border-radius: 15px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .cart-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            .cart-table th {
+                background-color: #d0011b;
+                color: white;
+                padding: 15px;
+                text-transform: uppercase;
+            }
+            .cart-table td {
+                padding: 15px;
+                border-bottom: 1px solid #eee;
+                text-align: center;
+            }
+            .total-section {
+                text-align: right;
+                margin-top: 20px;
+                padding: 20px;
+                font-family: 'Chakra Petch', sans-serif;
+            }
+            .btn-remove {
+                color: #d0011b;
+                font-weight: bold;
+                text-decoration: none;
+                padding: 5px 10px;
+                border: 1px solid #d0011b;
+                border-radius: 5px;
+            }
+            .btn-remove:hover {
+                background-color: #d0011b;
+                color: white;
+            }

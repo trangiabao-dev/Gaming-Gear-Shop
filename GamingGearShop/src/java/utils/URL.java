@@ -6,6 +6,7 @@ public class URL {
     public static final String PAGE_LOGIN = "view/login.jsp";
     public static final String PAGE_ERROR = "view/error.jsp";
     public static final String PAGE_REGISTER = "view/register.jsp";
+    public static final String PAGE_CART = "view/cart.jsp";
 
     public static final String MAIN_CONTROLLER = "MainController";
     public static final String LOGIN_CONTROLLER = "LoginController";
@@ -14,5 +15,6 @@ public class URL {
     public static final String HOME_CONTROLLER = "HomeController";
     public static final String REGISTER_CONTROLLER = "RegisterController";
     public static final String SEARCH_CONTROLLER = "SearchController";
+    public static final String VIEW_CART_CONTROLLER = "ViewCartController";
 
 }

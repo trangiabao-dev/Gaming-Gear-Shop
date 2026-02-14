@@ -18,6 +18,15 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
+    public ProductDTO(String productID, String productName, double price, int quantity) {
+        this.productID = productID;
+        this.productName = productName;
+        this.price = price;
+        this.quantity = quantity;
+    }
+    
+    
+
     public ProductDTO(String productID, String productName, double price, int quantity, 
                    String description, String imageURL, boolean status, 
                    String catID, String brandID) {

@@ -15,6 +15,15 @@
             <p>Chuyên chuột, bàn phím, tai nghe chính hãng</p>
 
             <div class="header-action-group">
+                <%-- Nút Giỏ Hàng Mới Thêm --%>
+                <a href="MainController?action=viewCart" class="btn-header-custom" style="position: relative;">
+                    🛒 Giỏ hàng
+                    <c:if test="${not empty sessionScope.CART}">
+                        <span style="background: yellow; color: red; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: -5px; right: -5px;">
+                            ${sessionScope.CART.cart.size()}
+                        </span>
+                    </c:if>
+                </a>
 
                 <c:if test="${empty sessionScope.LOGIN_USER}"> 
                     <div class="auth-buttons">
@@ -94,16 +103,22 @@
 
             <c:forEach items="${listProduct}" var="product">
                 <div class="product">
-                    <img src="${product.imageURL}" 
-                         alt="${product.productName}" 
-                         width="100%"/>
-
+                    <img src="${product.imageURL}" alt="${product.productName}" width="100%"/>
                     <h3>${product.productName}</h3>
-
                     <p>Giá: ${product.priceFormat} VNĐ</p>
+
+                    <%-- Nút Mua hàng gửi dữ liệu về AddToCartController --%>
+                    <form action="MainController" method="POST">
+                        <input type="hidden" name="productID" value="${product.productID}">
+                        <input type="hidden" name="productName" value="${product.productName}">
+                        <input type="hidden" name="price" value="${product.price}">
+                        <input type="hidden" name="action" value="Add">
+                        <button type="submit" class="search-btn-custom" style="width: 100%; border-radius: 5px; margin-top: 10px;">
+                            THÊM VÀO GIỎ
+                        </button>
+                    </form>
                 </div>
             </c:forEach>
-
         </div>
 
         <c:if test="${endPage != null}">

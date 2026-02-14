@@ -4,19 +4,20 @@
  */
 package controller;
 
+import Model.Cart;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import utils.URL;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author thinh
  */
-public class MainController extends HttpServlet {
+public class ViewCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -27,58 +28,23 @@ public class MainController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
-        String url = URL.PAGE_ERROR;
-
         try {
-            String action = request.getParameter("action");
-            if (action == null) {
-                action = "home";
-            } else if (action.trim().isEmpty()) {
-                action = "home";
-            }
-            switch (action) {
-                case "home":
-                    url = URL.HOME_CONTROLLER;
-                    break;
-                case "login":
-                    url = URL.LOGIN_CONTROLLER;
-                    break;
-                case "logout":
-                    url = URL.LOGOUT_CONTROLLER;
-                    break;
-                case "register":
-                    url = URL.PAGE_REGISTER; // Mở file register.jsp
-                    break;
-                //Case XỬ LÝ ĐĂNG KÝ(Khi bấm nút "Submit" trong form
-                case "Create":
-                    // "Create" là value của input hidden trong register.jsp
-                    url = URL.REGISTER_CONTROLLER; // Chuyển sang Servlet xử lý logic
-                case "Add":
-                    url = "AddToCartController";
-                    break;
-                case "viewCart":
-                    url = "ViewCartController";
-                    break;
-                case "search":
-                    url = URL.SEARCH_CONTROLLER;
-                    break;
-                default:
-                    url = URL.PAGE_HOME;
-                    break;
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                Cart cart = (Cart) session.getAttribute("CART");
+                if (cart != null) {
+                    // Chuyển Map thành Collection để JSP dễ duyệt bằng forEach
+                    request.setAttribute("CART_ITEMS", cart.getCart().values());
+                }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log("Error at ViewCartController: " + e.toString());
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            request.getRequestDispatcher("view/cart.jsp").forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
