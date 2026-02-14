@@ -4,8 +4,10 @@
  */
 package controller;
 
+import DAO.BrandDAO;
 import DAO.CategoryDAO;
 import DAO.ProductDAO;
+import Model.BrandDTO;
 import Model.CategoryDTO;
 import Model.ProductDTO;
 import java.io.IOException;
@@ -42,43 +44,69 @@ public class HomeController extends HttpServlet {
         String url = URL.PAGE_HOME;
         
         try{
-            String catID = request.getParameter("catID");   // Nếu có thì nhận
-            
-            // Cho vừa vào Web là TRANG 1
-            String indexPage = request.getParameter("index");
-            if(indexPage == null){
-                indexPage = "1";
-            }
-            int index = Integer.parseInt(indexPage);
-            // ----------------------
+            String catID = request.getParameter("catID");
+            String brandID = request.getParameter("brandID");
+            String keyword = request.getParameter("keyword");
+            String indexPageString = request.getParameter("indexPage");
             
             ProductDAO pDAO = new ProductDAO();
-            CategoryDAO cDAO = new CategoryDAO();
+            CategoryDAO cDAO =new CategoryDAO();
+            BrandDAO bDAO = new BrandDAO();
             
-            // Hiện Menu
-            List<CategoryDTO> listCategory = cDAO.getAllCategories();
-            request.setAttribute("listCategory", listCategory);
+            // Đưa Menu hiện lên (2 dòng request)
+            request.setAttribute("listCategory", cDAO.getAllCategories());
+            request.setAttribute("listBrand", bDAO.getAllBrands());
             
-            // Lọc Theo Menu và Phân trang
-            List<ProductDTO> listProduct = new ArrayList<>();
-            if(catID == null || catID.trim().isEmpty()){
-                
-                // Tính số trang cần dùng
-                int totalProducts = pDAO.getTotalProduct();
-                int numberProductPage = 8;
-                int endPage = totalProducts / numberProductPage;
-                
-                if(totalProducts % numberProductPage != 0){ // Nếu sản phẩm chẵn không +, lẽ sẽ ++
-                    endPage++;
-                }
-                listProduct = pDAO.numberProductOnPage(index);
-                request.setAttribute("endPage", endPage);
-                request.setAttribute("tag", index);
-            }else{
-                listProduct = pDAO.getByCategory(catID);
+            if(indexPageString == null){
+                indexPageString = "1";
             }
-            request.setAttribute("listProduct", listProduct);
+            int indexPage = Integer.parseInt(indexPageString);
+            
+            List<ProductDTO> listTamThoi = new ArrayList<>();
+            boolean isFiltering = false;
+            if(catID != null && !catID.trim().isEmpty()){
+                listTamThoi = pDAO.getByCategory(catID);
+                isFiltering = true;
+            }else if(brandID != null && !brandID.trim().isEmpty()){
+                listTamThoi = pDAO.getByBrand(brandID);
+                isFiltering = true;
+            }else if(keyword != null && !keyword.trim().isEmpty()){
+                listTamThoi = pDAO.searchByName(keyword);
+                isFiltering = true;
+            }
+            
+            List<ProductDTO> listProduct = new ArrayList();
+            int numberProductPage = 8;
+            int totalProducts = 0;
+                    
+            if(isFiltering){    // Nếu Lọc và Search
+                totalProducts = listTamThoi.size();
                 
+                int start = (indexPage - 1) * numberProductPage; // CT PHÂN TRANG
+                int end = Math.min(start + numberProductPage, totalProducts);
+                
+                if(start < totalProducts){
+                    listProduct = listTamThoi.subList(start, end);
+                }
+            }else{              // TRANG CHỦ
+                totalProducts = pDAO.getTotalProduct();
+                listProduct = pDAO.numberProductOnPage(indexPage);
+            }
+            
+            // Tính số trang cuối
+            int endPage = totalProducts / numberProductPage;
+            if(totalProducts % numberProductPage != 0){
+                endPage++;
+            }
+            
+            request.setAttribute("listProduct", listProduct);
+            request.setAttribute("endPage", endPage);
+            request.setAttribute("tag", indexPage);
+            
+            // Gửi dữ liệu mỗi lần chuyển trang lại (không trả sẽ mất)
+            request.setAttribute("catID", catID);
+            request.setAttribute("brandID", brandID);
+            request.setAttribute("keyword", keyword);
         }catch(Exception e){
             e.printStackTrace();
         }finally{

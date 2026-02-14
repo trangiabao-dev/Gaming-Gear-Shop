@@ -40,7 +40,7 @@
                 </c:if>
 
                 <form action="MainController" method="GET" class="search-form-custom">
-                    <input type="hidden" name="action" value="search" />
+                    <input type="hidden" name="action" value="home" />
 
                     <input type="text" 
                            name="keyword" 
@@ -106,12 +106,31 @@
 
         </div>
 
-        <c:if test="${endPage != null}">
+        <c:if test="${endPage > 1}">
             <div class="pagination">
                 <c:forEach begin="1" end="${endPage}" var="i">
-                    <a href="MainController?action=home&index=${i}" class="${tag == i ? 'active' : ''}">
+
+                    <c:url var="pageUrl" value="MainController">
+                        <c:param name="action" value="home"/>
+                        <c:param name="indexPage" value="${i}"/>
+
+                        <c:if test="${not empty catID}">
+                            <c:param name="catID" value="${catID}"/>
+                        </c:if>
+
+                        <c:if test="${not empty brandID}">
+                            <c:param name="brandID" value="${brandID}"/>
+                        </c:if>
+
+                        <c:if test="${not empty keyword}">
+                            <c:param name="keyword" value="${keyword}"/>
+                        </c:if>
+                    </c:url>
+
+                    <a href="${pageUrl}" class="${tag == i ? 'active' : ''}">
                         ${i}
                     </a>
+
                 </c:forEach>
             </div>
         </c:if>
