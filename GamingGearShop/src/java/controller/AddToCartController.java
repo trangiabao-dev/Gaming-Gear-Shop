@@ -90,7 +90,9 @@ public class AddToCartController extends HttpServlet {
             session.setAttribute("cart", cart);
 
             // 8. Flash message
-            session.setAttribute("message","Đã thêm thành công: " + product.getProductName());
+            session.setAttribute("message",
+                    "Đã thêm thành công: " + product.getProductName());
+
         } catch (Exception e) {
             log("Error at AddToCartController: " + e.toString());
             session.setAttribute("message", "Có lỗi xảy ra!");

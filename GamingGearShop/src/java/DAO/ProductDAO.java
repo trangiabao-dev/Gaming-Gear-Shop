@@ -86,13 +86,6 @@ public class ProductDAO {
         return getProducts(sql);
     }
 
-    // Lọc sản phẩm theo mã productID - getProducts()
-    public ProductDTO getProductByID(String productID) {
-        String sql = "SELECT * FROM tblProducts WHERE status = 1 AND productID = ?";
-        List<ProductDTO> list = getProducts(sql, productID);
-        return list.isEmpty() ? null : list.get(0);
-    }
-
     // Lọc sản phẩm theo mã catID - getProducts()
     public List<ProductDTO> getByCategory(String catID) {
         String sql = "SELECT * FROM tblProducts WHERE status = 1 AND catID = ?";
@@ -103,12 +96,6 @@ public class ProductDAO {
     public List<ProductDTO> searchByName(String keyword) {
         String sql = "SELECT * FROM tblProducts WHERE status = 1 AND productName LIKE ?";
         return getProducts(sql, "%" + keyword + "%");
-    }
-
-    // Lấy toàn bộ Brand (thương hiệu) - getProducts()
-    public List<ProductDTO> getByBrand(String brandID) {
-        String sql = "SELECT * FROM tblProducts WHERE status = 1 AND brandID = ?";
-        return getProducts(sql);
     }
 
     // Đếm tổng số lượng sản phẩm - getCount()
@@ -125,6 +112,18 @@ public class ProductDAO {
         String sql = "SELECT * FROM tblProducts WHERE status = 1 ORDER BY productID OFFSET ? ROWS FETCH NEXT " + numberProductPage + " ROWS ONLY";
         // Sắp xếp theo ID, bỏ qua [offset] dòng, rồi lấy 8 dòng tiếp theo
         return getProducts(sql, offset);
+    }
+
+    // Lấy toàn bộ Brand (thương hiệu) - getProducts()
+    public List<ProductDTO> getByBrand(String brandID) {
+        String sql = "SELECT * FROM tblProducts WHERE status = 1 AND brandID = ?";
+        return getProducts(sql, brandID);
+    }
+
+    public ProductDTO getProductByID(String productID) {
+        String sql = "SELECT * FROM tblProducts WHERE status = 'True' AND RTRIM(productID) = ?";
+        List<ProductDTO> list = getProducts(sql, productID.trim());
+        return list.isEmpty() ? null : list.get(0);
     }
 
 }

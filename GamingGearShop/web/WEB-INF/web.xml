@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    
     <servlet>
         <servlet-name>MainController</servlet-name>
         <servlet-class>controller.MainController</servlet-class>
@@ -33,14 +34,14 @@
         <servlet-class>controller.ViewCartController</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
-        <servlet-name>DetailController</servlet-name>
-        <servlet-class>controller.DetailController</servlet-class>
-=======
         <servlet-name>CheckoutController</servlet-name>
         <servlet-class>controller.CheckoutController</servlet-class>
->>>>>>> 920ee147af9c7f13f6273072ec75db55de9a8bef
     </servlet>
+    <servlet>
+        <servlet-name>DetailController</servlet-name>
+        <servlet-class>controller.DetailController</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -74,14 +75,14 @@
         <url-pattern>/ViewCartController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
-        <servlet-name>DetailController</servlet-name>
-        <url-pattern>/DetailController</url-pattern>
-=======
         <servlet-name>CheckoutController</servlet-name>
         <url-pattern>/CheckoutController</url-pattern>
->>>>>>> 920ee147af9c7f13f6273072ec75db55de9a8bef
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailController</servlet-name>
+        <url-pattern>/DetailController</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

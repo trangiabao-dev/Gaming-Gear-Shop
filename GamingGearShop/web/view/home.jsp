@@ -103,8 +103,13 @@
 
             <c:forEach items="${listProduct}" var="product">
                 <div class="product">
-                    <img src="${product.imageURL}" alt="${product.productName}" width="100%"/>
-                    <h3>${product.productName}</h3>
+                    <a href="MainController?action=detail&productID=${product.productID}">
+                        <img src="${product.imageURL}" alt="${product.productName}" width="100%"/>
+                    </a>
+
+                    <a href="MainController?action=detail&productID=${product.productID}" style="text-decoration: none; color: black;">
+                        <h3>${product.productName}</h3>
+                    </a>
                     <p>Giá: ${product.priceFormat} VNĐ</p>
 
                     <%-- Nút Mua hàng gửi dữ liệu về AddToCartController --%>
@@ -112,7 +117,7 @@
                         <input type="hidden" name="productID" value="${product.productID}">
                         <input type="hidden" name="productName" value="${product.productName}">
                         <input type="hidden" name="price" value="${product.price}">
-                        <input type="hidden" name="action" value="AddToCart">
+                        <input type="hidden" name="action" value="addToCart">
                         <button type="submit" class="search-btn-custom" style="width: 100%; border-radius: 5px; margin-top: 10px;">
                             THÊM VÀO GIỎ
                         </button>
@@ -145,7 +150,6 @@
                     <a href="${pageUrl}" class="${tag == i ? 'active' : ''}">
                         ${i}
                     </a>
-
                 </c:forEach>
             </div>
         </c:if>

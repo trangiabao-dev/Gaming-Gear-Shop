@@ -7,6 +7,8 @@ package controller;
 import DAO.BrandDAO;
 import DAO.CategoryDAO;
 import DAO.ProductDAO;
+import Model.BrandDTO;
+import Model.CategoryDTO;
 import Model.ProductDTO;
 import java.io.IOException;
 import java.util.ArrayList;
