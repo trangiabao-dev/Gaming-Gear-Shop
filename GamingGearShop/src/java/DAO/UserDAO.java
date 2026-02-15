@@ -26,19 +26,19 @@ public class UserDAO {
     public UserDTO checkLogin(String userID, String password) throws SQLException, ClassNotFoundException {
         UserDTO user = null;
         Connection conn = null;
-        PreparedStatement ptm = null;
+        PreparedStatement pstm = null;
         ResultSet rs = null;
 
         try {
             conn = dbutils.getConnection();
             if (conn != null) {
                 // Thay vì viết chuỗi dài, mình dùng biến LOGIN đã khai báo ở trên
-                ptm = conn.prepareStatement(LOGIN);
+                pstm = conn.prepareStatement(LOGIN);
 
-                ptm.setString(1, userID);
-                ptm.setString(2, password);
+                pstm.setString(1, userID);
+                pstm.setString(2, password);
 
-                rs = ptm.executeQuery();
+                rs = pstm.executeQuery();
 
                 if (rs.next()) {
                     String fullName = rs.getString("fullName");
@@ -54,8 +54,8 @@ public class UserDAO {
             if (rs != null) {
                 rs.close();
             }
-            if (ptm != null) {
-                ptm.close();
+            if (pstm != null) {
+                pstm.close();
             }
             if (conn != null) {
                 conn.close();
@@ -65,21 +65,20 @@ public class UserDAO {
     }
 
 // Hàm kiểm tra xem userID đã tồn tại trong Database chưa
-
     public boolean checkDuplicate(String userID) throws SQLException {
         boolean check = false;
         Connection conn = null;
-        PreparedStatement ptm = null;
+        PreparedStatement pstm = null;
         ResultSet rs = null;
         try {
             conn = dbutils.getConnection(); // Lưu ý chữ DBUtils viết hoa đúng tên Class của bạn
             if (conn != null) {
                 // Câu lệnh chỉ lấy ra userID để kiểm tra
                 String sql = "SELECT userID FROM tblUsers WHERE userID=?";
-                ptm = conn.prepareStatement(sql);
-                ptm.setString(1, userID);
+                pstm = conn.prepareStatement(sql);
+                pstm.setString(1, userID);
 
-                rs = ptm.executeQuery();
+                rs = pstm.executeQuery();
 
                 // Nếu rs.next() trả về true -> Có tìm thấy dòng dữ liệu -> Đã tồn tại -> check = true
                 if (rs.next()) {
@@ -92,8 +91,8 @@ public class UserDAO {
             if (rs != null) {
                 rs.close();
             }
-            if (ptm != null) {
-                ptm.close();
+            if (pstm != null) {
+                pstm.close();
             }
             if (conn != null) {
                 conn.close();
@@ -106,7 +105,7 @@ public class UserDAO {
     public boolean insert(UserDTO user) throws SQLException {
         boolean check = false;
         Connection conn = null;
-        PreparedStatement ptm = null;
+        PreparedStatement pstm = null;
         try {
             conn = dbutils.getConnection();
             if (conn != null) {
@@ -115,19 +114,19 @@ public class UserDAO {
                         + "VALUES(?,?,?,?,1,'','')";
                 // Lưu ý: 1 là True. address và phone tạm thời để trống ('')
 
-                ptm = conn.prepareStatement(sql);
-                ptm.setString(1, user.getUserID());
-                ptm.setString(2, user.getFullName());
-                ptm.setString(3, user.getPassword());
-                ptm.setInt(4, user.getRoleID()); // Lúc này roleID sẽ là "2"
+                pstm = conn.prepareStatement(sql);
+                pstm.setString(1, user.getUserID());
+                pstm.setString(2, user.getFullName());
+                pstm.setString(3, user.getPassword());
+                pstm.setInt(4, user.getRoleID()); // Lúc này roleID sẽ là "2"
 
-                check = ptm.executeUpdate() > 0;
+                check = pstm.executeUpdate() > 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (ptm != null) {
-                ptm.close();
+            if (pstm != null) {
+                pstm.close();
             }
             if (conn != null) {
                 conn.close();

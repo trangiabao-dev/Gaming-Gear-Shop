@@ -55,7 +55,7 @@
                            placeholder="Nhập lại mật khẩu khớp ở trên..." required>
                 </div>
 
-                <input type="hidden" name="action" value="Create"/>
+                <input type="hidden" name="action" value="register"/>
 
                 <button type="submit" class="btn-submit">ĐĂNG KÝ NGAY</button>
             

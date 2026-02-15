@@ -38,76 +38,76 @@ public class HomeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
+
         String url = URL.PAGE_HOME;
-        
-        try{
+
+        try {
             String catID = request.getParameter("catID");
             String brandID = request.getParameter("brandID");
             String keyword = request.getParameter("keyword");
             String indexPageString = request.getParameter("indexPage");
-            
+
             ProductDAO pDAO = new ProductDAO();
-            CategoryDAO cDAO =new CategoryDAO();
+            CategoryDAO cDAO = new CategoryDAO();
             BrandDAO bDAO = new BrandDAO();
-            
+
             // Đưa Menu hiện lên (2 dòng request)
             request.setAttribute("listCategory", cDAO.getAllCategories());
             request.setAttribute("listBrand", bDAO.getAllBrands());
-            
-            if(indexPageString == null){
+
+            if (indexPageString == null) {
                 indexPageString = "1";
             }
             int indexPage = Integer.parseInt(indexPageString);
-            
+
             List<ProductDTO> listTamThoi = new ArrayList<>();
             boolean isFiltering = false;
-            if(catID != null && !catID.trim().isEmpty()){
+            if (catID != null && !catID.trim().isEmpty()) {
                 listTamThoi = pDAO.getByCategory(catID);
                 isFiltering = true;
-            }else if(brandID != null && !brandID.trim().isEmpty()){
+            } else if (brandID != null && !brandID.trim().isEmpty()) {
                 listTamThoi = pDAO.getByBrand(brandID);
                 isFiltering = true;
-            }else if(keyword != null && !keyword.trim().isEmpty()){
+            } else if (keyword != null && !keyword.trim().isEmpty()) {
                 listTamThoi = pDAO.searchByName(keyword);
                 isFiltering = true;
             }
-            
+
             List<ProductDTO> listProduct = new ArrayList();
             int numberProductPage = 8;
             int totalProducts = 0;
-                    
-            if(isFiltering){    // Nếu Lọc và Search
+
+            if (isFiltering) {    // Nếu Lọc và Search
                 totalProducts = listTamThoi.size();
-                
+
                 int start = (indexPage - 1) * numberProductPage; // CT PHÂN TRANG
                 int end = Math.min(start + numberProductPage, totalProducts);
-                
-                if(start < totalProducts){
+
+                if (start < totalProducts) {
                     listProduct = listTamThoi.subList(start, end);
                 }
-            }else{              // TRANG CHỦ
+            } else {              // TRANG CHỦ
                 totalProducts = pDAO.getTotalProduct();
                 listProduct = pDAO.numberProductOnPage(indexPage);
             }
-            
+
             // Tính số trang cuối
             int endPage = totalProducts / numberProductPage;
-            if(totalProducts % numberProductPage != 0){
+            if (totalProducts % numberProductPage != 0) {
                 endPage++;
             }
-            
+
             request.setAttribute("listProduct", listProduct);
             request.setAttribute("endPage", endPage);
             request.setAttribute("tag", indexPage);
-            
+
             // Gửi dữ liệu mỗi lần chuyển trang lại (không trả sẽ mất)
             request.setAttribute("catID", catID);
             request.setAttribute("brandID", brandID);
             request.setAttribute("keyword", keyword);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

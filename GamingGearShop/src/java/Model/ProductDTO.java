@@ -25,7 +25,6 @@ public class ProductDTO {
         this.quantity = quantity;
     }
     
-    
 
     public ProductDTO(String productID, String productName, double price, int quantity, 
                    String description, String imageURL, boolean status, 

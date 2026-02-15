@@ -4,14 +4,17 @@
  */
 package controller;
 
+import DAO.ProductDAO;
 import Model.Cart;
 import Model.ProductDTO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utils.URL;
 
 /**
  *
@@ -30,28 +33,70 @@ public class AddToCartController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+
+        String url = URL.PROCESS_HOME;
+
+        HttpSession session = request.getSession();
+
         try {
+            // 1. Lấy productID
             String productID = request.getParameter("productID");
-            String productName = request.getParameter("productName");
-            double price = Double.parseDouble(request.getParameter("price"));
-            int quantity = 1;
 
-            ProductDTO product = new ProductDTO(productID, productName, price, quantity);
+            if (productID == null || productID.trim().isEmpty()) {
+                session.setAttribute("message", "Product ID không hợp lệ!");
+                response.sendRedirect(url);
+                return;
+            }
 
-            HttpSession session = request.getSession();
+            // 2. Lấy quantity an toàn
+            int quantity = 1; // mặc định
+            String quantityRaw = request.getParameter("quantity");
+
+            if (quantityRaw != null) {
+                try {
+                    quantity = Integer.parseInt(quantityRaw);
+                    if (quantity <= 0) {
+                        quantity = 1;
+                    }
+                } catch (NumberFormatException e) {
+                    quantity = 1;
+                }
+            }
+
+            // 3. Lấy sản phẩm từ DB
+            ProductDAO dao = new ProductDAO();
+            ProductDTO product = dao.getProductByID(productID);
+
+            if (product == null) {
+                session.setAttribute("message", "Sản phẩm không tồn tại!");
+                response.sendRedirect(url);
+                return;
+            }
+
+            // 4. Set số lượng
+            product.setQuantity(quantity);
+
+            // 5. Lấy cart từ session
             Cart cart = (Cart) session.getAttribute("cart");
+
             if (cart == null) {
                 cart = new Cart();
             }
+
+            // 6. Add vào cart
             cart.add(product);
+
+            // 7. Lưu lại session
             session.setAttribute("cart", cart);
-            request.setAttribute("message", "Đã thêm " + productName + " vào giỏ!");
+
+            // 8. Flash message
+            session.setAttribute("message","Đã thêm thành công: " + product.getProductName());
         } catch (Exception e) {
             log("Error at AddToCartController: " + e.toString());
-        } finally {
-            request.getRequestDispatcher("MainController?action=home").forward(request, response);
+            session.setAttribute("message", "Có lỗi xảy ra!");
         }
+
+        response.sendRedirect(url);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
