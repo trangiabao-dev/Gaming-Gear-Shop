@@ -71,12 +71,23 @@ body {
 }
 
 .product h3{
-    font-size: 16px;        
-    height: 40px;           
-    line-height: 20px;      
-    overflow: hidden;       
-    margin-bottom: 10px;    
-    transition: all 0.3s;   
+    display: -webkit-box;
+    -webkit-line-clamp: 2;  /* Số dòng muốn hiển thị (2 hoặc 3 tùy bạn) */
+    -webkit-box-orient: vertical;
+    
+    /* 2. Ẩn phần dư thừa */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Thêm dấu ... */
+    
+    /* 3. Cố định chiều cao để các thẻ bằng nhau (quan trọng) */
+    /* Giả sử line-height là 1.5em thì height = 1.5 * 2 dòng = 3em */
+    line-height: 1.5em;
+    height: 3em; 
+    
+    /* Trang trí thêm cho đẹp */
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
 }
 
 .product:hover h3 {

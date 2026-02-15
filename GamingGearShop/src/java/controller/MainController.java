@@ -59,14 +59,18 @@ public class MainController extends HttpServlet {
                 case "Create":
                     // "Create" là value của input hidden trong register.jsp
                     url = URL.REGISTER_CONTROLLER; // Chuyển sang Servlet xử lý logic
-                case "Add":
-                    url = "AddToCartController";
+                    break;
+                case "addToCart":
+                    url = URL.ADD_TO_CART_CONTROLLER;
                     break;
                 case "viewCart":
-                    url = "ViewCartController";
+                    url = URL.VIEW_CART_CONTROLLER;
                     break;
                 case "search":
                     url = URL.SEARCH_CONTROLLER;
+                    break;
+                case "detail":
+                    url = URL.DETAIL_CONTROLLER;
                     break;
                 default:
                     url = URL.PAGE_HOME;

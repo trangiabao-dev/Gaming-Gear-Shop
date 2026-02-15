@@ -32,6 +32,10 @@
         <servlet-name>ViewCartController</servlet-name>
         <servlet-class>controller.ViewCartController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DetailController</servlet-name>
+        <servlet-class>controller.DetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>ViewCartController</servlet-name>
         <url-pattern>/ViewCartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailController</servlet-name>
+        <url-pattern>/DetailController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

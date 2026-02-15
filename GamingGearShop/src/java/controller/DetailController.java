@@ -4,20 +4,21 @@
  */
 package controller;
 
-import Model.Cart;
+import DAO.ProductDAO;
 import Model.ProductDTO;
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import utils.URL;
 
 /**
  *
- * @author thinh
+ * @author ACER
  */
-public class AddToCartController extends HttpServlet {
+public class DetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,26 +32,30 @@ public class AddToCartController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            String productID = request.getParameter("productID");
-            String productName = request.getParameter("productName");
-            double price = Double.parseDouble(request.getParameter("price"));
-            int quantity = 1;
-
-            ProductDTO product = new ProductDTO(productID, productName, price, quantity);
-
-            HttpSession session = request.getSession();
-            Cart cart = (Cart) session.getAttribute("cart");
-            if (cart == null) {
-                cart = new Cart();
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        
+        try{
+            String id = request.getParameter("productID");
+            ProductDAO pDAO = new ProductDAO();
+            ProductDTO pDTO = pDAO.getProductByID(id);
+            
+            
+            if(pDTO == null){
+                request.setAttribute("message", "Sản phẩm không tồn tại hoặc đã bị xóa!");
+                RequestDispatcher rd = request.getRequestDispatcher(URL.PROCESS_HOME);
+                rd.forward(request, response);
+                return;
             }
-            cart.add(product);
-            session.setAttribute("cart", cart);
-            request.setAttribute("message", "Đã thêm " + productName + " vào giỏ!");
-        } catch (Exception e) {
-            log("Error at AddToCartController: " + e.toString());
-        } finally {
-            request.getRequestDispatcher("MainController?action=home").forward(request, response);
+            
+            request.setAttribute("detail", pDTO);
+            RequestDispatcher rd = request.getRequestDispatcher(URL.PAGE_DETAIL);
+            rd.forward(request, response);
+        }catch(Exception e){
+            e.printStackTrace();
+            request.setAttribute("ERROR_MSG", "Lỗi hệ thống: " + e.getMessage());
+            RequestDispatcher rd = request.getRequestDispatcher(URL.PAGE_ERROR);
+            rd.forward(request, response);
         }
     }
 
