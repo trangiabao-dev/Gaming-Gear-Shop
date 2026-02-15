@@ -15,6 +15,8 @@ public class URL {
     public static final String HOME_CONTROLLER = "HomeController";
     public static final String REGISTER_CONTROLLER = "RegisterController";
     public static final String SEARCH_CONTROLLER = "SearchController";
-    public static final String VIEW_CART_CONTROLLER = "ViewCartController";
-
+    public static final String ADDTOCART_CONTROLLER = "AddToCartController";
+    public static final String CHECKOUT_CONTROLLER = "CheckoutController";
+    public static final String VIEWCART_CONTROLLER = "ViewCartController";
+    public static final String PROCESS_HOME = "MainController?action=home";
 }

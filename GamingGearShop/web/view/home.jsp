@@ -112,7 +112,7 @@
                         <input type="hidden" name="productID" value="${product.productID}">
                         <input type="hidden" name="productName" value="${product.productName}">
                         <input type="hidden" name="price" value="${product.price}">
-                        <input type="hidden" name="action" value="Add">
+                        <input type="hidden" name="action" value="AddToCart">
                         <button type="submit" class="search-btn-custom" style="width: 100%; border-radius: 5px; margin-top: 10px;">
                             THÊM VÀO GIỎ
                         </button>

@@ -119,4 +119,16 @@ public class ProductDAO {
         String sql = "SELECT * FROM tblProducts WHERE status = 1 AND brandID = ?";
         return getProducts(sql);
     }
+    
+    // Lấy 1 sản phẩm duy nhất theo ID để bỏ vào giỏ hàng
+public ProductDTO getProductByID(String productID) {
+    String sql = "SELECT * FROM tblProducts WHERE productID = ?";
+    List<ProductDTO> list = getProducts(sql, productID);
+    
+    // Nếu danh sách có dữ liệu thì lấy phần tử đầu tiên (duy nhất)
+    if (list != null && !list.isEmpty()) {
+        return list.get(0);
+    }
+    return null;
+}
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utils.URL;
 
 /**
  *
@@ -31,6 +32,7 @@ public class ViewCartController extends HttpServlet {
    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String url = URL.PAGE_CART ;
         try {
             HttpSession session = request.getSession(false);
             if (session != null) {
@@ -43,7 +45,7 @@ public class ViewCartController extends HttpServlet {
         } catch (Exception e) {
             log("Error at ViewCartController: " + e.toString());
         } finally {
-            request.getRequestDispatcher("view/cart.jsp").forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

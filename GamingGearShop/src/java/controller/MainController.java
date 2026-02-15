@@ -46,24 +46,25 @@ public class MainController extends HttpServlet {
                 case "home":
                     url = URL.HOME_CONTROLLER;
                     break;
+                case "AddToCart":
+                    url =  URL.ADDTOCART_CONTROLLER;
+                    break;
+                case "CheckOut":
+                    url = URL.CHECKOUT_CONTROLLER;
+                    break;
+                case "viewCart":
+                    url =  URL.VIEWCART_CONTROLLER;
+                    break;
                 case "login":
                     url = URL.LOGIN_CONTROLLER;
                     break;
                 case "logout":
                     url = URL.LOGOUT_CONTROLLER;
                     break;
-                case "register":
-                    url = URL.PAGE_REGISTER; // Mở file register.jsp
-                    break;
                 //Case XỬ LÝ ĐĂNG KÝ(Khi bấm nút "Submit" trong form
-                case "Create":
+                case "register":
                     // "Create" là value của input hidden trong register.jsp
                     url = URL.REGISTER_CONTROLLER; // Chuyển sang Servlet xử lý logic
-                case "Add":
-                    url = "AddToCartController";
-                    break;
-                case "viewCart":
-                    url = "ViewCartController";
                     break;
                 case "search":
                     url = URL.SEARCH_CONTROLLER;
