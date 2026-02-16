@@ -72,6 +72,9 @@ public class MainController extends HttpServlet {
                 case "detail":
                     url = URL.DETAIL_CONTROLLER;
                     break;
+                case "addFeedback":
+                    url = URL.ADD_FEED_BACK_CONTROLLER;
+                    break;    
                 default:
                     url = URL.PAGE_HOME;
                     break;

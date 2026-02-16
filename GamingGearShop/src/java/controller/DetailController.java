@@ -4,9 +4,12 @@
  */
 package controller;
 
+import DAO.FeedbackDAO;
 import DAO.ProductDAO;
+import Model.FeedbackDTO;
 import Model.ProductDTO;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,24 +37,29 @@ public class DetailController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
-        try{
+
+        try {
             String id = request.getParameter("productID");
             ProductDAO pDAO = new ProductDAO();
             ProductDTO pDTO = pDAO.getProductByID(id);
-            
-            
-            if(pDTO == null){
+
+            if (pDTO == null) {
                 request.setAttribute("message", "Sản phẩm không tồn tại hoặc đã bị xóa!");
                 RequestDispatcher rd = request.getRequestDispatcher(URL.PROCESS_HOME);
                 rd.forward(request, response);
                 return;
             }
-            
+
+            // --- PHẦN MỚI THÊM CHO FEEDBACK ---
+            FeedbackDAO fDAO = new FeedbackDAO();
+            // Lấy danh sách dựa trên các cột: userID, rating, content, date
+            List<FeedbackDTO> feedbackList = fDAO.getFeedbackByProductID(id);
+            request.setAttribute("productFeedbacks", feedbackList);
+
             request.setAttribute("detail", pDTO);
             RequestDispatcher rd = request.getRequestDispatcher(URL.PAGE_DETAIL);
             rd.forward(request, response);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("ERROR_MSG", "Lỗi hệ thống: " + e.getMessage());
             RequestDispatcher rd = request.getRequestDispatcher(URL.PAGE_ERROR);

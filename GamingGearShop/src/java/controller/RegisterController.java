@@ -7,6 +7,7 @@ package controller;
 import DAO.UserDAO;
 import Model.UserDTO;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,78 +30,74 @@ public class RegisterController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     // QUAN TRỌNG: quy định khách hàng roleID là 2
-    private static final int DEFAULT_ROLE = 2; 
-    
+    private static final int DEFAULT_ROLE = 2;
+
     private static final String ERROR = "ERROR";
     private static final String SUCCESS = "SUCCESS";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-       String url = URL.PAGE_REGISTER; // Mặc định là quay lại trang đăng ký nếu lỗi
-        
+        String url = URL.PAGE_REGISTER;
+
         try {
-            // 1. Lấy dữ liệu từ form register.jsp
+            // 1. Lấy dữ liệu từ form
             String userID = request.getParameter("userID");
             String fullName = request.getParameter("fullName");
             String password = request.getParameter("password");
-            String confirm = request.getParameter("confirm"); // Ô nhập lại mật khẩu
-            
-            // Biến kiểm tra lỗi
+            String confirm = request.getParameter("confirm");
+
             String errorMsg = "";
             boolean foundError = false;
-            
             UserDAO dao = new UserDAO();
 
-            // 2. Validation (Kiểm tra dữ liệu)
-            // Check 1: Mật khẩu xác nhận có khớp không?
-            if (!password.equals(confirm)) {
+            // 2. TẬP TRUNG TẤT CẢ VALIDATION TẠI ĐÂY (Check theo DB NOT NULL)
+            if (userID == null || userID.trim().isEmpty() || userID.length() > 50) {
+                foundError = true;
+                errorMsg = "ID không được để trống và tối đa 50 ký tự!";
+                
+            }else if(fullName == null || fullName.trim().isEmpty() || fullName.length() > 50) {
+                foundError = true;
+                errorMsg = "Họ tên không được để trống và tối đa 50 ký tự!";
+                
+            }else if (password == null || password.trim().isEmpty() || password.length() > 50) {
+                foundError = true;
+                errorMsg = "Mật khẩu không được để trống và tối đa 50 ký tự!";
+                
+            }else if(!password.equals(confirm)) {    // Kiểm tra khớp mật khẩu
                 foundError = true;
                 errorMsg = "Xác nhận mật khẩu không khớp!";
-            } 
-            // Check 2: UserID đã tồn tại chưa? (Chỉ check nếu mật khẩu đã OK)
-            else if (dao.checkDuplicate(userID)) {
+                
+            }else if(dao.checkDuplicate(userID)) {   // Kiểm tra trùng ID
                 foundError = true;
-                errorMsg = "Tên đăng nhập (ID) '" + userID + "' đã tồn tại!";
+                errorMsg = "ID '" + userID + "' đã tồn tại!";
             }
 
-            // 3. Xử lý logic
-            if (foundError) {
-                // === CÓ LỖI ===
+            // 3. XỬ LÝ LOGIC DỰA TRÊN KẾT QUẢ KIỂM TRA
+            if(foundError){
                 request.setAttribute(ERROR, errorMsg);
-                // Giữ lại thông tin user đã nhập để họ đỡ phải gõ lại (trừ password)
-                // (Bạn nhớ thêm value="${param.userID}" vào input bên jsp nhé)
-                
-            } else {
-                // === KHÔNG CÓ LỖI (HỢP LỆ) ===
-                
-                // Tạo UserDTO mới với RoleID là số 2 (User thường)
-                // Constructor này phải khớp với bên UserDTO.java mà bạn đã sửa
+            }else{
+                // Dữ liệu hợp lệ -> Tiến hành lưu vào Database
                 UserDTO newUser = new UserDTO(userID, fullName, DEFAULT_ROLE, password);
-                
-                // Gọi hàm insert bên DAO
-                boolean checkInsert = dao.insert(newUser); 
+                boolean checkInsert = dao.insert(newUser);
 
-                if (checkInsert) {
-                    // Thành công -> Chuyển sang trang Login
+                if(checkInsert) {
                     url = URL.PAGE_LOGIN;
-                    request.setAttribute(SUCCESS, "Đăng ký thành công! Vui lòng đăng nhập.");
-                } else {
-                    // Thất bại (Lỗi SQL hoặc mạng)
+                    request.setAttribute(SUCCESS, "Đăng ký thành công!");
+                }else{
                     url = URL.PAGE_ERROR;
                     request.setAttribute(ERROR, "Lỗi hệ thống! Không thể tạo tài khoản.");
                 }
             }
-
-        } catch (Exception e) {
+        }catch(SQLException e) {
             log("Error at RegisterController: " + e.toString());
             e.printStackTrace();
-        } finally {
-            // Chuyển hướng trang web
+        }finally{
             request.getRequestDispatcher(url).forward(request, response);
         }
-    
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

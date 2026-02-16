@@ -36,7 +36,7 @@ public class ViewCartController extends HttpServlet {
         try {
             HttpSession session = request.getSession(false);
             if (session != null) {
-                Cart cart = (Cart) session.getAttribute("CART");
+                Cart cart = (Cart) session.getAttribute("cart");
                 if (cart != null) {
                     // Chuyển Map thành Collection để JSP dễ duyệt bằng forEach
                     request.setAttribute("CART_ITEMS", cart.getCart().values());

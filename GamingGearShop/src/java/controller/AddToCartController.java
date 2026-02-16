@@ -33,23 +33,23 @@ public class AddToCartController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        
         String url = URL.PROCESS_HOME;
-
         HttpSession session = request.getSession();
 
         try {
-            // 1. Lấy productID
             String productID = request.getParameter("productID");
 
-            if (productID == null || productID.trim().isEmpty()) {
+            if (productID == null || productID.trim().isEmpty() || productID.length() > 10) {
                 session.setAttribute("message", "Product ID không hợp lệ!");
                 response.sendRedirect(url);
                 return;
             }
 
-            // 2. Lấy quantity an toàn
-            int quantity = 1; // mặc định
+            // 2. Lấy quantity an toàn (Check logic số lượng)
+            int quantity = 1;
             String quantityRaw = request.getParameter("quantity");
 
             if (quantityRaw != null) {
@@ -67,37 +67,32 @@ public class AddToCartController extends HttpServlet {
             ProductDAO dao = new ProductDAO();
             ProductDTO product = dao.getProductByID(productID);
 
-            if (product == null) {
+            if(product == null){
                 session.setAttribute("message", "Sản phẩm không tồn tại!");
-                response.sendRedirect(url);
-                return;
+            }else{
+                // 4. Set số lượng muốn mua
+                product.setQuantity(quantity);
+
+                // 5. Lấy cart từ session (Sử dụng tên "cart" chữ thường như bạn đã sửa)
+                Cart cart = (Cart) session.getAttribute("cart");
+
+                if (cart == null) {
+                    cart = new Cart();
+                }
+
+                // 6. Add vào cart
+                cart.add(product);
+
+                // 7. Lưu lại session
+                session.setAttribute("cart", cart);
+
+                // 8. Flash message (Giữ nguyên văn của bạn)
+                session.setAttribute("message", "Đã thêm thành công: " + product.getProductName());
             }
-
-            // 4. Set số lượng
-            product.setQuantity(quantity);
-
-            // 5. Lấy cart từ session
-            Cart cart = (Cart) session.getAttribute("cart");
-
-            if (cart == null) {
-                cart = new Cart();
-            }
-
-            // 6. Add vào cart
-            cart.add(product);
-
-            // 7. Lưu lại session
-            session.setAttribute("cart", cart);
-
-            // 8. Flash message
-            session.setAttribute("message",
-                    "Đã thêm thành công: " + product.getProductName());
-
-        } catch (Exception e) {
+        }catch(Exception e) {
             log("Error at AddToCartController: " + e.toString());
             session.setAttribute("message", "Có lỗi xảy ra!");
         }
-
         response.sendRedirect(url);
     }
 

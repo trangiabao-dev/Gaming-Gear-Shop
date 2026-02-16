@@ -49,7 +49,7 @@
                 </c:if>
 
                 <form action="MainController" method="GET" class="search-form-custom">
-                    <input type="hidden" name="action" value="home" />
+                    <input type="hidden" name="action" value="search" />
 
                     <input type="text" 
                            name="keyword" 
@@ -63,11 +63,11 @@
                 </form>
 
             </div>
-
+                           
             <c:if test="${not empty requestScope.message}">
                 <div class="search-error-msg">
                     ${requestScope.message}
-                    <a href="MainController?action=home" class="search-error-link">Quay lại</a>
+                    <a href="MainController?action=search&keyword=" class="search-error-link">Quay lại</a>
                 </div>
             </c:if>
         </div>

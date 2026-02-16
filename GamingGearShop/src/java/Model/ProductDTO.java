@@ -2,7 +2,6 @@ package Model;
 
 import java.text.NumberFormat;
 import java.util.Locale;
-import utils.Validation;
 
 public class ProductDTO {
     private String productID;  
@@ -13,28 +12,22 @@ public class ProductDTO {
     private String imageURL;     
     private boolean status;      
     private String catID;        
-    private String brandID;      
+    private String brandID;
+    
+    private static final NumberFormat PRICE_FORMAT = NumberFormat.getInstance(new Locale("vi", "VN"));
 
     public ProductDTO() {
     }
 
-    public ProductDTO(String productID, String productName, double price, int quantity) {
+    public ProductDTO(String productID, String productName, double price, 
+            int quantity, String description, String imageURL, boolean status,
+            String catID, String brandID) {
         this.productID = productID;
         this.productName = productName;
         this.price = price;
         this.quantity = quantity;
-    }
-    
-
-    public ProductDTO(String productID, String productName, double price, int quantity, 
-                   String description, String imageURL, boolean status, 
-                   String catID, String brandID) {
-        setProductID(productID);
-        setProductName(productName);
-        setPrice(price);
-        setQuantity(quantity);
         this.description = description;
-        setImageURL(imageURL);
+        this.imageURL = imageURL;
         this.status = status;
         this.catID = catID;
         this.brandID = brandID;
@@ -44,48 +37,32 @@ public class ProductDTO {
         return productID;
     }
 
-    public final void setProductID(String productID) {
-        if (Validation.checkInput(productID, 10)) {
-            this.productID = productID;
-        } else {
-            throw new IllegalArgumentException("ID không được để trống và tối đa 10 ký tự!");
-        }
+    public void setProductID(String productID) {
+        this.productID = productID;
     }
 
     public String getProductName() {
         return productName;
     }
 
-    public final void setProductName(String productName) {
-        if (Validation.checkInput(productName, 500)) {
-            this.productName = productName;
-        } else {
-            throw new IllegalArgumentException("Tên không được để trống và tối đa 500 ký tự!");
-        }
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public final void setPrice(double price) {
-        if (price > 0) {
-            this.price = price;
-        } else {
-            throw new IllegalArgumentException("Giá phải lớn hơn 0");
-        }
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public final void setQuantity(int quantity) {
-        if (quantity >= 0) {
-            this.quantity = quantity;
-        } else {
-            throw new IllegalArgumentException("Số lượng phải >= 0");
-        }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getDescription() {
@@ -100,12 +77,8 @@ public class ProductDTO {
         return imageURL;
     }
 
-    public final void setImageURL(String imageURL) {
-        if (Validation.checkInput(imageURL, 200)) {
-            this.imageURL = imageURL;
-        }else{
-            throw new IllegalArgumentException("Link ảnh quá dài! Tối đa 200 ký tự.");
-        }
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public boolean isStatus() {
@@ -131,12 +104,10 @@ public class ProductDTO {
     public void setBrandID(String brandID) {
         this.brandID = brandID;
     }
-    
+
     // Chỉnh FORMAT Giá lại
     public String getPriceFormat(){
-        Locale localeVN = new Locale("vi", "VN");
-        NumberFormat PriceFormat = NumberFormat.getInstance(localeVN);
-        return PriceFormat.format(this.price);
+        return PRICE_FORMAT.format(this.price);
     }
 
     @Override

@@ -38,35 +38,39 @@ public class SearchController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
+
         String url = URL.PAGE_HOME;
-        
-        try{
+
+        try {
             String keyword = request.getParameter("keyword");
-            
+
             CategoryDAO cDAO = new CategoryDAO();
             List<CategoryDTO> listCategory = cDAO.getAllCategories();
             request.setAttribute("listCategory", listCategory);
-            
+
             ProductDAO pDAO = new ProductDAO();
             List<ProductDTO> listProduct = new ArrayList<>();
-            
-            if(keyword == null || keyword.trim().isEmpty()){
-                listProduct = pDAO.getAllProducts();
-            }else{
+
+            if(keyword != null && !keyword.trim().isEmpty()) {
+                keyword = keyword.trim();
+                if(keyword.length() > 500) {
+                    keyword = keyword.substring(0, 500);
+                }
+
                 listProduct = pDAO.searchByName(keyword);
-                
-                System.out.println("Tu khoa tim kiem: " + keyword); // DEGUG OUTPUT
-                
-                if(listProduct.isEmpty()){
+
+                if(listProduct == null || listProduct.isEmpty()) {
                     request.setAttribute("message", "Không tìm thấy sản phẩm nào với từ khóa: " + keyword);
                 }
+            }else{
+                listProduct = pDAO.getAllProducts();
+                keyword = "";
             }
-            
+
             request.setAttribute("listProduct", listProduct);
-            request.setAttribute("searchKeyword", keyword);     // Giữ lại từ khóa để hiện ở ô TÌM KIẾM
-            
-        }catch(Exception e){
+            request.setAttribute("searchKeyword", keyword);
+
+        }catch (Exception e){
             e.printStackTrace();
         }finally{
             RequestDispatcher rd = request.getRequestDispatcher(url);

@@ -1,7 +1,5 @@
 package Model;
 
-import utils.Validation;
-
 public class CategoryDTO {
     private String catID;
     private String catName;
@@ -11,8 +9,8 @@ public class CategoryDTO {
     }
 
     public CategoryDTO(String catID, String catName, boolean status) {
-        setCatID(catID);
-        setCatName(catName);
+        this.catID = catID;
+        this.catName = catName;
         this.status = status;
     }
 
@@ -20,24 +18,16 @@ public class CategoryDTO {
         return catID;
     }
 
-    public final void setCatID(String catID) {
-        if(Validation.checkInput(catID, 10)){
-            this.catID = catID;
-        }else{
-            throw new IllegalArgumentException("Id không được để trống!");
-        }
+    public void setCatID(String catID) {
+        this.catID = catID;
     }
 
     public String getCatName() {
         return catName;
     }
 
-    public final void setCatName(String catName) {
-        if(Validation.checkInput(catName, 50)){
-            this.catName = catName;
-        }else{
-            throw new IllegalArgumentException("Tên không được để trống!");
-        }
+    public void setCatName(String catName) {
+        this.catName = catName;
     }
 
     public boolean isStatus() {
