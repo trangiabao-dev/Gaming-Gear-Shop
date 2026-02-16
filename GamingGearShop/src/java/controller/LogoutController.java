@@ -5,13 +5,12 @@
 package controller;
 
 import java.io.IOException;
-import static java.rmi.server.LogStream.log;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import static utils.URL.PAGE_HOME;
+import static utils.URL.PROCESS_HOME;
 
 /**
  *
@@ -32,10 +31,11 @@ public class LogoutController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-       try {
+
+        try {
             // 1. Lấy session hiện tại (false nghĩa là nếu chưa có thì đừng tạo mới)
             HttpSession session = request.getSession(false);
-            
+
             if (session != null) {
                 // 2. Xóa sạch sành sanh dữ liệu trong session
                 session.invalidate();
@@ -44,10 +44,11 @@ public class LogoutController extends HttpServlet {
             log("Error at LogoutController: " + e.toString());
         } finally {
             // 3. Xóa xong thì chuyển về trang chủ (MainController)
-        // Để khách xem hàng tiếp, không nhất thiết bắt họ đăng nhập lại ngay.
-        response.sendRedirect(PAGE_HOME);
+            // Để khách xem hàng tiếp, không nhất thiết bắt họ đăng nhập lại ngay.
+            response.sendRedirect(PROCESS_HOME);
+        }
     }
-    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
