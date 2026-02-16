@@ -4,7 +4,12 @@
  */
 package controller;
 
+import DAO.ProductDAO;
+import Model.ProductDTO;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,9 +19,9 @@ import utils.URL;
 
 /**
  *
- * @author thinh
+ * @author ACER
  */
-public class MainController extends HttpServlet {
+public class FilterPriceController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,65 +35,40 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
-        String url = URL.PAGE_ERROR;
-
-        try {
-            String action = request.getParameter("action");
-            if (action == null) {
-                action = "home";
-            } else if (action.trim().isEmpty()) {
-                action = "home";
+        
+        String url = URL.PAGE_HOME;
+        
+        try{
+            String minRaw = request.getParameter("min");
+            String maxRaw = request.getParameter("max");
+            
+            double min, max;
+            
+            if(minRaw == null){
+                min = 0;
+            }else{
+                min = Double.parseDouble(minRaw);
             }
-            switch (action) {
-                case "home":
-                    url = URL.HOME_CONTROLLER;
-                    break;
-                case "addToCart":
-                    url = URL.ADDTOCART_CONTROLLER;
-                    break;
-                case "CheckOut":
-                    url = URL.CHECKOUT_CONTROLLER;
-                    break;
-                case "viewCart":
-                    url = URL.VIEWCART_CONTROLLER;
-                    break;
-                case "login":
-                    url = URL.LOGIN_CONTROLLER;
-                    break;
-                case "logout":
-                    url = URL.LOGOUT_CONTROLLER;
-                    break;
-                //Case XỬ LÝ ĐĂNG KÝ(Khi bấm nút "Submit" trong form
-                case "register":
-                    // "Create" là value của input hidden trong register.jsp
-                    url = URL.REGISTER_CONTROLLER; // Chuyển sang Servlet xử lý logic
-                    break;
-                case "search":
-                    url = URL.SEARCH_CONTROLLER;
-                    break;
-                case "detail":
-                    url = URL.DETAIL_CONTROLLER;
-                    break;
-                case "addFeedback":
-                    url = URL.ADD_FEED_BACK_CONTROLLER;
-                    break;
-                case "filterPrice":
-                    url = URL.FILTER_PRICE_CONTROLLER;
-                    break;
-                default:
-                    url = URL.HOME_CONTROLLER;
-                    break;
+            
+            if(maxRaw == null){
+                max = Double.MAX_VALUE;
+            }else{
+                max = Double.parseDouble(maxRaw);
             }
-        } catch (Exception e) {
+            
+            ProductDAO pDAO = new ProductDAO();
+            List<ProductDTO> listProduct = pDAO.getProductsByPriceRange(min, max);
+            
+            request.setAttribute("listProduct", listProduct);
+            request.setAttribute("minPrice", min); 
+            request.setAttribute("maxPrice", max);
+            
+        }catch(NumberFormatException e){
             e.printStackTrace();
-        } finally {
+        }finally{
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -48,6 +48,10 @@
         <servlet-name>AddFeedbackController</servlet-name>
         <servlet-class>controller.AddFeedbackController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FilterPriceController</servlet-name>
+        <servlet-class>controller.FilterPriceController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>AddFeedbackController</servlet-name>
         <url-pattern>/AddFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterPriceController</servlet-name>
+        <url-pattern>/FilterPriceController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

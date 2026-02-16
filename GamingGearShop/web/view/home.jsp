@@ -15,7 +15,7 @@
             <p>Chuyên chuột, bàn phím, tai nghe chính hãng</p>
 
             <div class="header-action-group">
-                <%-- Nút Giỏ Hàng Mới Thêm --%>
+                <%-- Nút Giỏ Hàng --%>
                 <a href="MainController?action=viewCart" class="btn-header-custom" style="position: relative;">
                     🛒 Giỏ hàng
                     <c:if test="${not empty sessionScope.CART}">
@@ -30,7 +30,6 @@
                         <a href="MainController?action=login" class="btn-header"> 
                             Đăng nhập 
                         </a> 
-
                         <a href="MainController?action=register" class="btn-header btn-header-register">
                             Đăng ký 
                         </a>
@@ -50,20 +49,17 @@
 
                 <form action="MainController" method="GET" class="search-form-custom">
                     <input type="hidden" name="action" value="search" />
-
                     <input type="text" 
                            name="keyword" 
                            class="search-input-custom" 
                            value="${requestScope.searchKeyword}" 
                            placeholder="Tìm sản phẩm..."/>
-
                     <button type="submit" class="search-btn-custom">
                         Tìm kiếm
                     </button>
                 </form>
-
             </div>
-                           
+
             <c:if test="${not empty requestScope.message}">
                 <div class="search-error-msg">
                     ${requestScope.message}
@@ -72,11 +68,10 @@
             </c:if>
         </div>
 
-        <div class="product-list">
+        <div class="main-container">
 
             <div class="sidebar">
                 <h3 class="sidebar-title">Danh mục sản phẩm</h3>
-
                 <ul class="category-list"> 
                     <li>
                         <form action="MainController" method="GET">
@@ -86,7 +81,6 @@
                             </button>
                         </form>
                     </li>
-
                     <c:forEach items="${listCategory}" var="category">
                         <li>
                             <form action="MainController" method="GET">
@@ -99,51 +93,77 @@
                         </li>
                     </c:forEach>
                 </ul>
-            </div>
 
-            <c:forEach items="${listProduct}" var="product">
-                <div class="product">
-                    <a href="MainController?action=detail&productID=${product.productID}">
-                        <img src="${product.imageURL}" alt="${product.productName}" width="100%"/>
-                    </a>
-
-                    <a href="MainController?action=detail&productID=${product.productID}" style="text-decoration: none; color: black;">
-                        <h3>${product.productName}</h3>
-                    </a>
-                    <p>Giá: ${product.priceFormat} VNĐ</p>
-
-                    <%-- Nút Mua hàng gửi dữ liệu về AddToCartController --%>
-                    <form action="MainController" method="POST">
-                        <input type="hidden" name="productID" value="${product.productID}">
-                        <input type="hidden" name="productName" value="${product.productName}">
-                        <input type="hidden" name="price" value="${product.price}">
-                        <input type="hidden" name="action" value="addToCart">
-                        <button type="submit" class="search-btn-custom" style="width: 100%; border-radius: 5px; margin-top: 10px;">
-                            THÊM VÀO GIỎ
-                        </button>
-                    </form>
+                <div class="filter-box" style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 10px;">
+                    <h3 class="header-name" style="margin-left: 15px;">Lọc theo mức giá</h3>
+                    <ul class="category-list">
+                        <li>
+                            <a href="MainController?action=filterPrice&min=0&max=200000" class="menu-item" style="text-decoration: none;">
+                                🏷️ Dưới 200k
+                            </a>
+                        </li>
+                        <li>
+                            <a href="MainController?action=filterPrice&min=200000&max=500000" class="menu-item" style="text-decoration: none;">
+                                🏷️ Từ 200k - 500k
+                            </a>
+                        </li>
+                        <li>
+                            <a href="MainController?action=filterPrice&min=500000&max=1000000" class="menu-item" style="text-decoration: none;">
+                                🏷️ Từ 500k - 1 Triệu
+                            </a>
+                        </li>
+                        <li>
+                            <a href="MainController?action=filterPrice&min=1000000&max=50000000" class="menu-item" style="text-decoration: none;">
+                                🏷️ Trên 1 Triệu
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-            </c:forEach>
-        </div>
+            </div> <div class="product-grid">
+                <c:forEach items="${listProduct}" var="product">
+                    <div class="product">
+                        <a href="MainController?action=detail&productID=${product.productID}">
+                            <img src="${product.imageURL}" alt="${product.productName}" width="100%"/>
+                        </a>
 
-        <c:if test="${endPage > 1}">
+                        <a href="MainController?action=detail&productID=${product.productID}" style="text-decoration: none; color: black;">
+                            <h3>${product.productName}</h3>
+                        </a>
+                        <p>Giá: ${product.priceFormat} VNĐ</p>
+
+                        <%-- Nút Mua hàng --%>
+                        <form action="MainController" method="POST">
+                            <input type="hidden" name="productID" value="${product.productID}">
+                            <input type="hidden" name="productName" value="${product.productName}">
+                            <input type="hidden" name="price" value="${product.price}">
+                            <input type="hidden" name="action" value="addToCart">
+                            <button type="submit" class="search-btn-custom" style="width: 100%; border-radius: 5px; margin-top: 10px;">
+                                THÊM VÀO GIỎ
+                            </button>
+                        </form>
+                    </div>
+                </c:forEach>
+            </div> </div> <c:if test="${endPage > 1}">
             <div class="pagination">
                 <c:forEach begin="1" end="${endPage}" var="i">
-
                     <c:url var="pageUrl" value="MainController">
                         <c:param name="action" value="home"/>
                         <c:param name="indexPage" value="${i}"/>
-
                         <c:if test="${not empty catID}">
                             <c:param name="catID" value="${catID}"/>
                         </c:if>
-
                         <c:if test="${not empty brandID}">
                             <c:param name="brandID" value="${brandID}"/>
                         </c:if>
-
                         <c:if test="${not empty keyword}">
                             <c:param name="keyword" value="${keyword}"/>
+                        </c:if>
+                        <%-- Giữ tham số lọc giá --%>
+                        <c:if test="${not empty minPrice}">
+                            <c:param name="min" value="${minPrice}"/>
+                        </c:if>
+                        <c:if test="${not empty maxPrice}">
+                            <c:param name="max" value="${maxPrice}"/>
                         </c:if>
                     </c:url>
 
@@ -153,5 +173,6 @@
                 </c:forEach>
             </div>
         </c:if>
+
     </body>
 </html>

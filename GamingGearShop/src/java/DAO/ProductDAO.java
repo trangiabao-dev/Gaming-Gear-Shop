@@ -70,6 +70,12 @@ public class ProductDAO extends GenericDAO<ProductDTO> {
 
         return list.isEmpty() ? null : list.get(0);
     }
+    
+    // Lọc theo giá
+    public List<ProductDTO> getProductsByPriceRange(double min, double max){
+        String sql = "SELECT * FROM tblProducts WHERE status = 1 AND price BETWEEN ? AND ?";
+        return query(sql, min, max);
+    }
 
     // Đếm tổng số lượng sản phẩm - getCount()
     public int getTotalProduct() {

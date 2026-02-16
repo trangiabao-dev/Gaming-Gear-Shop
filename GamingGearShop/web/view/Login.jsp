@@ -52,8 +52,6 @@
                     ← Quay lại trang chủ
                 </a>
             </div>
-
         </div>
-
     </body>
 </html>

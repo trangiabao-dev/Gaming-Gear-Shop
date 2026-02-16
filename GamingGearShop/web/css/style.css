@@ -58,19 +58,30 @@ body {
     flex-wrap: wrap;
 }
 
+.product-grid {
+    flex-grow: 1;               /* Chiếm toàn bộ không gian còn lại bên phải */
+    display: flex;
+    flex-wrap: wrap;            /* Xuống dòng khi hết chỗ */
+    gap: 20px;                  /* Khoảng cách giữa các sản phẩm */
+    /* Bỏ justify-content: space-evenly cũ đi, dùng flex-start cho chuẩn */
+    justify-content: flex-start; 
+}
+
 .product {
+    /* Tính toán: (100% - khoảng cách) / số cột. Ví dụ chia 3 cột */
+    width: calc((100% - 40px) / 3); 
+    /* Hoặc giữ width cố định cũ của bạn cũng được, nhưng cách trên responsive hơn */
+    min-width: 250px; 
+    
+    background: white;
     border: 1px solid #ddd;
     border-radius: 8px;
-    width: 250px;
     padding: 15px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    background: white;
-    margin-top: 15px;
-    
-    /* THÊM 2 DÒNG DƯỚI ĐÂY ĐỂ TẠO HIỆU ỨNG ĐỘNG */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    box-sizing: border-box; /* Đảm bảo padding không làm vỡ khung */
 }
 
 .product:hover {
@@ -93,20 +104,25 @@ body {
     -webkit-box-orient: vertical;
 }
 
-
+.main-container {
+    display: flex;              /* Kích hoạt Flexbox */
+    max-width: 1200px;          /* Giới hạn chiều rộng web cho chuẩn */
+    margin: 20px auto;          /* Căn giữa màn hình */
+    align-items: flex-start;    /* QUAN TRỌNG: Để Sidebar không bị kéo dãn chiều cao */
+    gap: 30px;                  /* Khoảng cách giữa Sidebar và Sản phẩm */
+    padding: 0 15px;            /* Cách lề 2 bên một chút cho đẹp */
+}
 
 /* Sidebar & Menu */
 .sidebar {
-    width: 264px;
-    height: 392px;
+    width: 270px;               /* Cố định chiều rộng sidebar */
+    flex-shrink: 0;             /* Không cho sidebar bị co lại khi màn hình nhỏ */
+    /* Giữ nguyên các style cũ của bạn bên trong class này (màu nền, border...) */
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-    padding: 0;
     overflow: hidden;
-    flex-shrink: 0;
-    margin-top: 15px;
 }
 
 .sidebar-title {
@@ -141,6 +157,9 @@ body {
     transition: all 0.2s ease-in-out;
     display: flex;
     align-items: center;
+    
+    box-sizing: border-box; 
+    display: block;
 }
 
 .menu-item i {
@@ -765,4 +784,35 @@ body {
 .no-feedback-sub {
     font-size: 14px;
     color: #aaa;
+}
+
+
+/* --- Style cho Khung Lọc Giá --- */
+.filter-box {
+    background-color: #fff;
+    /* Bỏ border-radius và shadow đi vì nó nằm trong sidebar rồi, 
+       hoặc giữ lại nếu bạn muốn nó là hộp riêng nằm trong sidebar */
+    padding: 0 20px; /* Canh lề trái phải */
+    margin-top: 25px;
+    border-top: 1px solid #eee; /* Gạch ngang phân cách với danh mục trên */
+    padding-top: 20px;
+}
+
+.filter-box .header-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ff4d4d;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* Giữ nguyên hiệu ứng hover đẹp của bạn */
+.category-list li a:hover {
+    background-color: #fff0f0;
+    color: #d0011b;
+    border-color: #ffcccc;
+    transform: translateX(5px);
+    font-weight: 600;
 }
