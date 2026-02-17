@@ -69,7 +69,6 @@
         </div>
 
         <div class="main-container">
-
             <div class="sidebar">
                 <h3 class="sidebar-title">Danh mục sản phẩm</h3>
                 <ul class="category-list"> 
@@ -119,7 +118,27 @@
                         </li>
                     </ul>
                 </div>
-            </div> <div class="product-grid">
+                
+                <div class="filter-box" style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 10px;">
+                <h3 class="header-name" style="margin-left: 15px;">Thương hiệu</h3>
+                <ul class="category-list">
+                    <c:forEach items="${listBrand}" var="brand">
+                        <li>
+                            <form action="MainController" method="GET">
+                                <input type="hidden" name="action" value="home"/>
+                                <input type="hidden" name="brandID" value="${brand.brandID}" />
+
+                                <button type="submit" class="menu-item">
+                                    ${brand.brandName}
+                                </button>
+                            </form>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+            </div>
+            
+            <div class="product-grid">
                 <c:forEach items="${listProduct}" var="product">
                     <div class="product">
                         <a href="MainController?action=detail&productID=${product.productID}">
@@ -143,7 +162,9 @@
                         </form>
                     </div>
                 </c:forEach>
-            </div> </div> <c:if test="${endPage > 1}">
+            </div> 
+        </div> 
+        <c:if test="${endPage > 1}">
             <div class="pagination">
                 <c:forEach begin="1" end="${endPage}" var="i">
                     <c:url var="pageUrl" value="MainController">
@@ -173,6 +194,5 @@
                 </c:forEach>
             </div>
         </c:if>
-
     </body>
 </html>

@@ -105,7 +105,7 @@ public class HomeController extends HttpServlet {
             request.setAttribute("catID", catID);
             request.setAttribute("brandID", brandID);
             request.setAttribute("keyword", keyword);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             e.printStackTrace();
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
