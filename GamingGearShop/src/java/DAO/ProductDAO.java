@@ -8,7 +8,7 @@ import java.util.List;
 public class ProductDAO extends GenericDAO<ProductDTO> {
 
     @Override
-    public ProductDTO mapRow(ResultSet rs) {
+    protected ProductDTO mapRow(ResultSet rs) {
         try {
             System.out.println("Dang map san pham: " + rs.getString("productID"));
             return new ProductDTO(

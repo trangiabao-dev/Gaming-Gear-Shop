@@ -8,7 +8,7 @@ import java.util.List;
 public class CategoryDAO extends GenericDAO<CategoryDTO>{
 
     @Override
-    public CategoryDTO mapRow(ResultSet rs) {
+    protected CategoryDTO mapRow(ResultSet rs) {
         try{
             return new CategoryDTO(
                     rs.getString("catID"),

@@ -11,7 +11,7 @@ import java.util.List;
 public class FeedbackDAO extends GenericDAO<FeedbackDTO> {
 
     @Override
-    public FeedbackDTO mapRow(ResultSet rs) {
+    protected FeedbackDTO mapRow(ResultSet rs) {
         try {
             return new FeedbackDTO(
                     rs.getInt("feedID"),

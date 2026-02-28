@@ -13,9 +13,9 @@ import utils.dbutils;
 
 public abstract class GenericDAO<T> {
 
-    public abstract T mapRow(ResultSet rs);
+    protected abstract T mapRow(ResultSet rs);
 
-    public List<T> query(String sql, Object... params) {
+    protected List<T> query(String sql, Object... params) {
         List<T> list = new ArrayList<>();
 
         try ( Connection conn = dbutils.getConnection();  PreparedStatement pst = conn.prepareStatement(sql)) {
