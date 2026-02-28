@@ -111,7 +111,7 @@ public class UserDAO {
             if (conn != null) {
                 // SỬA CÂU SQL: Thêm cột status và gán cứng là 1 (True) để tài khoản Active ngay
                 String sql = "INSERT INTO tblUsers(userID, fullName, password, roleID, status, address, phone) "
-                        + "VALUES(?,?,?,?,1,'','')";
+                        + "VALUES(?,?,?,?,1,?,?)";
                 // Lưu ý: 1 là True. address và phone tạm thời để trống ('')
 
                 pstm = conn.prepareStatement(sql);
@@ -119,6 +119,8 @@ public class UserDAO {
                 pstm.setString(2, user.getFullName());
                 pstm.setString(3, user.getPassword());
                 pstm.setInt(4, user.getRoleID()); // Lúc này roleID sẽ là "2"
+                pstm.setString(5, user.getAddress()); // Nạp địa chỉ vào dấu ? thứ 5
+                pstm.setString(6, user.getPhone());
 
                 check = pstm.executeUpdate() > 0;
             }

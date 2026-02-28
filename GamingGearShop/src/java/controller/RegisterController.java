@@ -48,6 +48,8 @@ public class RegisterController extends HttpServlet {
             String fullName = request.getParameter("fullName");
             String password = request.getParameter("password");
             String confirm = request.getParameter("confirm");
+            String phone = request.getParameter("phone");
+            String address = request.getParameter("address");
 
             String errorMsg = "";
             boolean foundError = false;
@@ -57,44 +59,50 @@ public class RegisterController extends HttpServlet {
             if (userID == null || userID.trim().isEmpty() || userID.length() > 50) {
                 foundError = true;
                 errorMsg = "ID không được để trống và tối đa 50 ký tự!";
-                
-            }else if(fullName == null || fullName.trim().isEmpty() || fullName.length() > 50) {
+
+            } else if (fullName == null || fullName.trim().isEmpty() || fullName.length() > 50) {
                 foundError = true;
                 errorMsg = "Họ tên không được để trống và tối đa 50 ký tự!";
-                
-            }else if (password == null || password.trim().isEmpty() || password.length() > 50) {
+
+            } else if (password == null || password.trim().isEmpty() || password.length() > 50) {
                 foundError = true;
                 errorMsg = "Mật khẩu không được để trống và tối đa 50 ký tự!";
-                
-            }else if(!password.equals(confirm)) {    // Kiểm tra khớp mật khẩu
+
+            } else if (!password.equals(confirm)) {    // Kiểm tra khớp mật khẩu
                 foundError = true;
                 errorMsg = "Xác nhận mật khẩu không khớp!";
-                
-            }else if(dao.checkDuplicate(userID)) {   // Kiểm tra trùng ID
+
+            } else if (phone == null || phone.trim().isEmpty()) { // Kiểm tra SĐT
+                foundError = true;
+                errorMsg = "Số điện thoại không được để trống!";
+            } else if (address == null || address.trim().isEmpty()) { // Kiểm tra Địa chỉ
+                foundError = true;
+                errorMsg = "Địa chỉ không được để trống!";
+            } else if (dao.checkDuplicate(userID)) {   // Kiểm tra trùng ID
                 foundError = true;
                 errorMsg = "ID '" + userID + "' đã tồn tại!";
             }
 
             // 3. XỬ LÝ LOGIC DỰA TRÊN KẾT QUẢ KIỂM TRA
-            if(foundError){
+            if (foundError) {
                 request.setAttribute(ERROR, errorMsg);
-            }else{
+            } else {
                 // Dữ liệu hợp lệ -> Tiến hành lưu vào Database
-                UserDTO newUser = new UserDTO(userID, fullName, DEFAULT_ROLE, password);
+               UserDTO newUser = new UserDTO(userID, fullName, password, 2, address, phone, true);
                 boolean checkInsert = dao.insert(newUser);
 
-                if(checkInsert) {
+                if (checkInsert) {
                     url = URL.PAGE_LOGIN;
                     request.setAttribute(SUCCESS, "Đăng ký thành công!");
-                }else{
+                } else {
                     url = URL.PAGE_ERROR;
                     request.setAttribute(ERROR, "Lỗi hệ thống! Không thể tạo tài khoản.");
                 }
             }
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             log("Error at RegisterController: " + e.toString());
             e.printStackTrace();
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
 
