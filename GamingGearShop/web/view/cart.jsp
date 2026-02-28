@@ -85,7 +85,10 @@
 
                     <%-- Nút đặt hàng --%>
                     <a href="MainController?action=CheckOut" class="btn-header" 
+
                        style="background-color: #28a745; color: white; border: none; cursor: pointer;">
+
+                       style="background-image: linear-gradient(rgb(228, 84, 100) 0%, rgb(215, 0, 24) 100%); color: white;">
                         XÁC NHẬN ĐẶT HÀNG
                     </a>
 
