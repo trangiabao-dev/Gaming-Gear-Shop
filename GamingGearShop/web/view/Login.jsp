@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Đăng Nhập - Gaming Gear Shop</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css">
+        <link href="css/auth.css" rel="stylesheet">
     </head>
     <body>
 
