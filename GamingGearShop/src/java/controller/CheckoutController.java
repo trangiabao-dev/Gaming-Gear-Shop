@@ -29,15 +29,14 @@ public class CheckoutController extends HttpServlet {
             HttpSession session = request.getSession(false);
             if (session != null) {
                 UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
-                Cart cart = (Cart) session.getAttribute("CART");
+                Cart cart = (Cart) session.getAttribute("cart");
 
                 // 1. Kiểm tra: Chưa đăng nhập thì về Login
                 if (user == null) {
-                    url = "login.jsp"; 
-                } 
-                // 2. Kiểm tra: Giỏ hàng phải tồn tại VÀ KHÔNG RỖNG (Quan trọng!)
+                    url = utils.URL.PAGE_LOGIN;
+                } // 2. Kiểm tra: Giỏ hàng phải tồn tại VÀ KHÔNG RỖNG (Quan trọng!)
                 else if (cart != null && !cart.getCart().isEmpty()) {
-                    
+
                     // Tính tổng tiền
                     double total = 0;
                     for (ProductDTO item : cart.getCart().values()) {
@@ -47,24 +46,25 @@ public class CheckoutController extends HttpServlet {
                     // Gọi DAO lưu vào SQL
                     OrderDAO dao = new OrderDAO();
                     // OrderID để 0 vì trong SQL tự tăng (Identity)
-                    OrderDTO order = new OrderDTO(0, null, total, user.getUserID(), 1); 
-                    
+                    OrderDTO order = new OrderDTO(0, null, total, user.getUserID(), 1);
+
                     boolean check = dao.checkOut(order, cart);
 
                     if (check) {
-                        session.removeAttribute("CART"); // Xóa giỏ hàng sau khi mua xong
-                        url = "MainController?action=home&msg=Success";
+                        // 1. Nếu thành công: Xóa giỏ và báo Success
+                        session.removeAttribute("cart");
+                        url = "MainController?action=viewCart&msg=Success";
                     } else {
-                        // Nếu lỗi DAO (ví dụ hết hàng)
-                        request.setAttribute("ERROR_MSG", "Thanh toán thất bại! Có thể do lỗi hệ thống.");
-                        url = "MainController?action=viewCart"; 
+                        // 2. Nếu thất bại (lỗi SQL, hết hàng...): Giữ nguyên giỏ và báo Error
+                        // Không xóa session cart ở đây
+                        url = "MainController?action=viewCart&msg=Error";
                     }
                 } else {
                     // Nếu giỏ hàng rỗng
                     url = "MainController?action=viewCart&msg=Empty";
                 }
             } else {
-                 url = "login.jsp";
+                url = "login.jsp";
             }
         } catch (Exception e) {
             log("Error at CheckoutController: " + e.toString());
@@ -73,6 +73,7 @@ public class CheckoutController extends HttpServlet {
             response.sendRedirect(url);
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

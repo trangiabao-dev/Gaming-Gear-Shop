@@ -14,7 +14,7 @@
         <div class="banner"> 
             <h1>Gaming Gear Shop</h1>
             <p>Giỏ hàng của bạn</p>
-            
+
             <div class="header-action-group">
                 <a href="MainController?action=home" class="btn-header-custom"> 
                     Tiếp tục mua sắm
@@ -23,8 +23,19 @@
         </div>
 
         <div class="cart-container">
-            <%-- Trường hợp giỏ hàng trống --%>
-            <c:if test="${empty requestScope.CART_ITEMS}">
+
+            <%-- TRƯỜNG HỢP 1: THANH TOÁN THÀNH CÔNG (Giỏ hàng đã bị xóa) --%>
+            <c:if test="${requestScope.PAYMENT_STATUS == 'SUCCESS'}">
+                <div style="text-align: center; padding: 50px;">
+                    <div style="font-size: 60px; margin-bottom: 20px;">🎉</div>
+                    <h2 style="color: #28a745; text-transform: uppercase;">THANH TOÁN THÀNH CÔNG!</h2>
+                    <p style="color: #555; font-size: 16px;">Cảm ơn bạn đã mua sắm tại Gaming Gear Shop.</p>
+                    <br>Thanh 
+                </div>
+            </c:if>
+
+            <%-- TRƯỜNG HỢP 2: GIỎ HÀNG TRỐNG (Và KHÔNG phải vừa mua xong) --%>
+            <c:if test="${empty requestScope.CART_ITEMS && requestScope.PAYMENT_STATUS != 'SUCCESS'}">
                 <div style="text-align: center; padding: 50px;">
                     <h2 style="color: #555;">Giỏ hàng của bạn đang trống!</h2>
                     <br>
@@ -32,7 +43,7 @@
                 </div>
             </c:if>
 
-            <%-- Trường hợp có hàng --%>
+            <%-- TRƯỜNG HỢP 3: CÓ SẢN PHẨM (Hiện bảng + Nút thanh toán) --%>
             <c:if test="${not empty requestScope.CART_ITEMS}">
                 <table class="cart-table">
                     <thead>
@@ -64,7 +75,6 @@
                                     </a>
                                 </td>
                             </tr>
-                            <%-- Tính tổng tiền --%>
                             <c:set var="total" value="${total + (item.price * item.quantity)}" />
                         </c:forEach>
                     </tbody>
@@ -72,12 +82,21 @@
 
                 <div class="total-section">
                     <h2>Tổng tiền: <span style="color: #d0011b;">${total} VNĐ</span></h2>
-                    
+
                     <%-- Nút đặt hàng --%>
                     <a href="MainController?action=CheckOut" class="btn-header" 
-                       style="background-color: #28a745; color: white; border: none;">
+                       style="background-color: #28a745; color: white; border: none; cursor: pointer;">
                         XÁC NHẬN ĐẶT HÀNG
                     </a>
+
+                    <%-- === THÔNG BÁO LỖI NẰM NGAY DƯỚI NÚT ĐẶT HÀNG === --%>
+                    <c:if test="${requestScope.PAYMENT_STATUS == 'ERROR'}">
+                        <div style="margin-top: 15px; padding: 10px; border: 1px solid red; background-color: #ffe6e6; color: red; border-radius: 5px; display: inline-block;">
+                            ⚠️ Thanh toán thất bại! Vui lòng kiểm tra lại hoặc thử lại sau.
+                        </div>
+                    </c:if>
+                    <%-- =============================================== --%>
+
                 </div>
             </c:if>
         </div>

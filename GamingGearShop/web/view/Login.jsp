@@ -9,32 +9,25 @@
     </head>
 
     <body> 
-        <div style="text-align: center; margin-top: 40px;">
-            <a href="${pageContext.request.contextPath}/MainController" style="text-decoration: none;">
-                <h1 style="color: #d0011b; margin: 0; font-family: sans-serif;">
-                    Gaming <span>Gear</span> Shop
-                </h1>
-            </a>
+        <div class="banner">
+            <h1>Gaming Gear Shop</h1>
+            <p>Chuyên chuột, bàn phím, tai nghe chính hãng</p>
         </div>
 
         <div class="login-box">
 
             <h2>Đăng Nhập</h2>
 
-            <c:if test="${not empty requestScope.ERROR}">
-                <div style="color: red; text-align: center; font-weight: bold; margin-bottom: 15px;">
-                    ${requestScope.ERROR}
-                </div>
-            </c:if>
-
             <form action="${pageContext.request.contextPath}/LoginController" method="POST">
-                
+
                 <div class="form-group">
                     <label>Tên đăng nhập</label>
                     <input type="text" name="userID" class="form-control" 
                            placeholder="Nhập ID..." 
                            value="${param.userID}" 
-                           required>
+                           required
+                           oninvalid="this.setCustomValidity('Mật khẩu không được để trống!')" 
+                           oninput="this.setCustomValidity('')">
                 </div>
 
                 <div class="form-group">
@@ -45,7 +38,7 @@
                 </div>
 
                 <button type="submit" class="btn-submit">ĐĂNG NHẬP NGAY</button>
-            
+
             </form>
             <div style="margin-top: 20px; text-align: center;">
                 <a href="${pageContext.request.contextPath}/MainController" class="back-link">

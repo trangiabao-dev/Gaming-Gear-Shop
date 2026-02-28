@@ -49,6 +49,9 @@ public class MainController extends HttpServlet {
                 case "addToCart":
                     url = URL.ADDTOCART_CONTROLLER;
                     break;
+                case "Remove":
+                    url = URL.REMOVE_FROM_CART_CONTROLLER;
+                    break;
                 case "CheckOut":
                     url = URL.CHECKOUT_CONTROLLER;
                     break;

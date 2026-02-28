@@ -22,6 +22,7 @@ public class URL {
     public static final String DETAIL_CONTROLLER = "DetailController";
     public static final String ADD_FEED_BACK_CONTROLLER = "AddFeedbackController";
     public static final String FILTER_PRICE_CONTROLLER = "FilterPriceController";
+    public static final String REMOVE_FROM_CART_CONTROLLER = "RemoveFromCartController";
             
     public static final String PROCESS_HOME = "MainController?action=home";
 }

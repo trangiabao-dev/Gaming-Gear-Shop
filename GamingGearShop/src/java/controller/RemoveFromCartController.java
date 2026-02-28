@@ -12,13 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import utils.URL;
 
 /**
  *
  * @author thinh
  */
-public class ViewCartController extends HttpServlet {
+public class RemoveFromCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,32 +28,27 @@ public class ViewCartController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = URL.PAGE_CART;
         try {
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                Cart cart = (Cart) session.getAttribute("cart");
-                if (cart != null) {
-                    request.setAttribute("CART_ITEMS", cart.getCart().values());
-                }
-            }
+            // 1. Lấy ID sản phẩm cần xóa từ link
+            String productID = request.getParameter("productID");
+            
+            // 2. Lấy giỏ hàng từ Session
+            HttpSession session = request.getSession();
+            Cart cart = (Cart) session.getAttribute("cart");
 
-           
-            String msg = request.getParameter("msg");
-            if ("Success".equals(msg)) {
-                request.setAttribute("PAYMENT_STATUS", "SUCCESS"); // Đánh dấu thành công
-            } else if ("Error".equals(msg)) {
-                request.setAttribute("PAYMENT_STATUS", "ERROR");   // Đánh dấu thất bại
+            // 3. Thực hiện xóa
+            if (cart != null && productID != null) {
+                cart.delete(productID); // Gọi hàm delete bạn đã viết trong Model
+                session.setAttribute("cart", cart); // Cập nhật lại session
             }
-            // --- KẾT THÚC ĐOẠN MỚI THÊM ---
-
         } catch (Exception e) {
-            log("Error at ViewCartController: " + e.toString());
+            log("Error at RemoveFromCartController: " + e.toString());
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            // 4. Xóa xong thì quay lại trang xem giỏ hàng
+            response.sendRedirect("MainController?action=viewCart");
         }
     }
 
