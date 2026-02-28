@@ -8,7 +8,7 @@
         <%-- Link font và css chung của Thịnh --%>
         <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&display=swap" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
-    </head>
+    </head>detail.
     <body>
         <%-- Header Banner dùng lại class chung --%>
         <div class="banner"> 

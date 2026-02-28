@@ -3,48 +3,66 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Đăng Nhập - Gaming Gear Shop</title>
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css">
     </head>
+    <body>
 
-    <body> 
-        <div class="banner">
-            <h1>Gaming Gear Shop</h1>
-            <p>Chuyên chuột, bàn phím, tai nghe chính hãng</p>
-        </div>
+        <div class="auth-wrapper">
+            <div class="auth-container">
 
-        <div class="login-box">
-
-            <h2>Đăng Nhập</h2>
-
-            <form action="${pageContext.request.contextPath}/LoginController" method="POST">
-
-                <div class="form-group">
-                    <label>Tên đăng nhập</label>
-                    <input type="text" name="userID" class="form-control" 
-                           placeholder="Nhập ID..." 
-                           value="${param.userID}" 
-                           required
-                           oninvalid="this.setCustomValidity('Mật khẩu không được để trống!')" 
-                           oninput="this.setCustomValidity('')">
+                <div class="auth-left">
+                    <h1 class="brand-glow">Gaming Gear Shop</h1>
+                    <p class="brand-desc">
+                        🚀 Bứt phá hiệu năng. Làm chủ mọi trận đấu.<br><br>
+                        Trang bị thiết bị gaming cao cấp dành cho game thủ thực thụ.
+                    </p>
                 </div>
 
-                <div class="form-group">
-                    <label>Mật khẩu</label>
-                    <input type="password" name="password" class="form-control" 
-                           placeholder="Nhập mật khẩu..." required>
-                    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+                <div class="auth-right">
+
+                    <h2>Đăng Nhập</h2>
+
+                    <form action="${pageContext.request.contextPath}/MainController" method="post">
+                        <input type="hidden" name="action" value="login" />
+
+                        <div class="form-group">
+                            <label>Tài khoản</label>
+                            <input type="text" name="userID" required placeholder="Nhập tên đăng nhập..." required
+                                   oninvalid="this.setCustomValidity('Vui lòng nhập Tên Đăng Nhập!')" 
+                                   oninput="this.setCustomValidity('')"/><br/>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Mật khẩu</label>
+                            <input type="password" name="password" required placeholder="Nhập mật khẩu..." 
+                                   oninvalid="this.setCustomValidity('Vui lòng nhập mật khẩu!')" 
+                                   oninput="this.setCustomValidity('')"/><br/>
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            ĐĂNG NHẬP
+                        </button>
+                    </form>
+
+                    <div class="auth-extra">
+                        Chưa có tài khoản?
+                        <a href="${pageContext.request.contextPath}/MainController?action=register">
+                            Đăng ký
+                        </a>
+                    </div>
+
+                    <div class="auth-home">
+                        <a href="${pageContext.request.contextPath}/MainController?action=home" class="home-link">
+                            ← Quay về Trang chủ
+                        </a>
+                    </div>
+
                 </div>
-
-                <button type="submit" class="btn-submit">ĐĂNG NHẬP NGAY</button>
-
-            </form>
-            <div style="margin-top: 20px; text-align: center;">
-                <a href="${pageContext.request.contextPath}/MainController" class="back-link">
-                    ← Quay lại trang chủ
-                </a>
             </div>
         </div>
+
     </body>
 </html>
