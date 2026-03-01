@@ -1,85 +1,104 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="vi">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Đăng Ký - Gaming Gear Shop</title>
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+        <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/auth.css" rel="stylesheet">
     </head>
+    
+    <body class="auth-page">
 
-    <body> 
-        <div class="banner">
-            <h1>Gaming Gear Shop</h1>
-            <p>Chuyên chuột, bàn phím, tai nghe chính hãng</p>
-        </div>
+        <div class="auth-wrapper">
+            <div class="auth-container wide-container">
 
-        <div class="login-box" style="margin-top: 20px;"> <h2>Đăng Ký Tài Khoản</h2>
-
-
-
-            <form action="${pageContext.request.contextPath}/MainController" method="POST">
-
-                <div class="form-group">
-                    <label>Tên đăng nhập</label>
-                    <input type="text" name="userID" class="form-control" 
-                           placeholder="Nhập ID muốn tạo..." 
-                           value="${param.userID}" 
-                           required>
-                </div>
-                <div class="form-group">
-                    <label>Mật khẩu</label>
-                    <input type="password" name="password" class="form-control" 
-                           placeholder="Nhập mật khẩu..." required>
+                <div class="auth-left">
+                    <h1 class="brand-glow">Gaming Gear Shop</h1>
+                    <p class="brand-desc">
+                        🚀 Gia nhập cộng đồng Game thủ đỉnh cao.<br><br>
+                        Tạo tài khoản ngay hôm nay để nhận các ưu đãi độc quyền và theo dõi đơn hàng dễ dàng.
+                    </p>
                 </div>
 
-                <div class="form-group">
-                    <label>Xác nhận mật khẩu</label>
-                    <input type="password" name="confirm" class="form-control" 
-                           placeholder="Nhập lại mật khẩu khớp ở trên..." required>
+                <div class="auth-right">
+
+                    <h2>Đăng Ký</h2>
+
+                    <form action="${pageContext.request.contextPath}/MainController" method="post">
+                        <input type="hidden" name="action" value="register" />
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Tên đăng nhập</label>
+                                <input type="text" name="userID" required placeholder="Nhập ID..." value="${param.userID}"
+                                       oninvalid="this.setCustomValidity('Vui lòng nhập ID đăng nhập!')" 
+                                       oninput="this.setCustomValidity('')">
+                            </div>
+                            <div class="form-group">
+                                <label>Họ và tên</label>
+                                <input type="text" name="fullName" required placeholder="Họ tên đầy đủ..." value="${param.fullName}"
+                                       oninvalid="this.setCustomValidity('Vui lòng nhập Họ và tên!')" 
+                                       oninput="this.setCustomValidity('')">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Mật khẩu</label>
+                                <input type="password" name="password" required placeholder="Nhập mật khẩu..."
+                                       oninvalid="this.setCustomValidity('Vui lòng nhập mật khẩu!')" 
+                                       oninput="this.setCustomValidity('')">
+                            </div>
+                            <div class="form-group">
+                                <label>Xác nhận mật khẩu</label>
+                                <input type="password" name="confirm" required placeholder="Nhập lại mật khẩu..."
+                                       oninvalid="this.setCustomValidity('Vui lòng xác nhận mật khẩu!')" 
+                                       oninput="this.setCustomValidity('')">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="tel" name="phone" required placeholder="Nhập số điện thoại (10 số)..." value="${param.phone}"
+                                       pattern="[0-9]{10}" title="Số điện thoại phải gồm đúng 10 chữ số"
+                                       oninvalid="this.setCustomValidity('Vui lòng nhập đúng định dạng 10 số!')" 
+                                       oninput="this.setCustomValidity('')">
+                            </div>
+                            <div class="form-group">
+                                <label>Địa chỉ nhận hàng</label>
+                                <input type="text" name="address" required placeholder="Nhập địa chỉ chi tiết..." value="${param.address}"
+                                       oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ nhận hàng!')" 
+                                       oninput="this.setCustomValidity('')">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            TẠO TÀI KHOẢN
+                        </button>
+                    </form>
+
+                    <div class="auth-extra">
+                        Đã có tài khoản?
+                        <a href="${pageContext.request.contextPath}/MainController?action=login">Đăng nhập tại đây</a>
+                    </div>
+
+                    <div class="auth-home">
+                        <a href="${pageContext.request.contextPath}/MainController?action=home" class="home-link">
+                            ← Quay về Trang chủ
+                        </a>
+                    </div>
+
                 </div>
-
-                <div class="form-group">
-                    <label>Họ và tên</label>
-                    <input type="text" name="fullName" class="form-control" 
-                           placeholder="Nhập họ tên đầy đủ..." 
-                           value="${param.fullName}" 
-                           required>
-                </div>
-
-                <div class="form-group">
-                    <label>Số điện thoại</label>
-                    <input type="tel" name="phone" class="form-control" 
-                           placeholder="Nhập số điện thoại (10 số)..." 
-                           value="${param.phone}" 
-                           pattern="[0-9]{10}" 
-                           title="Số điện thoại phải gồm 10 chữ số"
-                           required>
-                </div>
-
-                <div class="form-group">
-                    <label>Địa chỉ nhận hàng</label>
-                    <input type="text" name="address" class="form-control" 
-                           placeholder="Nhập địa chỉ chi tiết..." 
-                           value="${param.address}" 
-                           required>
-                </div>
-
-                <input type="hidden" name="action" value="register"/>
-
-                <button type="submit" class="btn-submit">ĐĂNG KÝ NGAY</button>
-
-            </form>
-
-            <div style="margin-top: 20px; text-align: center;">
-                <span style="color: #666;">Đã có tài khoản? </span>
-                <a href="${pageContext.request.contextPath}/MainController?action=login" 
-                   style="color: #d0011b; text-decoration: none; font-weight: bold;">
-                    Đăng nhập tại đây
-                </a>
             </div>
-
         </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

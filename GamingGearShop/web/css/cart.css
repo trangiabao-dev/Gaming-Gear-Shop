@@ -1,0 +1,190 @@
+/* ==================================================== */
+/* 🛒 CART STYLE - TRANG GIỎ HÀNG                       */
+/* ==================================================== */
+
+.cart-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 20px 60px 20px;
+}
+
+.cart-box {
+    background-color: #ffffff;
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.04);
+}
+
+/* ==================================================== */
+/* BẢNG GIỎ HÀNG (TABLE)                                */
+/* ==================================================== */
+.cart-table-wrapper {
+    overflow-x: auto; /* Tránh vỡ bảng trên điện thoại */
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.cart-table th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    padding: 18px 20px;
+    text-align: left;
+}
+
+/* Bo góc cho hàng tiêu đề của bảng */
+.cart-table th:first-child { border-radius: 16px 0 0 16px; }
+.cart-table th:last-child { border-radius: 0 16px 16px 0; text-align: center; }
+
+.cart-table td {
+    padding: 20px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+    color: #1e293b;
+    font-weight: 600;
+}
+.cart-table tr:last-child td { border-bottom: none; }
+
+.product-name-col {
+    font-weight: 800 !important;
+    color: #0f172a;
+    font-size: 1.05rem;
+}
+
+.price-col { color: #64748b; }
+.total-col { color: #d70018; font-weight: 800; font-size: 1.1rem; }
+.action-col { text-align: center; }
+
+.quantity-badge {
+    background: #f1f5f9;
+    padding: 6px 15px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+/* Nút xóa (Thùng rác) */
+.btn-remove {
+    display: inline-flex; justify-content: center; align-items: center;
+    width: 40px; height: 40px; border-radius: 50%;
+    background-color: #fee2e2; color: #d70018;
+    transition: 0.2s; text-decoration: none; font-size: 1.1rem;
+}
+.btn-remove:hover {
+    background-color: #d70018; color: #ffffff;
+    transform: scale(1.1);
+}
+
+/* ==================================================== */
+/* KHỐI THANH TOÁN (TỔNG TIỀN)                          */
+/* ==================================================== */
+.cart-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8fafc;
+    padding: 30px 40px;
+    border-radius: 20px;
+    margin-top: 30px;
+}
+
+.summary-text h3 {
+    margin: 0; color: #475569; font-size: 1.2rem; font-weight: 600;
+}
+
+.final-price {
+    color: #d70018; font-size: 2.2rem; font-weight: 900; line-height: 1.2;
+}
+
+.btn-checkout {
+    padding: 16px 40px; border-radius: 50px; border: none;
+    background-image: linear-gradient(135deg, rgb(228, 84, 100) 0%, rgb(215, 0, 24) 100%);
+    color: white; font-weight: 800; font-size: 1.1rem; text-transform: uppercase;
+    cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 20px rgba(215,0,24,0.25);
+    text-decoration: none; display: inline-block;
+}
+.btn-checkout:hover {
+    transform: translateY(-3px); box-shadow: 0 12px 25px rgba(215,0,24,0.35); color: white;
+}
+
+/* ==================================================== */
+/* TRẠNG THÁI TRỐNG & THÀNH CÔNG                        */
+/* ==================================================== */
+.status-box {
+    text-align: center; padding: 60px 20px;
+}
+.status-icon {
+    font-size: 5rem; margin-bottom: 15px;
+}
+.status-icon.success { color: #10b981; } /* Xanh lá */
+.status-icon.empty { color: #cbd5e1; }   /* Xám nhạt */
+
+.status-title {
+    font-size: 2rem; font-weight: 900; color: #0f172a; margin-bottom: 15px; text-transform: uppercase;
+}
+.status-desc {
+    color: #64748b; font-size: 1.1rem; margin-bottom: 30px; font-weight: 500;
+}
+
+/* Nút Tiếp tục mua sắm */
+.btn-continue {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 25px; border-radius: 50px; 
+    background-color: #ffffff; color: #475569;
+    font-weight: 700; text-decoration: none; transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+.btn-continue:hover {
+    background-color: #d70018; color: white; transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(215,0,24,0.2);
+}
+
+/* ==================================================== */
+/* CÁC CLASS PHỤ TRỢ (Để code JSP sạch 100% không dùng style) */
+/* ==================================================== */
+
+/* Nền mờ cho nút Giỏ hàng trên Navbar để báo hiệu đang ở trang này */
+.action-btn.active-nav {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Màu xanh lá cho chữ Thành Công */
+.status-title.text-success-custom {
+    color: #10b981;
+}
+
+/* Tiêu đề "Giỏ Hàng Của Bạn" */
+.cart-header-title {
+    font-weight: 900; 
+    color: #0f172a;
+}
+
+/* Thông báo lỗi thanh toán */
+.cart-error-msg {
+    background-color: #fee2e2; 
+    color: #d70018; 
+    font-weight: 600; 
+    font-size: 0.9rem;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* ==================================================== */
+/* FIX LỖI NAVBAR (THANH TÌM KIẾM & NÚT BẤM)            */
+/* ==================================================== */
+
+/* Giới hạn độ rộng thanh tìm kiếm để không chèn ép các nút khác */
+.max-w-500 {
+    max-width: 500px !important;
+}
+
+/* Ép các nút (Giỏ hàng, Tài khoản) luôn nằm trên 1 dòng ngang, tuyệt đối không rớt chữ */
+.action-btn {
+    white-space: nowrap !important;
+}

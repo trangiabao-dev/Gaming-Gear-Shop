@@ -2,31 +2,31 @@
 /* 🔑 AUTH STYLE - GIAO DIỆN ĐĂNG NHẬP / ĐĂNG KÝ SPLIT  */
 /* ==================================================== */
 
-/* 1. IMPORT PHÔNG CHỮ CAO CẤP MONTSERRAT */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* 2. ÉP TẤT CẢ DÙNG PHÔNG MONTSERRAT */
     font-family: 'Montserrat', sans-serif;
 }
 
-body {
+body.auth-page {
     background: #f3f4f6;
+    padding-top: 0 !important;
 }
 
-/* WRAPPER */
 .auth-wrapper {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 40px 20px;
 }
 
-/* CONTAINER */
+/* ==================================================== */
+/* 1. KHUNG CHUẨN DÀNH CHO ĐĂNG NHẬP (LOGIN)            */
+/* ==================================================== */
 .auth-container {
     width: 100%;
     max-width: 1000px;
@@ -37,7 +37,6 @@ body {
     box-shadow: 0 30px 60px rgba(0,0,0,0.08);
 }
 
-/* LEFT SIDE */
 .auth-left {
     flex: 1;
     background: linear-gradient(135deg, #d70018, #ff4d4f);
@@ -48,18 +47,41 @@ body {
     justify-content: center;
 }
 
-/* ===== LOGO SÁNG LUÔN ===== */
+.auth-right {
+    flex: 1;
+    padding: 50px 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ==================================================== */
+/* 2. KHUNG MỞ RỘNG DÀNH CHO ĐĂNG KÝ (REGISTER)         */
+/* ==================================================== */
+.auth-container.wide-container {
+    max-width: 1200px;
+}
+
+.wide-container .auth-left {
+    flex: 1;
+}
+
+.wide-container .auth-right {
+    flex: 1.8;
+    padding: 50px;
+}
+
+/* ==================================================== */
+/* 3. CHI TIẾT CÁC THÀNH PHẦN BÊN TRONG                 */
+/* ==================================================== */
 .brand-glow {
-    font-size: 36px; /* Đã giảm từ 46px xuống 34px để vừa vặn hơn */
-    line-height: 1.3; /* Thêm độ giãn dòng để lỡ có rớt dòng nhìn vẫn đẹp */
+    font-size: 36px;
+    line-height: 1.3;
     font-weight: 900;
-    letter-spacing: -0.5px; /* Nới lỏng khoảng cách chữ ra một chút */
+    letter-spacing: -0.5px;
     margin-bottom: 20px;
     color: #ffffff;
-    text-shadow:
-        0 0 10px rgba(255,255,255,0.8),
-        0 0 20px rgba(255,255,255,0.6),
-        0 0 40px rgba(255,255,255,0.4);
+    text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.4);
 }
 
 .auth-left p {
@@ -69,25 +91,13 @@ body {
     opacity: 0.95;
 }
 
-/* RIGHT SIDE */
-.auth-right {
-    flex: 1;
-    padding: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-/* 🚀 THIẾT KẾ LẠI CHỮ "ĐĂNG NHẬP" ĐỈNH CAO */
 .auth-right h2 {
-    font-size: 32px; /* Chữ to rõ ràng */
-    font-weight: 900; /* Nét cực đậm */
-    text-transform: uppercase; /* In hoa toàn bộ cho sang */
-    letter-spacing: -1px; /* Ép khoảng cách chữ gần lại cho hiện đại */
-    margin-bottom: 28px;
-    text-align: center; /* Căn giữa hoàn hảo */
-    
-    /* Hiệu ứng màu Gradient Đỏ */
+    font-size: 32px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin-bottom: 25px;
+    text-align: center;
     background-image: linear-gradient(135deg, rgb(228, 84, 100) 0%, rgb(215, 0, 24) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -95,11 +105,17 @@ body {
     color: transparent;
 }
 
-/* FORM */
-.form-group {
-    margin-bottom: 22px;
+/* Chia cột form */
+.form-row {
+    display: flex;
+    gap: 20px;
 }
-
+.form-row .form-group {
+    flex: 1;
+}
+.form-group {
+    margin-bottom: 20px;
+}
 .form-group label {
     display: block;
     margin-bottom: 8px;
@@ -107,10 +123,9 @@ body {
     color: #334155;
     font-size: 0.95rem;
 }
-
 .form-group input {
     width: 100%;
-    padding: 16px 20px;
+    padding: 14px 20px;
     border-radius: 16px;
     border: 2px solid transparent;
     background: #f1f5f9;
@@ -119,22 +134,23 @@ body {
     color: #1e293b;
     font-size: 1rem;
 }
-
 .form-group input:focus {
     border-color: #d70018;
     background: white;
     outline: none;
     box-shadow: 0 0 0 4px rgba(215,0,24,0.1);
 }
-
 .form-group input::placeholder {
     color: #94a3b8;
     font-weight: 500;
 }
 
-/* 🚀 NÚT BẤM ĐĂNG NHẬP */
+/* Nút bấm thu gọn ra giữa */
 .btn-primary {
     width: 100%;
+    max-width: 350px;
+    display: block;
+    margin: 10px auto 0 auto;
     padding: 16px;
     border-radius: 50px;
     border: none;
@@ -147,22 +163,19 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 8px 20px rgba(215,0,24,0.25);
-    margin-top: 10px;
 }
-
 .btn-primary:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 25px rgba(215,0,24,0.35);
 }
 
-/* EXTRA (QUÊN MK / ĐĂNG KÝ) */
+/* Liên kết phụ */
 .auth-extra {
     margin-top: 25px;
     text-align: center;
     font-weight: 600;
     color: #64748b;
 }
-
 .auth-extra a {
     color: #d70018;
     font-weight: 800;
@@ -174,13 +187,10 @@ body {
     color: #b50014;
     text-decoration: underline;
 }
-
-/* NÚT QUAY VỀ TRANG CHỦ */
 .auth-home {
     margin-top: 25px;
     text-align: center;
 }
-
 .home-link {
     display: inline-block;
     padding: 12px 25px;
@@ -192,7 +202,6 @@ body {
     font-size: 0.95rem;
     transition: 0.3s ease;
 }
-
 .home-link:hover {
     background: #fee2e2;
     color: #d70018;
