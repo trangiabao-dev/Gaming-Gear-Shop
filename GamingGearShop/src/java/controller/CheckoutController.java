@@ -46,10 +46,9 @@ public class CheckoutController extends HttpServlet {
                     // Gọi DAO lưu vào SQL
                     OrderDAO dao = new OrderDAO();
                     // OrderID để 0 vì trong SQL tự tăng (Identity)
-                    OrderDTO order = new OrderDTO(0, null, total, user.getUserID(), 1);
+                    OrderDTO order = new OrderDTO(0, null, total, user.getUserID(), 1, user.getFullName(), user.getPhone(), user.getAddress());
 
                     boolean check = dao.checkOut(order, cart);
-
                     if (check) {
                         // 1. Nếu thành công: Xóa giỏ và báo Success
                         session.removeAttribute("cart");

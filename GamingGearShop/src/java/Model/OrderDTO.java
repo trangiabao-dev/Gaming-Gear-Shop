@@ -17,16 +17,46 @@ public class OrderDTO {
     private double total;
     private String userID;
     private int status;
+    private String fullName;
+    private String phone;
+    private String address;
 
     public OrderDTO() {
     }
 
-    public OrderDTO(int orderID, Date orderDate, double total, String userID, int status) {
+    public OrderDTO(int orderID, Date orderDate, double total, String userID, int status, String fullName, String phone, String address) {
         this.orderID = orderID;
         this.orderDate = orderDate;
         this.total = total;
         this.userID = userID;
         this.status = status;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public int getOrderID() {
