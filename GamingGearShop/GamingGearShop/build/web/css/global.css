@@ -1,0 +1,176 @@
+/* ==================================================== */
+/* 🎮 GLOBAL STYLE - DÙNG CHUNG TOÀN SITE */
+/* ==================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f4f5f7;
+    color: #1e293b;
+    padding-top: 100px;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* --- 1. THANH MENU NỔI --- */
+.floating-navbar {
+    position: absolute;
+    background-image: linear-gradient(rgb(228, 84, 100) 0%, rgb(215, 0, 24) 100%);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 40px rgba(215, 0, 24, 0.2);
+    border-radius: 50px;
+    top: 15px;
+    left: 20px;
+    right: 20px;
+    padding: 10px 25px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.brand-boutique {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ffffff !important;
+    letter-spacing: -0.5px;
+    position: relative;
+    transition: text-shadow 0.3s ease, transform 0.2s ease;
+}
+.brand-boutique:hover {
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+}
+.brand-boutique span {
+    color: #ffffff !important;
+    animation: shimmer 2s infinite linear;
+}
+@keyframes shimmer {
+    0%, 100% {
+        color: #ffffff;
+    }
+    50% {
+        color: #fcebeb;
+    }
+}
+
+.search-pill {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50px 0 0 50px !important;
+    padding: 12px 25px;
+    font-size: 0.95rem;
+    color: #334155;
+    box-shadow: none !important;
+}
+.search-pill:focus {
+    background-color: #ffffff;
+}
+
+.btn-search-pill {
+    background-color: #333333;
+    color: white;
+    border-radius: 0 50px 50px 0 !important;
+    border: none;
+    padding: 0 25px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-search-pill:hover {
+    background-color: #000000;
+    transform: scale(1.05);
+}
+
+.action-btn {
+    color: #ffffff;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease, color 0.2s ease;
+    background: transparent;
+    border: none;
+}
+.action-btn:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+.action-btn i {
+    transition: transform 0.3s ease;
+}
+.action-btn:hover i {
+    transform: translateX(3px);
+}
+
+.cart-bubble {
+    background-color: #ffffff;
+    color: #d70018;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.soft-dropdown {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+    padding: 15px 10px;
+    margin-top: 20px !important;
+    min-width: 240px;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.3s ease-in-out;
+    display: block !important;
+    visibility: hidden;
+    pointer-events: none;
+}
+.soft-dropdown.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+}
+.soft-dropdown .dropdown-item {
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-weight: 600;
+    color: #475569;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.soft-dropdown .dropdown-item:hover {
+    background-color: #fcebeb;
+    color: #d70018;
+    transform: translateX(3px);
+}
+
+/* SECTION TITLE dùng chung */
+.section-title {
+    position: relative;
+    display: inline-block;
+    color: #0f172a;
+    font-weight: 800;
+    font-size: 1.75rem;
+    cursor: default;
+}
+.section-title:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 3px;
+    bottom: -5px;
+    left: 0;
+    background-color: #d70018;
+    transform-origin: bottom right;
+    transition: transform 0.4s ease-out;
+}
+.section-title:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
