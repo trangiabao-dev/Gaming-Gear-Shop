@@ -1,22 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
-/**
- *
- * @author thinh
- */
-public class UserDTO {
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "tblUsers")
+public class UserDTO implements Serializable{
+    
+    @Id
+    @Column(name = "userID")
     private String userID;
+    
     private String fullName;
     private String password;
-    private int roleID;       // SQL là int -> Java là int
+    private int roleID;
     private String address;
     private String phone;
-    private boolean status;   // SQL là bit -> Java là boolean
+    private boolean status;
 
     public UserDTO() {
     }

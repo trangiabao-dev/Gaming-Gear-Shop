@@ -158,7 +158,7 @@
                                         <input type="hidden" name="price" value="${product.price}">
                                         <input type="hidden" name="action" value="addToCart">
                                         <button type="submit" class="btn-buy">
-                                            Chọn Mua
+                                            Thêm Giỏ Hàng
                                         </button>
                                     </form>
                                 </div>

@@ -1,6 +1,17 @@
 package Model;
 
-public class CategoryDTO {
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tblCategories")
+public class CategoryDTO implements Serializable {
+    
+    @Id
+    @Column(name = "catID")
     private String catID;
     private String catName;
     private boolean status;

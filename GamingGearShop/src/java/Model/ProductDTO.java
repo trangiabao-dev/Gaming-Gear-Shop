@@ -1,10 +1,21 @@
 package Model;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Locale;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class ProductDTO {
-    private String productID;  
+@Entity
+@Table(name = "tblProducts")
+public class ProductDTO implements Serializable {
+    
+    @Id
+    @Column(name = "productID")
+    private String productID;
+    
     private String productName;  
     private double price;
     private int quantity;        

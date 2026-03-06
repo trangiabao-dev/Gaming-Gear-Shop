@@ -1,6 +1,17 @@
 package Model;
 
-public class BrandDTO {
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tblBrands")
+public class BrandDTO implements Serializable {
+    
+    @Id
+    @Column(name = "brandID")
     private String brandID;
     private String brandName;
 

@@ -1,17 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
-import java.sql.Date;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class FeedbackDTO {
+@Entity
+@Table(name = "tblFeedbacks")
+public class FeedbackDTO implements Serializable {
+    
+    @Id
+    @Column(name = "feedID")
     private int feedID;
+    
     private String content;
     private int rating;
     private String userID;
     private String productID;
+    
+    @Column(name = "date")
     private String date;
 
     public FeedbackDTO() {
