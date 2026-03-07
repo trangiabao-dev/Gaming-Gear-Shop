@@ -38,36 +38,24 @@ public class MainController extends HttpServlet {
                 case "detail":
                 case "search":
                 case "filterPrice":
-                    url = "ProductController";
-                    break;
-                case "addToCart":
-                    url = URL.ADDTOCART_CONTROLLER;
-                    break;
-                case "Remove":
-                    url = URL.REMOVE_FROM_CART_CONTROLLER;
-                    break;
-                case "CheckOut":
-                    url = URL.CHECKOUT_CONTROLLER;
-                    break;
-                case "viewCart":
-                    url = URL.VIEWCART_CONTROLLER;
+                    url = URL.PRODUCT_CONTROLLER;
                     break;
                 case "login":
-                    url = URL.LOGIN_CONTROLLER;
-                    break;
                 case "logout":
-                    url = URL.LOGOUT_CONTROLLER;
-                    break;
-                //Case XỬ LÝ ĐĂNG KÝ(Khi bấm nút "Submit" trong form
                 case "register":
-                    // "Create" là value của input hidden trong register.jsp
-                    url = URL.REGISTER_CONTROLLER; // Chuyển sang Servlet xử lý logic
+                    url = URL.USER_CONTROLLER; // Đẩy hết việc của User về đây
+                    break;
+                case "addToCart":
+                case "viewCart":
+                case "remove":     // Nhớ sửa "Remove" thành chữ thường trên file .jsp
+                case "checkout":   // Nhớ sửa "CheckOut" thành chữ thường trên file .jsp
+                    url = URL.CART_ORDER_CONTROLLER; // Đẩy hết việc Giỏ hàng về đây
                     break;
                 case "addFeedback":
                     url = URL.ADD_FEED_BACK_CONTROLLER;
                     break;
                 default:
-                    url = "ProductController";
+                    url = URL.PRODUCT_CONTROLLER;
                     break;
             }
         } catch (Exception e) {
