@@ -19,6 +19,8 @@ public class CartOrderController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         String url = URL.PAGE_HOME;
@@ -67,7 +69,9 @@ public class CartOrderController extends HttpServlet {
         if (quantityRaw != null) {
             try {
                 quantity = Integer.parseInt(quantityRaw);
-                if (quantity <= 0) quantity = 1;
+                if (quantity <= 0) {
+                    quantity = 1;
+                }
             } catch (NumberFormatException e) {
                 quantity = 1; // Bắt lỗi parse số rõ ràng
             }
@@ -123,13 +127,17 @@ public class CartOrderController extends HttpServlet {
     // 4. Xử lý thanh toán
     private String checkout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (session == null) return URL.PAGE_LOGIN;
+        if (session == null) {
+            return URL.PAGE_LOGIN;
+        }
 
         UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
         Cart cart = (Cart) session.getAttribute("CART");
 
-        if (user == null) return URL.PAGE_LOGIN;
-        
+        if (user == null) {
+            return URL.PAGE_LOGIN;
+        }
+
         if (cart != null && !cart.getCart().isEmpty()) {
             double total = 0;
             for (ProductDTO item : cart.getCart().values()) {
@@ -154,6 +162,7 @@ public class CartOrderController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
