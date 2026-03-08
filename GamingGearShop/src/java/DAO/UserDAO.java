@@ -5,14 +5,11 @@ import java.util.List;
 
 public class UserDAO extends JPAGenericDAO<UserDTO> {
 
-    // Gọi constructor của class cha và truyền entity class vào
     public UserDAO() {
         super(UserDTO.class);
     }
 
-    // Hàm kiểm tra đăng nhập bằng JPQL
     public UserDTO checkLogin(String userID, String password) {
-        // JPQL truy vấn trên Object (UserDTO), không phải trên Table SQL
         String jpql = "SELECT u FROM UserDTO u WHERE u.userID = ?1 AND u.password = ?2 AND u.status = true";
         
         List<UserDTO> list = super.query(jpql, userID, password);

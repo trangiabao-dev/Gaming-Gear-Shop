@@ -61,8 +61,8 @@
     </servlet>
 
     <servlet>
-        <servlet-name>AdminProductController</servlet-name>
-        <servlet-class>controller.AdminProductController</servlet-class>
+        <servlet-name>AdminController</servlet-name>
+        <servlet-class>controller.AdminController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -110,8 +110,8 @@
         <url-pattern>/AddFeedbackController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AdminProductController</servlet-name>
-        <url-pattern>/AdminProductController</url-pattern>
+        <servlet-name>AdminController</servlet-name>
+        <url-pattern>/AdminController</url-pattern>
     </servlet-mapping>
 
     <session-config>

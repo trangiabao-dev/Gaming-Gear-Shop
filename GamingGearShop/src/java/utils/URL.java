@@ -9,7 +9,8 @@ public class URL {
     public static final String PAGE_REGISTER = "view/register.jsp";
     public static final String PAGE_CART = "view/cart.jsp";
     public static final String PAGE_DETAIL = "view/detail.jsp";
-
+    public static final String PAGE_ADMIN = "view/admin.jsp";
+    
     // ==== CÁC CONTROLLER BẢO ====
     public static final String MAIN_CONTROLLER = "MainController";
     public static final String PRODUCT_CONTROLLER = "ProductController"; // Thay thế cho Search, Detail, Filter
