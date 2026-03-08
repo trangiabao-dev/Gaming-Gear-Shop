@@ -1,29 +1,17 @@
 package DAO;
 
 import Model.CategoryDTO;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
-public class CategoryDAO extends GenericDAO<CategoryDTO>{
+public class CategoryDAO extends JPAGenericDAO<CategoryDTO>{
 
-    @Override
-    protected CategoryDTO mapRow(ResultSet rs) {
-        try{
-            return new CategoryDTO(
-                    rs.getString("catID"),
-                    rs.getString("catName"),
-                    rs.getBoolean("status")
-            );
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return null;
+    public CategoryDAO() {
+        super(CategoryDTO.class);
     }
 
     public List<CategoryDTO> getAllCategories() {
-        String sql = "SELECT * FROM tblCategories WHERE status = 1";
-        return query(sql);
+        String jpql = "SELECT c FROM CategoryDTO c";
+        return super.query(jpql);
     }
 
 }

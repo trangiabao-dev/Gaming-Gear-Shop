@@ -2,36 +2,44 @@ package DAO;
 
 import Model.ProductDTO;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import utils.JPAUtils;
 
 public class ProductDAO extends JPAGenericDAO<ProductDTO>{
-
+    private static final Logger LOGGER = Logger.getLogger(ProductDAO.class.getName());
+    
     public ProductDAO() {
         super(ProductDTO.class);
     }
     
-    private static final Logger LOGGER = Logger.getLogger(ProductDAO.class.getName());
-    
     public List<ProductDTO> getAllProducts(){
-        String jpql = "SELECT p FROM ProductDTO p";
+        String jpql = "SELECT p FROM ProductDTO p WHERE p.status = true";
         return super.query(jpql);
     }
     
-    // Lấy sản phẩm theo ID
-    public ProductDTO getProductByID(String id) {
-        return super.findById(id);
+    public ProductDTO getProductByID(String id){
+        if(!isValidString(id)){
+            return null;
+        }
+        return super.findById(id.trim());
     }
     
     public List<ProductDTO> searchByName(String keyword){
-        if(keyword == null || keyword.trim().isEmpty()){
+        if(!isValidString(keyword)){
             return null;
-        }        
-        String jpql = "SELECT p FROM ProductDTO p WHERE p.productName LIKE ?1";
+        }
+        String jpql = "SELECT p FROM ProductDTO p WHERE p.status = true AND p.productName LIKE ?1";
         return super.query(jpql, "%" + keyword.trim() + "%");
     }
     
     public boolean softDeleteProduct(String id){
-        ProductDTO product = super.findById(id);
+        if(!isValidString(id)){
+            return false;
+        }
+        ProductDTO product = super.findById(id.trim());
         if(product != null){
             product.setStatus(false);
             return super.update(product);
@@ -39,36 +47,76 @@ public class ProductDAO extends JPAGenericDAO<ProductDTO>{
         return false;
     }
     
-    // Lọc sản phẩm theo mã catID
-//    public List<ProductDTO> getByCategory(String catID) {
-//        
-//    }
-//    
-//    // Lấy danh sách sản phẩm cho 1 trang - query()
-//    public List<ProductDTO> numberProductOnPage(int index) {
-//        int numberProductPage = 8;
-//        int offset = (index - 1) * numberProductPage;
-//
-//        String sql = "SELECT * FROM tblProducts WHERE status = 1 ORDER BY productID OFFSET ? ROWS FETCH NEXT " + numberProductPage + " ROWS ONLY";
-//        // Sắp xếp theo ID, bỏ qua [offset] dòng, rồi lấy 8 dòng tiếp theo
-//        return query(sql, offset);
-//    }
-//
-//    // Lấy toàn bộ Brand (thương hiệu) - query()
-//    public List<ProductDTO> getByBrand(String brandID) {
-//        String sql = "SELECT * FROM tblProducts WHERE status = 1 AND brandID LIKE ?";
-//        return query(sql, brandID);
-//    }
-//    
-//    // Lọc theo giá
-//    public List<ProductDTO> getProductsByPriceRange(double min, double max){
-//        String sql = "SELECT * FROM tblProducts WHERE status = 1 AND price BETWEEN ? AND ?";
-//        return query(sql, min, max);
-//    }
-//
-//    // Đếm tổng số lượng sản phẩm - getCount()
-//    public int getTotalProduct() {
-//        String sql = "SELECT COUNT(*) FROM tblProducts WHERE status = 1";
-//        return Count(sql);
-//    }
+    public List<ProductDTO> getByCategory(String catID){
+        if(!isValidString(catID)){
+            return null;
+        }
+        String jpql = "SELECT p FROM ProductDTO p WHERE p.status = true AND p.catID = ?1";
+        return super.query(jpql, catID.trim());
+    }
+    
+    public List<ProductDTO> getByBrand(String brandID){
+        if(!isValidString(brandID)){
+            return null;
+        }
+        String jpql = "SELECT p FROM ProductDTO p WHERE p.status = true AND p.brandID = ?1";
+        return super.query(jpql, brandID.trim());
+    }
+    
+    public List<ProductDTO> getProductsByPriceRange(double min, double max){
+        if(min < 0){
+            min = 0;
+        }
+        String jpql = "SELECT p FROM ProductDTO p WHERE p.status = true AND p.price BETWEEN ?1 AND ?2";
+        return super.query(jpql, min, max);
+    }
+    
+    
+    // Nhóm hàm tùy chỉnh theo yêu cầu, trước khi lấy dữ liệu SQL trả về
+    public int getCountProduct(){
+        EntityManager em = null;
+        try{
+            em = JPAUtils.getEntityManager();
+            String jpql = "SELECT COUNT(p) FROM ProductDTO p WHERE p.status = true";
+            
+            Long count = (Long) em.createQuery(jpql).getSingleResult();
+            return count.intValue();
+        }catch(Exception e){
+            LOGGER.log(Level.SEVERE, "Lỗi khi đếm tổng sản phẩm", e);
+            return 0;
+        }finally{
+            if(em != null && em.isOpen()){
+                em.close();
+            }
+        }
+    }
+    
+    public List<ProductDTO> numberProductOnPage(int index) {
+        if(index < 1){
+            index = 1;
+        }
+        
+        int numberProductPage = 8;
+        int offset = (index - 1) * numberProductPage;
+        
+        EntityManager em = null;
+        try{
+            em = JPAUtils.getEntityManager();
+            String jpql = "SELECT p FROM ProductDTO p WHERE p.status = true ORDER BY p.productID ASC";
+            
+            // TypedQuery: tạm giữ câu truy vấn trước khi đưa xuống Database chạy
+            TypedQuery<ProductDTO> q = em.createQuery(jpql, ProductDTO.class);
+            q.setFirstResult(offset);
+            q.setMaxResults(numberProductPage);
+            
+            return q.getResultList();
+        }catch(Exception e){
+            LOGGER.log(Level.SEVERE, "Lỗi khi phân trang sản phẩm", e);
+            return null;
+        }finally{
+            if(em != null && em.isOpen()){
+                em.close();
+            }
+        }
+    }
 }

@@ -5,31 +5,20 @@
 package DAO;
 
 import Model.FeedbackDTO;
-import java.sql.ResultSet;
 import java.util.List;
 
-public class FeedbackDAO extends GenericDAO<FeedbackDTO> {
+public class FeedbackDAO extends JPAGenericDAO<FeedbackDTO> {
 
-    @Override
-    protected FeedbackDTO mapRow(ResultSet rs) {
-        try {
-            return new FeedbackDTO(
-                    rs.getInt("feedID"),
-                    rs.getString("content"),
-                    rs.getInt("rating"),
-                    rs.getString("userID"),
-                    rs.getString("productID"),
-                    rs.getString("date")
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    public FeedbackDAO() {
+        super(FeedbackDTO.class);
     }
     
-    public List<FeedbackDTO> getFeedbackByProductID(String productID){
-        String sql = "SELECT * FROM tblFeedbacks WHERE productID = ? ORDER BY date DESC";
-        return query(sql, productID);
+    public List<FeedbackDTO> getFeedbackByProductID(String productID) {
+        if (!isValidString(productID)) {
+            return null;
+        }
+        String jpql = "SELECT f FROM FeedbackDTO f WHERE f.productID = ?1";
+        return super.query(jpql, productID);
     }
 
 }
