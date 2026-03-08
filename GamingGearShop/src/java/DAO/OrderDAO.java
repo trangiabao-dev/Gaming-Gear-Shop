@@ -15,7 +15,6 @@ public class OrderDAO extends JPAGenericDAO<OrderDTO> {
         super(OrderDTO.class);
     }
 
-    // 1. Hàm chính xử lý thanh toán giỏ hàng
     public boolean checkOut(OrderDTO order, Cart cart) {
         EntityManager em = null;
         EntityTransaction trans = null;
@@ -26,31 +25,29 @@ public class OrderDAO extends JPAGenericDAO<OrderDTO> {
             trans = em.getTransaction();
             trans.begin();
 
-            // Bước 1: Lưu Order (JPA sẽ tự động lấy ID nếu cấu hình @GeneratedValue)
+            // Bước 1: Lưu Order
             em.persist(order);
+            // Lệnh BẮT BUỘC ĐI LÀM: Đẩy xuống SQL ngay để lấy ID tự tăng
+            em.flush(); 
 
-            // Bước 2: Duyệt qua giỏ hàng để lưu OrderDetail và trừ tồn kho Product
+            // Bước 2: Duyệt qua giỏ hàng
             for (ProductDTO item : cart.getCart().values()) {
-                
-                // Lưu chi tiết đơn hàng
                 OrderDetailDTO detail = new OrderDetailDTO(0, item.getPrice(), item.getQuantity(), order.getOrderID(), item.getProductID());
                 em.persist(detail);
 
-                // Lấy sản phẩm hiện tại từ DB và trừ số lượng
                 ProductDTO productInDB = em.find(ProductDTO.class, item.getProductID());
                 if (productInDB != null) {
                     productInDB.setQuantity(productInDB.getQuantity() - item.getQuantity());
-                    em.merge(productInDB); // Cập nhật lại số lượng
+                    em.merge(productInDB); 
                 }
             }
 
-            trans.commit(); // Chốt giao dịch thành công
+            trans.commit(); 
             check = true;
             
         } catch (PersistenceException e) { 
-            // 2. Xử lý lỗi: Bắt lỗi cụ thể của JPA thay vì Exception chung
             if (trans != null && trans.isActive()) {
-                trans.rollback(); // Hủy toàn bộ nếu có lỗi
+                trans.rollback(); 
             }
             e.printStackTrace();
         } finally {

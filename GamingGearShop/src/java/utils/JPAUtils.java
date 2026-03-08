@@ -9,7 +9,7 @@ public class JPAUtils {
     
     public static EntityManager getEntityManager(){
         if(emf == null || !emf.isOpen()){
-            emf = Persistence.createEntityManagerFactory("GamingGearPU");
+            emf = Persistence.createEntityManagerFactory("GamingGearShopPU");
         }
         return emf.createEntityManager();
     }

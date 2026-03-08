@@ -154,8 +154,8 @@ public class ProductController extends HttpServlet {
         ProductDTO pDTO = pDAO.getProductByID(id);
 
         if (pDTO == null) {
-            request.setAttribute("message", "Sản phẩm không tồn tại hoặc đã bị xóa!");
-            request.getRequestDispatcher(URL.PROCESS_HOME).forward(request, response);
+            request.setAttribute("message", "Sản phẩm không tồn tại!");
+            request.getRequestDispatcher(URL.PAGE_HOME).forward(request, response); // Forward thẳng ra JSP
             return;
         }
 

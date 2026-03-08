@@ -28,30 +28,32 @@ public class MainController extends HttpServlet {
 
         try {
             String action = request.getParameter("action");
-            if (action == null) {
-                action = "home";
-            } else if (action.trim().isEmpty()) {
+            if (action == null || action.trim().isEmpty()) {
                 action = "home";
             }
-            switch (action) {
+            
+            // Kỹ thuật Ép chữ thường: Để tránh lỗi "Remove" và "CheckOut" từ JSP
+            String actionLower = action.toLowerCase();
+            
+            switch (actionLower) {
                 case "home":
                 case "detail":
                 case "search":
-                case "filterPrice":
+                case "filterprice":
                     url = URL.PRODUCT_CONTROLLER;
                     break;
                 case "login":
                 case "logout":
                 case "register":
-                    url = URL.USER_CONTROLLER; // Đẩy hết việc của User về đây
+                    url = URL.USER_CONTROLLER;
                     break;
-                case "addToCart":
-                case "viewCart":
-                case "remove":     // Nhớ sửa "Remove" thành chữ thường trên file .jsp
-                case "checkout":   // Nhớ sửa "CheckOut" thành chữ thường trên file .jsp
-                    url = URL.CART_ORDER_CONTROLLER; // Đẩy hết việc Giỏ hàng về đây
+                case "addtocart":
+                case "viewcart":
+                case "remove":     // Khớp với mọi kiểu gõ từ JSP
+                case "checkout":   // Khớp với mọi kiểu gõ từ JSP
+                    url = URL.CART_ORDER_CONTROLLER;
                     break;
-                case "addFeedback":
+                case "addfeedback":
                     url = URL.ADD_FEED_BACK_CONTROLLER;
                     break;
                 default:
@@ -64,7 +66,6 @@ public class MainController extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

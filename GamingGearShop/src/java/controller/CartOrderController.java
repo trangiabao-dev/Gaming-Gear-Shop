@@ -22,6 +22,7 @@ public class CartOrderController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
+        
         String action = request.getParameter("action");
         String url = URL.PAGE_HOME;
 
@@ -29,25 +30,26 @@ public class CartOrderController extends HttpServlet {
             if (action == null) {
                 action = "viewCart";
             }
-            switch (action) {
-                case "addToCart":
+            // Cũng ép chữ thường để đồng bộ với MainController
+            switch (action.toLowerCase()) {
+                case "addtocart":
                     url = addToCart(request);
                     break;
-                case "viewCart":
+                case "viewcart":
                     url = viewCart(request);
                     break;
-                case "Remove":
+                case "remove":
                     url = removeFromCart(request);
                     break;
-                case "CheckOut":
+                case "checkout":
                     url = checkout(request);
                     break;
                 default:
                     url = URL.PROCESS_HOME;
                     break;
             }
-        } catch (IllegalArgumentException e) {
-            log("Dữ liệu đầu vào không hợp lệ: " + e.getMessage());
+        } catch (Exception e) {
+            log("Lỗi tại Giỏ hàng: " + e.getMessage());
             url = URL.PAGE_ERROR;
         } finally {
             if (url.endsWith(".jsp")) {
@@ -59,7 +61,6 @@ public class CartOrderController extends HttpServlet {
         }
     }
 
-    // 1. Thêm vào giỏ hàng
     private String addToCart(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String productID = request.getParameter("productID");
@@ -69,11 +70,9 @@ public class CartOrderController extends HttpServlet {
         if (quantityRaw != null) {
             try {
                 quantity = Integer.parseInt(quantityRaw);
-                if (quantity <= 0) {
-                    quantity = 1;
-                }
+                if (quantity <= 0) quantity = 1;
             } catch (NumberFormatException e) {
-                quantity = 1; // Bắt lỗi parse số rõ ràng
+                quantity = 1;
             }
         }
 
@@ -93,7 +92,6 @@ public class CartOrderController extends HttpServlet {
         return URL.PROCESS_HOME;
     }
 
-    // 2. Xem giỏ hàng
     private String viewCart(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -111,7 +109,6 @@ public class CartOrderController extends HttpServlet {
         return URL.PAGE_CART;
     }
 
-    // 3. Xóa khỏi giỏ hàng
     private String removeFromCart(HttpServletRequest request) {
         String productID = request.getParameter("productID");
         HttpSession session = request.getSession();
@@ -121,22 +118,18 @@ public class CartOrderController extends HttpServlet {
             cart.delete(productID);
             session.setAttribute("CART", cart);
         }
-        return "CartOrderController?action=viewCart";
+        // Gọi thẳng qua MainController để giao diện không bị lệch
+        return "MainController?action=viewCart";
     }
 
-    // 4. Xử lý thanh toán
     private String checkout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (session == null) {
-            return URL.PAGE_LOGIN;
-        }
+        if (session == null) return URL.PAGE_LOGIN;
 
         UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
         Cart cart = (Cart) session.getAttribute("CART");
 
-        if (user == null) {
-            return URL.PAGE_LOGIN;
-        }
+        if (user == null) return URL.PAGE_LOGIN;
 
         if (cart != null && !cart.getCart().isEmpty()) {
             double total = 0;
@@ -145,24 +138,22 @@ public class CartOrderController extends HttpServlet {
             }
 
             OrderDAO dao = new OrderDAO();
-            // Lệnh tạo Order mới với status = 1
             OrderDTO order = new OrderDTO(0, new java.sql.Date(System.currentTimeMillis()), total, user.getUserID(), 1);
 
             if (dao.checkOut(order, cart)) {
-                session.removeAttribute("CART"); // Xóa giỏ hàng khi thành công
-                return "CartOrderController?action=viewCart&msg=Success";
+                session.removeAttribute("CART"); 
+                return "MainController?action=viewCart&msg=Success";
             } else {
-                return "CartOrderController?action=viewCart&msg=Error";
+                return "MainController?action=viewCart&msg=Error";
             }
         }
-        return "CartOrderController?action=viewCart&msg=Empty";
+        return "MainController?action=viewCart&msg=Empty";
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);

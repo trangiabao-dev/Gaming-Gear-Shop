@@ -23,10 +23,10 @@ public class UserController extends HttpServlet {
 
         try {
             if (action == null) {
-                action = "loginPage"; // Mặc định
+                action = "loginPage"; 
             }
 
-            switch (action) {
+            switch (action.toLowerCase()) {
                 case "login":
                     url = loginUser(request, response);
                     break;
@@ -44,7 +44,6 @@ public class UserController extends HttpServlet {
             log("Lỗi tại UserController: " + e.getMessage());
             url = URL.PAGE_ERROR;
         } finally {
-            // Chỉ forward nếu url kết thúc bằng .jsp, nếu là Controller khác thì dùng sendRedirect
             if (url.endsWith(".jsp")) {
                 RequestDispatcher rd = request.getRequestDispatcher(url);
                 rd.forward(request, response);
@@ -54,7 +53,6 @@ public class UserController extends HttpServlet {
         }
     }
 
-    // Hàm xử lý riêng cho Đăng nhập
     private String loginUser(HttpServletRequest request, HttpServletResponse response) {
         String userID = request.getParameter("userID");
         String password = request.getParameter("password");
@@ -70,14 +68,14 @@ public class UserController extends HttpServlet {
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("LOGIN_USER", user);
-            return URL.MAIN_CONTROLLER; // Thành công thì trả về url Controller
+            // Sửa thành PROCESS_HOME để về thẳng trang chủ hiện sản phẩm
+            return URL.PROCESS_HOME; 
         } else {
             request.setAttribute("ERROR", "Sai tên đăng nhập hoặc mật khẩu!");
             return URL.PAGE_LOGIN;
         }
     }
 
-    // Hàm xử lý riêng cho Đăng xuất
     private String logoutUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -86,7 +84,6 @@ public class UserController extends HttpServlet {
         return URL.PROCESS_HOME;
     }
 
-    // Hàm xử lý riêng cho Đăng ký
     private String registerUser(HttpServletRequest request) {
         String userID = request.getParameter("userID");
         String fullName = request.getParameter("fullName");
@@ -97,7 +94,6 @@ public class UserController extends HttpServlet {
 
         UserDAO dao = new UserDAO();
 
-        // Kiểm tra validate cơ bản
         if (!password.equals(confirm)) {
             request.setAttribute("ERROR", "Xác nhận mật khẩu không khớp!");
             return URL.PAGE_REGISTER;
@@ -107,12 +103,11 @@ public class UserController extends HttpServlet {
             return URL.PAGE_REGISTER;
         }
 
-        // Tạo user mới (Status mặc định true, Role là 2)
         UserDTO newUser = new UserDTO(userID, fullName, password, 2, address, phone, true);
         boolean checkInsert = dao.insert(newUser);
 
         if (checkInsert) {
-            request.setAttribute("SUCCESS", "Đăng ký thành công!");
+            request.setAttribute("SUCCESS", "Đăng ký thành công! Vui lòng đăng nhập.");
             return URL.PAGE_LOGIN;
         } else {
             request.setAttribute("ERROR", "Lỗi hệ thống! Không thể tạo tài khoản.");
@@ -125,7 +120,6 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
