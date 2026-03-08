@@ -3,36 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/DAO/FeedbackDAO.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/DAO/OrderDAO.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/web/view/detail.jsp</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/controller/LoginController.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/DAO/JPAGenericDAO.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/controller/MainController.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/web/view/login.jsp</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/web/view/error.jsp</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/controller/LogoutController.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/conf/persistence.xml</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/Model/FeedbackDTO.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/web/view/cart.jsp</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/DAO/CategoryDAO.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/Model/ProductDTO.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/Model/BrandDTO.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/DAO/BrandDAO.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/utils/URL.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/Model/UserDTO.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/DAO/UserDAO.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/utils/JPAUtils.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/web/view/register.jsp</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/DAO/ProductDAO.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/web/view/home.jsp</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/controller/CheckoutController.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/controller/RemoveFromCartController.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/controller/AddToCartController.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/controller/RegisterController.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/controller/ProductController.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/controller/ViewCartController.java</file>
-            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/GamingGearShop/src/java/Model/CategoryDTO.java</file>
+            <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/src/java/controller/MainController.java</file>
+            <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/src/java/controller/CartOrderController.java</file>
+            <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/src/java/DAO/UserDAO.java</file>
+            <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/web/view/Login.jsp</file>
+            <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/src/java/Model/BrandDTO.java</file>
+            <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/src/java/controller/UserController.java</file>
+            <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/src/java/Model/UserDTO.java</file>
+            <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/src/java/DAO/OrderDAO.java</file>
+            <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/src/java/utils/URL.java</file>
+            <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/src/java/Model/OrderDTO.java</file>
+            <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/src/java/Model/OrderDetailDTO.java</file>
+            <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/src/java/utils/JPAUtils.java</file>
+            <file>file:/D:/PRJ_Project/Gaming-Gear-Shop/GamingGearShop/web/WEB-INF/web.xml</file>
         </group>
     </open-files>
 </project-private>

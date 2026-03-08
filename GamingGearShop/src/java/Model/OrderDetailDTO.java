@@ -1,16 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
-/**
- *
- * @author thinh
- */
-public class OrderDetailDTO {
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "tblOrderDetails")
+public class OrderDetailDTO implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "detailID")
     private int detailID;
+
     private double price;
     private int quantity;
     private int orderID;
@@ -66,5 +72,4 @@ public class OrderDetailDTO {
     public void setProductID(String productID) {
         this.productID = productID;
     }
-
 }
