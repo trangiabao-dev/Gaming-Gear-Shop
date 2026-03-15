@@ -20,9 +20,6 @@ public class MainController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
         String url = URL.PAGE_ERROR;
 
@@ -54,7 +51,7 @@ public class MainController extends HttpServlet {
                     url = URL.CART_ORDER_CONTROLLER;
                     break;
                 case "addfeedback":
-                    url = URL.ADD_FEED_BACK_CONTROLLER;
+//                    url = URL.ADD_FEED_BACK_CONTROLLER;
                     break;
                 default:
                     url = URL.PRODUCT_CONTROLLER;

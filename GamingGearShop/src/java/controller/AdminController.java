@@ -33,48 +33,35 @@ public class AdminController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        
-        HttpSession session = request.getSession(false);
-        UserDTO loginUser = (session != null) ? (UserDTO) session.getAttribute("LOGIN_USER") : null;
-        
-        if(loginUser == null || loginUser.getRoleID() != 1){
-            request.setAttribute("message", "Bạn không có quyền truy cập khu vực Quản trị!");
-            request.getRequestDispatcher("MainController?action=home").forward(request, response);
-            return;
-        }
         
         String action = request.getParameter("action");
         if(action == null || action.trim().isEmpty()){
-            action = "list";
+            action = "product_list";
         }
         
         try{
             switch (action) {
-                case "list":
-                    showProductList(request, response);
+                case "":
+                    
                     break;
                 default:
                     showProductList(request, response);
                     break;
             }
         }catch(Exception e){
-            log("Lỗi tại AdminController: " + e.getMessage());
+            log("Lỗi AdminController ở " + action + ": " + e.getMessage());
+            request.setAttribute("ERROR_MSG", "Lỗi hệ thống: " + e.getMessage());
             request.getRequestDispatcher(URL.PAGE_ERROR).forward(request, response);
         }
     }
     
-    private void showProductList(HttpServletRequest request, HttpServletResponse response) 
+    protected void showProductList(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDAO pDAO = new ProductDAO();
-        List<ProductDTO> listProduct = pDAO.getAllProducts();
-        
-        request.setAttribute("ADMIN_PRODUCT_LIST", listProduct);
-        request.getRequestDispatcher(URL.PAGE_ADMIN).forward(request, response);
-    } 
-
+        List<ProductDTO> productList = new ProductDAO().getAllProducts();
+        request.setAttribute("PRODUCT_LIST", productList);
+        request.getRequestDispatcher(URL.PAGE_ADMIN_PRODUCT).forward(request, response);
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

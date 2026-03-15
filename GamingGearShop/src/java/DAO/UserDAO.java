@@ -26,4 +26,9 @@ public class UserDAO extends JPAGenericDAO<UserDTO> {
         UserDTO user = super.findById(userID);
         return user != null; // Trả về true nếu đã tồn tại
     }
+    
+    public List<UserDTO> getAllUsers() {
+        String jpql = "SELECT u FROM UserDTO u ORDER BY u.roleID ASC";
+        return super.query(jpql);
+    }
 }
