@@ -7,6 +7,7 @@ import Model.OrderDTO;
 import Model.ProductDTO;
 import Model.UserDTO;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ public class CartOrderController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String action = request.getParameter("action");
         String url = URL.PAGE_HOME;
 
@@ -40,6 +41,12 @@ public class CartOrderController extends HttpServlet {
                     break;
                 case "checkout":
                     url = checkout(request);
+                    break;
+                case "orderhistory":          
+                    url = viewOrderHistory(request);
+                    break;
+                case "cancelorder":          
+                    url = cancelOrder(request);
                     break;
                 default:
                     url = URL.PROCESS_HOME;
@@ -67,7 +74,9 @@ public class CartOrderController extends HttpServlet {
         if (quantityRaw != null) {
             try {
                 quantity = Integer.parseInt(quantityRaw);
-                if (quantity <= 0) quantity = 1;
+                if (quantity <= 0) {
+                    quantity = 1;
+                }
             } catch (NumberFormatException e) {
                 quantity = 1;
             }
@@ -121,12 +130,16 @@ public class CartOrderController extends HttpServlet {
 
     private String checkout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (session == null) return URL.PAGE_LOGIN;
+        if (session == null) {
+            return URL.PAGE_LOGIN;
+        }
 
         UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
         Cart cart = (Cart) session.getAttribute("CART");
 
-        if (user == null) return URL.PAGE_LOGIN;
+        if (user == null) {
+            return URL.PAGE_LOGIN;
+        }
 
         if (cart != null && !cart.getCart().isEmpty()) {
             double total = 0;
@@ -138,7 +151,7 @@ public class CartOrderController extends HttpServlet {
             OrderDTO order = new OrderDTO(0, new java.sql.Date(System.currentTimeMillis()), total, user.getUserID(), 1);
 
             if (dao.checkOut(order, cart)) {
-                session.removeAttribute("CART"); 
+                session.removeAttribute("CART");
                 return "MainController?action=viewCart&msg=Success";
             } else {
                 return "MainController?action=viewCart&msg=Error";
@@ -147,10 +160,54 @@ public class CartOrderController extends HttpServlet {
         return "MainController?action=viewCart&msg=Empty";
     }
 
+    private String viewOrderHistory(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return URL.PAGE_LOGIN;
+        }
+
+        UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+        if (user == null) {
+            return URL.PAGE_LOGIN;
+        }
+
+        OrderDAO dao = new OrderDAO();
+        List<OrderDTO> orders = dao.getOrdersByUser(user.getUserID());
+        request.setAttribute("ORDER_LIST", orders);
+        return URL.PAGE_ORDER_HISTORY; // Tạo constant này ở bước sau
+    }
+
+    private String cancelOrder(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return URL.PAGE_LOGIN;
+        }
+
+        UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+        if (user == null) {
+            return URL.PAGE_LOGIN;
+        }
+
+        String orderIDStr = request.getParameter("orderID");
+        if (orderIDStr == null) {
+            return "MainController?action=orderHistory";
+        }
+
+        try {
+            int orderID = Integer.parseInt(orderIDStr);
+            OrderDAO dao = new OrderDAO();
+            dao.cancelOrder(orderID, user.getUserID());
+        } catch (NumberFormatException e) {
+            /* bỏ qua */ }
+
+        return "MainController?action=orderHistory";
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
