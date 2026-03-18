@@ -70,7 +70,7 @@ public class OrderDAO extends JPAGenericDAO<OrderDTO> {
         EntityManager em = null;
         try {
             em = JPAUtils.getEntityManager();
-            String jpql = "SELECT d FROM OrderDetailDTO d WHERE d.orderID = ?1";
+            String jpql = "SELECT o FROM OrderDetailDTO o WHERE o.orderID = ?1";
             return em.createQuery(jpql, OrderDetailDTO.class)
                     .setParameter(1, orderID)
                     .getResultList();
@@ -112,4 +112,6 @@ public class OrderDAO extends JPAGenericDAO<OrderDTO> {
             }
         }
     }
+
+   
 }

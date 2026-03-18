@@ -4,16 +4,16 @@
  */
 package controller;
 
+import DAO.OrderDAO;
 import DAO.ProductDAO;
+import Model.OrderDTO;
 import Model.ProductDTO;
-import Model.UserDTO;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import utils.URL;
 
 /**
@@ -33,35 +33,36 @@ public class AdminController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String action = request.getParameter("action");
-        if(action == null || action.trim().isEmpty()){
+        if (action == null || action.trim().isEmpty()) {
             action = "product_list";
         }
-        
-        try{
+
+        try {
             switch (action) {
                 case "":
-                    
+
                     break;
+
                 default:
                     showProductList(request, response);
                     break;
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             log("Lỗi AdminController ở " + action + ": " + e.getMessage());
             request.setAttribute("ERROR_MSG", "Lỗi hệ thống: " + e.getMessage());
             request.getRequestDispatcher(URL.PAGE_ERROR).forward(request, response);
         }
     }
-    
+
     protected void showProductList(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<ProductDTO> productList = new ProductDAO().getAllProducts();
         request.setAttribute("PRODUCT_LIST", productList);
         request.getRequestDispatcher(URL.PAGE_ADMIN_PRODUCT).forward(request, response);
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
