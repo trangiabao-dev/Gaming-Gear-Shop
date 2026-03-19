@@ -15,8 +15,15 @@ public class ProductDAO extends JPAGenericDAO<ProductDTO>{
         super(ProductDTO.class);
     }
     
+    // Dành cho KHÁCH HÀNG
     public List<ProductDTO> getAllProducts(){
         String jpql = "SELECT p FROM ProductDTO p WHERE p.status = true";
+        return super.query(jpql);
+    }
+    
+    // Dành cho ADMIN
+    public List<ProductDTO> getAllProductsForAdmin() {
+        String jpql = "SELECT p FROM ProductDTO p ORDER BY p.status DESC, p.productID ASC";
         return super.query(jpql);
     }
     
@@ -71,6 +78,18 @@ public class ProductDAO extends JPAGenericDAO<ProductDTO>{
         return super.query(jpql, min, max);
     }
     
+     // Khôi phục sản phẩm đã ẩn — ngược lại với softDelete
+    public boolean restoreProduct(String id) {
+        if (!isValidString(id)) {
+            return false;
+        }
+        ProductDTO product = super.findById(id.trim());
+        if (product != null) {
+            product.setStatus(true);
+            return super.update(product);
+        }
+        return false;
+    }
     
     // Nhóm hàm tùy chỉnh theo yêu cầu, trước khi lấy dữ liệu SQL trả về
     public int getCountProduct(){

@@ -58,6 +58,6 @@
         <c:if test="${empty requestScope.ADMIN_PRODUCT_LIST}">
             <p style="color: red;">Hiện tại không có sản phẩm nào trong kho!</p>
         </c:if>
-
+            
     </body>
 </html>
