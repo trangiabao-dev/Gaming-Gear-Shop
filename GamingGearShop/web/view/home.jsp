@@ -57,8 +57,20 @@
                                         <li><a class="dropdown-item" href="MainController?action=login">Đăng nhập</a></li>
                                         <li><a class="dropdown-item" href="MainController?action=register">Đăng ký mới</a></li>
                                         </c:when>
-                                        <c:otherwise>
+
+                                    <c:otherwise>
+                                        <c:if test="${sessionScope.LOGIN_USER.roleID == 1}">
+                                            <li>
+                                                <a class="dropdown-item fw-bold text-primary" href="${pageContext.request.contextPath}/AdminController?action=product_list">
+                                                    <i class="bi bi-shield-lock-fill me-2"></i>Khu Vực Quản Trị
+                                                </a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            </c:if>
                                         <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MainController?action=orderhistory">
+                                                <i class="bi bi-clock-history me-2"></i>Lịch sử đơn hàng</a>
+                                        </li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item text-danger" href="MainController?action=logout">Đăng xuất</a></li>
                                         </c:otherwise>

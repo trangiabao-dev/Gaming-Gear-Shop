@@ -1,0 +1,505 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #f4f5f7;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+    background: linear-gradient(160deg, #1a0005 0%, #6b000c 50%, #d70018 100%);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 5px 0 20px rgba(215,0,24,0.15);
+}
+
+.sidebar-brand {
+    padding: 28px 22px 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.sidebar-brand h1 {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #fff;
+    margin: 0;
+    letter-spacing: 0.3px;
+    text-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+.sidebar-brand p {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.55);
+    margin: 5px 0 0;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.sidebar-menu {
+    padding: 10px 14px;
+    flex: 1;
+}
+
+.menu-label {
+    font-size: 0.62rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    padding: 18px 10px 8px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin-bottom: 3px;
+}
+
+.menu-item i {
+    font-size: 1rem;
+    width: 18px;
+    text-align: center;
+}
+
+.menu-item:hover {
+    background: rgba(255,255,255,0.13);
+    color: #fff;
+    transform: translateX(4px);
+}
+
+.menu-item.active {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    font-weight: 800;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.sidebar-footer {
+    padding: 14px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar-footer a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.sidebar-footer a:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+/* ===== MAIN WRAPPER ===== */
+.main-wrapper {
+    margin-left: 250px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Quan trọng — ngăn content tràn ra ngoài */
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+    background: #fff;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.topbar-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topbar-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d70018, #ff4d4f);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    flex-shrink: 0; /* Không cho avatar bị co lại */
+}
+
+.topbar-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #334155;
+    white-space: nowrap; /* Không cho tên xuống dòng */
+}
+
+/* ===== PAGE CONTENT ===== */
+.page-content {
+    padding: 24px 28px;
+    flex: 1;
+}
+
+/* ===== PAGE HEADER ===== */
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.page-heading {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+}
+
+/* ===== CARD ===== */
+.admin-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    margin-bottom: 20px;
+    overflow-x: auto; /* Bảng không bị vỡ trên màn nhỏ */
+}
+
+/* ===== TABLE ===== */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Bảng không bị ép quá nhỏ */
+}
+
+.admin-table th {
+    background: #f8fafc;
+    color: #64748b;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 12px 16px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.admin-table th:first-child { border-radius: 10px 0 0 10px; }
+.admin-table th:last-child  { border-radius: 0 10px 10px 0; }
+
+.admin-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 0.88rem;
+    vertical-align: middle;
+}
+
+.admin-table tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table tr:hover td {
+    background: #fafbfc;
+}
+
+/* ===== BADGE — Fix lỗi xuống dòng ===== */
+.badge-active,
+.badge-inactive,
+.badge-locked,
+.badge-admin,
+.badge-user {
+    display: inline-block;     /* Quan trọng — không dùng block */
+    white-space: nowrap;       /* Không cho chữ xuống dòng */
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.badge-active   { background: #dcfce7; color: #16a34a; }
+.badge-inactive { background: #f1f5f9; color: #94a3b8; }
+.badge-locked   { background: #fee2e2; color: #d70018; }
+.badge-admin    { background: #fee2e2; color: #d70018; }
+.badge-user     { background: #eff6ff; color: #2563eb; }
+
+/* ===== BUTTONS ===== */
+.btn-admin-primary {
+    background: linear-gradient(135deg, #e45464, #d70018);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-admin-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(215,0,24,0.3);
+    color: #fff;
+}
+
+.btn-admin-edit,
+.btn-admin-danger,
+.btn-admin-success,
+.btn-admin-warning,
+.btn-admin-secondary {
+    border: none;
+    padding: 6px 13px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: 0.2s;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-admin-edit      { background: #eff6ff; color: #2563eb; }
+.btn-admin-edit:hover { background: #2563eb; color: #fff; }
+
+.btn-admin-danger      { background: #fee2e2; color: #d70018; }
+.btn-admin-danger:hover { background: #d70018; color: #fff; }
+
+.btn-admin-success      { background: #dcfce7; color: #16a34a; }
+.btn-admin-success:hover { background: #16a34a; color: #fff; }
+
+.btn-admin-warning      { background: #fef3c7; color: #d97706; }
+.btn-admin-warning:hover { background: #d97706; color: #fff; }
+
+.btn-admin-secondary {
+    background: #f1f5f9;
+    color: #475569;
+    padding: 10px 20px;
+}
+.btn-admin-secondary:hover { background: #e2e8f0; color: #334155; }
+
+/* ===== FORM ===== */
+.form-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    max-width: 750px;
+    margin: 0 auto; /* Thêm dòng này — căn giữa form */
+}
+
+/* Form 2 cột — dùng cho Mã SP + Tên SP, Giá + Số lượng */
+.form-row-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-label-admin {
+    display: block;
+    font-weight: 700;
+    color: #334155;
+    font-size: 0.85rem;
+    margin-bottom: 7px;
+}
+
+.form-note {
+    font-weight: 500;
+    color: #94a3b8;
+    font-size: 0.78rem;
+    margin-left: 6px;
+}
+
+.form-control-admin {
+    width: 100%;
+    padding: 11px 15px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    background: #f8fafc;
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 0.9rem;
+    transition: 0.2s;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-control-admin:focus {
+    border-color: #d70018;
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(215,0,24,0.08);
+}
+
+.form-control-admin:disabled {
+    background: #f1f5f9;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.form-group-admin {
+    margin-bottom: 18px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* ===== ALERT ===== */
+.alert-error {
+    background: #fee2e2;
+    color: #d70018;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ===== TOAST ===== */
+.toast-msg {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    padding: 13px 20px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.3s ease;
+}
+
+.toast-success { background: #dcfce7; color: #16a34a; }
+.toast-warning { background: #fef3c7; color: #d97706; }
+
+/* ===== PRODUCT IMAGE ===== */
+.product-thumb {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #f1f5f9;
+    display: block;
+}
+
+.preview-img {
+    width: 85px;
+    height: 85px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid #f1f5f9;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* ===== EMPTY ROW ===== */
+.empty-row {
+    text-align: center;
+    color: #94a3b8;
+    font-weight: 600;
+    padding: 40px 16px;
+    font-size: 0.9rem;
+}
+
+/* ===== CUSTOM FILE INPUT ===== */
+.file-input-wrapper {
+    position: relative;
+}
+
+.file-input-wrapper input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.file-input-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 20px;
+    border-radius: 12px;
+    border: 2px dashed #e2e8f0;
+    background: #f8fafc;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100%;
+}
+
+.file-input-btn:hover {
+    border-color: #d70018;
+    color: #d70018;
+    background: #fff5f5;
+}
+
+.file-name-display {
+    font-size: 0.82rem;
+    color: #64748b;
+    font-weight: 600;
+    margin-top: 6px;
+}

@@ -1,8 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<c:if test="${empty sessionScope.user}">
-    <c:redirect url="login.jsp"/>
+<c:if test="${empty sessionScope.LOGIN_USER}">
+    <c:redirect url="/MainController?action=login"/>
 </c:if>
 <html lang="vi">
     <head>
@@ -51,15 +51,25 @@
                             <ul class="dropdown-menu dropdown-menu-end soft-dropdown">
                                 <c:choose>
                                     <c:when test="${empty sessionScope.LOGIN_USER}">
-                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MainController?action=login">Đăng nhập</a></li>
-                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MainController?action=register">Đăng ký mới</a></li>
+                                        <li><a class="dropdown-item" href="MainController?action=login">Đăng nhập</a></li>
+                                        <li><a class="dropdown-item" href="MainController?action=register">Đăng ký mới</a></li>
                                         </c:when>
-                                        <c:otherwise>
-                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MainController?action=orderHistory">
+
+                                    <c:otherwise>
+                                        <c:if test="${sessionScope.LOGIN_USER.roleID == 1}">
+                                            <li>
+                                                <a class="dropdown-item fw-bold text-primary" href="${pageContext.request.contextPath}/AdminController?action=product_list">
+                                                    <i class="bi bi-shield-lock-fill me-2"></i>Khu Vực Quản Trị
+                                                </a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            </c:if>
+                                        <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MainController?action=orderhistory">
                                                 <i class="bi bi-clock-history me-2"></i>Lịch sử đơn hàng</a>
                                         </li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/MainController?action=logout">Đăng xuất</a></li>
+                                        <li><a class="dropdown-item text-danger" href="MainController?action=logout">Đăng xuất</a></li>
                                         </c:otherwise>
                                     </c:choose>
                             </ul>

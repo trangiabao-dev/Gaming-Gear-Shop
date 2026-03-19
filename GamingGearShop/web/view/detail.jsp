@@ -6,21 +6,21 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${detail.productName} - Gaming Gear Shop</title>
-        
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-        
+
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/detail.css" rel="stylesheet">
     </head>
-    
+
     <body>
         <nav class="navbar navbar-expand-lg fixed-top floating-navbar">
             <div class="container-fluid px-4 px-lg-5">
                 <a class="navbar-brand brand-boutique" href="${pageContext.request.contextPath}/MainController?action=home">
                     Gaming Gear Shop<span></span>
                 </a>
-                
+
                 <button class="navbar-toggler border-0 shadow-none text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                     <i class="bi bi-list fs-2"></i>
                 </button>
@@ -53,15 +53,27 @@
                             <ul class="dropdown-menu dropdown-menu-end soft-dropdown">
                                 <c:choose>
                                     <c:when test="${empty sessionScope.LOGIN_USER}">
-                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MainController?action=login">Đăng nhập</a></li>
-                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MainController?action=register">Đăng ký mới</a></li>
-                                    </c:when>
+                                        <li><a class="dropdown-item" href="MainController?action=login">Đăng nhập</a></li>
+                                        <li><a class="dropdown-item" href="MainController?action=register">Đăng ký mới</a></li>
+                                        </c:when>
+
                                     <c:otherwise>
+                                        <c:if test="${sessionScope.LOGIN_USER.roleID == 1}">
+                                            <li>
+                                                <a class="dropdown-item fw-bold text-primary" href="${pageContext.request.contextPath}/AdminController?action=product_list">
+                                                    <i class="bi bi-shield-lock-fill me-2"></i>Khu Vực Quản Trị
+                                                </a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            </c:if>
                                         <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MainController?action=orderhistory">
+                                                <i class="bi bi-clock-history me-2"></i>Lịch sử đơn hàng</a>
+                                        </li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/MainController?action=logout">Đăng xuất</a></li>
-                                    </c:otherwise>
-                                </c:choose>
+                                        <li><a class="dropdown-item text-danger" href="MainController?action=logout">Đăng xuất</a></li>
+                                        </c:otherwise>
+                                    </c:choose>
                             </ul>
                         </div>
                     </div>
@@ -140,8 +152,8 @@
                             <div class="rating-stars">
                                 <c:forEach begin="1" end="${fb.rating}"><span class="star-gold">★</span></c:forEach>
                                 <c:forEach begin="1" end="${5 - fb.rating}"><span class="star-gray">★</span></c:forEach>
-                            </div>
-                            <div class="feedback-text-content">
+                                </div>
+                                <div class="feedback-text-content">
                                 ${fb.content}
                             </div>
                             <div class="posted-date">

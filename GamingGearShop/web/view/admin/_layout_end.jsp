@@ -1,6 +1,6 @@
 <%-- 
     Document   : layout_end
-    Created on : Mar 18, 2026, 11:44:28 PM
+    Created on : Mar 20, 2026, 1:06:09 AM
     Author     : ACER
 --%>
 
@@ -19,6 +19,16 @@
         }, 3000);
     }
 </script>
-
+<script>
+    function updateFileName(input) {
+        var display = document.getElementById('fileNameDisplay');
+        if (input.files && input.files.length > 0) {
+            display.textContent = '?ã ch?n: ' + input.files[0].name;
+            display.style.color = '#16a34a';
+        } else {
+            display.textContent = '';
+        }
+    }
+</script>
 </body>
 </html>

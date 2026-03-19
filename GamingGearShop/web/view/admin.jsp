@@ -7,8 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<c:if test="${empty sessionScope.user}">
-    <c:redirect url="login.jsp"/>
+<c:if test="${empty sessionScope.LOGIN_USER}">
+    <c:redirect url="/MainController?action=login"/>
 </c:if>
 <html>
     <head>

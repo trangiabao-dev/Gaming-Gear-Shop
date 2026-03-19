@@ -2,13 +2,9 @@ package controller;
 
 import DAO.BrandDAO;
 import DAO.CategoryDAO;
-import DAO.OrderDAO;
-import DAO.ProductDAO;
 import DAO.UserDAO;
 import Model.BrandDTO;
 import Model.CategoryDTO;
-import Model.OrderDTO;
-import Model.ProductDTO;
 import Model.UserDTO;
 import java.io.File;
 import DAO.OrderDAO;
@@ -18,6 +14,7 @@ import Model.ProductDTO;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +25,11 @@ import utils.URL;
  *
  * @author ACER
  */
+@MultipartConfig(
+    fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
+    maxFileSize = 1024 * 1024 * 10,       // 10MB
+    maxRequestSize = 1024 * 1024 * 50     // 50MB
+)
 public class AdminController extends HttpServlet {
 
     /**
@@ -553,7 +555,8 @@ public class AdminController extends HttpServlet {
             int status = Integer.parseInt(statusStr);
             new OrderDAO().updateOrderStatus(orderID, status);
         } catch (NumberFormatException e) {
-            /* bỏ qua */ }
+            e.printStackTrace();
+        }
         response.sendRedirect("AdminController?action=order_list");
     }
 

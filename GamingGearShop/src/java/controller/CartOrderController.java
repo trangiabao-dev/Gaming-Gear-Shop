@@ -131,14 +131,14 @@ public class CartOrderController extends HttpServlet {
     private String checkout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return URL.PAGE_LOGIN;
+            return "MainController?action=login";
         }
 
         UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
         Cart cart = (Cart) session.getAttribute("CART");
 
         if (user == null) {
-            return URL.PAGE_LOGIN;
+            return "MainController?action=login";
         }
 
         if (cart != null && !cart.getCart().isEmpty()) {
@@ -163,12 +163,12 @@ public class CartOrderController extends HttpServlet {
     private String viewOrderHistory(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return URL.PAGE_LOGIN;
+            return "MainController?action=login";
         }
 
         UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
         if (user == null) {
-            return URL.PAGE_LOGIN;
+            return "MainController?action=login";
         }
 
         OrderDAO dao = new OrderDAO();
@@ -180,12 +180,12 @@ public class CartOrderController extends HttpServlet {
     private String cancelOrder(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return URL.PAGE_LOGIN;
+            return "MainController?action=login";
         }
 
         UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
         if (user == null) {
-            return URL.PAGE_LOGIN;
+            return "MainController?action=login";
         }
 
         String orderIDStr = request.getParameter("orderID");
