@@ -67,7 +67,6 @@
                                             </li>
                                             <li><hr class="dropdown-divider"></li>
                                             </c:if>
-                                        <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MainController?action=orderhistory">
                                                 <i class="bi bi-clock-history me-2"></i>Lịch sử đơn hàng</a>
                                         </li>
