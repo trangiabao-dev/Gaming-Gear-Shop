@@ -58,10 +58,6 @@ public class OrderDAO extends JPAGenericDAO<OrderDTO> {
         }
         return check;
     }
-<<<<<<< HEAD
-
-    public boolean updateOrderStatus(int orderID, int newStatus) {
-=======
     // Lấy danh sách đơn hàng theo userID
 
     public List<OrderDTO> getOrdersByUser(String userID) {
@@ -69,7 +65,7 @@ public class OrderDAO extends JPAGenericDAO<OrderDTO> {
         return super.query(jpql, userID);
     }
 
-// Lấy chi tiết từng đơn (danh sách sản phẩm trong đơn)
+    // Lấy chi tiết từng đơn (danh sách sản phẩm trong đơn)
     public List<OrderDetailDTO> getDetailsByOrderID(int orderID) {
         EntityManager em = null;
         try {
@@ -87,27 +83,19 @@ public class OrderDAO extends JPAGenericDAO<OrderDTO> {
         }
     }
 
-// Hủy đơn hàng (chỉ cho hủy khi status = 1 - đang xử lý)
+    // Hủy đơn hàng (chỉ cho hủy khi status = 1 - đang xử lý)
     public boolean cancelOrder(int orderID, String userID) {
->>>>>>> 7f36b953807c1f2a5e5c48ac2979e6b028f34c79
         EntityManager em = null;
         EntityTransaction trans = null;
         try {
             em = JPAUtils.getEntityManager();
             trans = em.getTransaction();
-<<<<<<< HEAD
-            OrderDTO order = em.find(OrderDTO.class, orderID);
-            if (order != null) {
-                trans.begin();
-                order.setStatus(newStatus);
-=======
 
             OrderDTO order = em.find(OrderDTO.class, orderID);
             // Kiểm tra: đơn phải của đúng user VÀ chưa giao
             if (order != null && order.getUserID().equals(userID) && order.getStatus() == 1) {
                 trans.begin();
                 order.setStatus(0); // 0 = Đã hủy
->>>>>>> 7f36b953807c1f2a5e5c48ac2979e6b028f34c79
                 em.merge(order);
                 trans.commit();
                 return true;
@@ -125,13 +113,36 @@ public class OrderDAO extends JPAGenericDAO<OrderDTO> {
         }
     }
 
-<<<<<<< HEAD
+    public boolean updateOrderStatus(int orderID, int newStatus) {
+        EntityManager em = null;
+        EntityTransaction trans = null;
+        try {
+            em = JPAUtils.getEntityManager();
+            trans = em.getTransaction();
+            OrderDTO order = em.find(OrderDTO.class, orderID);
+            if (order != null) {
+                trans.begin();
+                order.setStatus(newStatus);
+                em.merge(order);
+                trans.commit();
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            if (trans != null && trans.isActive()) {
+                trans.rollback();
+            }
+            return false;
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
     // Lấy tất cả đơn hàng cho admin xem
     public List<OrderDTO> getAllOrders() {
         String jpql = "SELECT o FROM OrderDTO o ORDER BY o.orderID DESC";
         return super.query(jpql);
     }
-=======
-   
->>>>>>> 7f36b953807c1f2a5e5c48ac2979e6b028f34c79
 }

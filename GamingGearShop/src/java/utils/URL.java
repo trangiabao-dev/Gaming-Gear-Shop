@@ -10,7 +10,6 @@ public class URL {
     public static final String PAGE_DETAIL   = "view/detail.jsp";
     public static final String PAGE_ERROR    = "view/error.jsp";
     public static final String PAGE_ORDER_HISTORY = "view/order-history.jsp";
-    public static final String PAGE_ADMIN_ORDER = "view/order-list.jsp";
 
     // ===== TRANG ADMIN =====
     public static final String PAGE_ADMIN_PRODUCT       = "view/admin/product-list.jsp";

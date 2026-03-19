@@ -1,6 +1,5 @@
 package controller;
 
-<<<<<<< HEAD
 import DAO.BrandDAO;
 import DAO.CategoryDAO;
 import DAO.OrderDAO;
@@ -12,22 +11,17 @@ import Model.OrderDTO;
 import Model.ProductDTO;
 import Model.UserDTO;
 import java.io.File;
-=======
 import DAO.OrderDAO;
 import DAO.ProductDAO;
 import Model.OrderDTO;
 import Model.ProductDTO;
->>>>>>> 7f36b953807c1f2a5e5c48ac2979e6b028f34c79
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
 import javax.servlet.http.Part;
-=======
->>>>>>> 7f36b953807c1f2a5e5c48ac2979e6b028f34c79
 import utils.URL;
 
 /**
@@ -55,8 +49,6 @@ public class AdminController extends HttpServlet {
 
         try {
             switch (action) {
-<<<<<<< HEAD
-
                 // ===== SẢN PHẨM =====
                 case "product_list":
                     showProductList(request, response);
@@ -141,11 +133,9 @@ public class AdminController extends HttpServlet {
                 case "update_order_status":
                     updateOrderStatus(request, response);
                     break;
-=======
                 case "":
 
                     break;
->>>>>>> 7f36b953807c1f2a5e5c48ac2979e6b028f34c79
 
                 default:
                     showProductList(request, response);
@@ -158,19 +148,14 @@ public class AdminController extends HttpServlet {
         }
     }
 
-<<<<<<< HEAD
     // PHẦN PRODUCT
     private void showProductList(HttpServletRequest request, HttpServletResponse response)
-=======
-    protected void showProductList(HttpServletRequest request, HttpServletResponse response)
->>>>>>> 7f36b953807c1f2a5e5c48ac2979e6b028f34c79
             throws ServletException, IOException {
         List<ProductDTO> list = new ProductDAO().getAllProductsForAdmin();
         request.setAttribute("PRODUCT_LIST", list);
         request.getRequestDispatcher(URL.PAGE_ADMIN_PRODUCT).forward(request, response);
     }
 
-<<<<<<< HEAD
     private void showProductForm(HttpServletRequest request, HttpServletResponse response,
             ProductDTO product) throws ServletException, IOException {
         request.setAttribute("CATEGORY_LIST", new CategoryDAO().getAllCategories());
@@ -572,8 +557,6 @@ public class AdminController extends HttpServlet {
         response.sendRedirect("AdminController?action=order_list");
     }
 
-=======
->>>>>>> 7f36b953807c1f2a5e5c48ac2979e6b028f34c79
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
