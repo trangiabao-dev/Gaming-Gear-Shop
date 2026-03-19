@@ -28,10 +28,10 @@ public class MainController extends HttpServlet {
             if (action == null || action.trim().isEmpty()) {
                 action = "home";
             }
-            
+
             // Kỹ thuật Ép chữ thường: Để tránh lỗi "Remove" và "CheckOut" từ JSP
             String actionLower = action.toLowerCase();
-            
+
             switch (actionLower) {
                 case "home":
                 case "detail":
@@ -48,6 +48,8 @@ public class MainController extends HttpServlet {
                 case "viewcart":
                 case "remove":     // Khớp với mọi kiểu gõ từ JSP
                 case "checkout":   // Khớp với mọi kiểu gõ từ JSP
+                case "orderhistory":
+                case "cancelorder":
                     url = URL.CART_ORDER_CONTROLLER;
                     break;
                 case "addfeedback":
