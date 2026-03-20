@@ -8,7 +8,8 @@ body {
     font-family: 'Montserrat', sans-serif;
     background-color: #f4f5f7;
     color: #1e293b;
-    padding-top: 100px;
+    padding-top: 110px;
+    overflow-x: clip; /* đổi từ hidden sang clip — clip không làm chết sticky */
 }
 
 a {
@@ -17,15 +18,15 @@ a {
 
 /* --- 1. THANH MENU NỔI --- */
 .floating-navbar {
-    position: absolute;
+    position: fixed;
     background-image: linear-gradient(rgb(228, 84, 100) 0%, rgb(215, 0, 24) 100%);
     backdrop-filter: blur(15px);
     box-shadow: 0 10px 40px rgba(215, 0, 24, 0.2);
-    border-radius: 50px;
-    top: 15px;
-    left: 20px;
-    right: 20px;
-    padding: 10px 25px;
+    border-radius: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 40px;
     z-index: 1000;
     transition: all 0.3s ease;
     border: none;
