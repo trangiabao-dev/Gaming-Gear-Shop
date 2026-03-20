@@ -40,8 +40,8 @@
                         <a href="MainController?action=viewCart" class="action-btn text-decoration-none">
                             <i class="bi bi-bag-heart fs-5"></i>
                             <span class="d-none d-xl-inline">Giỏ hàng</span>
-                            <c:if test="${not empty sessionScope.CART}">
-                                <span class="cart-bubble">${sessionScope.CART.cart.size()}</span>
+                            <c:if test="${sessionScope.CART_COUNT > 0}">
+                                <span class="cart-bubble">${sessionScope.CART_COUNT}</span>
                             </c:if>
                         </a>
                         <div class="dropdown">
@@ -268,7 +268,7 @@
                         </c:forEach>
                     </div>
                 </div> <%-- KẾT THÚC CỘT SẢN PHẨM (col-lg-9) --%>
-                
+
             </div> <%-- KẾT THÚC ROW CHIA CỘT (row g-4) --%>
 
             <%-- ĐÂY RỒI: ĐƯA HẲN PHÂN TRANG RA NGOÀI CÙNG ĐỂ NÓ NẰM GIỮA TOÀN BỘ MÀN HÌNH --%>
@@ -326,9 +326,9 @@
                             <span class="social-btn"><i class="bi bi-instagram"></i></span>
                         </div>
                     </div>
-                    
+
                     <%-- Cột "Về Chúng Tôi" đã được gỡ bỏ hoàn toàn --%>
-                    
+
                     <div>
                         <div class="footer-col-title">Hỗ Trợ</div>
                         <span class="footer-link">Chính sách đổi trả</span>
@@ -361,34 +361,34 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            var currentSlide = 0;
-            var slides = document.querySelectorAll('.banner-slide');
-            var dots = document.querySelectorAll('.banner-dot');
-            var timer = null;
+                    var currentSlide = 0;
+                    var slides = document.querySelectorAll('.banner-slide');
+                    var dots = document.querySelectorAll('.banner-dot');
+                    var timer = null;
 
-            function goToSlide(n) {
-                slides[currentSlide].classList.remove('active');
-                dots[currentSlide].classList.remove('active');
-                currentSlide = (n + slides.length) % slides.length;
-                slides[currentSlide].classList.add('active');
-                dots[currentSlide].classList.add('active');
-            }
+                    function goToSlide(n) {
+                        slides[currentSlide].classList.remove('active');
+                        dots[currentSlide].classList.remove('active');
+                        currentSlide = (n + slides.length) % slides.length;
+                        slides[currentSlide].classList.add('active');
+                        dots[currentSlide].classList.add('active');
+                    }
 
-            function changeSlide(dir) {
-                goToSlide(currentSlide + dir);
-                resetTimer();
-            }
+                    function changeSlide(dir) {
+                        goToSlide(currentSlide + dir);
+                        resetTimer();
+                    }
 
-            function resetTimer() {
-                clearInterval(timer);
-                timer = setInterval(function () {
-                    goToSlide(currentSlide + 1);
-                }, 4500);
-            }
+                    function resetTimer() {
+                        clearInterval(timer);
+                        timer = setInterval(function () {
+                            goToSlide(currentSlide + 1);
+                        }, 4500);
+                    }
 
-            timer = setInterval(function () {
-                goToSlide(currentSlide + 1);
-            }, 4500);
+                    timer = setInterval(function () {
+                        goToSlide(currentSlide + 1);
+                    }, 4500);
         </script>
 
     </body>

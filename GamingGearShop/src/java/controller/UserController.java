@@ -33,7 +33,11 @@ public class UserController extends HttpServlet {
                     url = logoutUser(request);
                     break;
                 case "register":
-                    url = registerUser(request);
+                    if (request.getMethod().equalsIgnoreCase("GET")) {
+                        url = URL.PAGE_REGISTER;
+                    } else {
+                        url = registerUser(request);
+                    }
                     break;
                 case "forgotpassword":        // THÊM VÀO
                     url = showForgotPassword(request);
@@ -76,6 +80,10 @@ public class UserController extends HttpServlet {
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("LOGIN_USER", user);
+            
+            int cartCount = new DAO.CartDAO().countCartItems(userID);
+            session.setAttribute("CART_COUNT", cartCount);
+            
             // Sửa thành PROCESS_HOME để về thẳng trang chủ hiện sản phẩm
             return URL.PROCESS_HOME;
         } else {
