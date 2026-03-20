@@ -15,13 +15,13 @@ public class UserController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String action = request.getParameter("action");
         String url = URL.PAGE_HOME;
 
         try {
             if (action == null) {
-                action = "loginPage"; 
+                action = "loginPage";
             }
 
             switch (action.toLowerCase()) {
@@ -32,7 +32,11 @@ public class UserController extends HttpServlet {
                     url = logoutUser(request);
                     break;
                 case "register":
-                    url = registerUser(request);
+                    if (request.getMethod().equalsIgnoreCase("GET")) {
+                        url = URL.PAGE_REGISTER;
+                    } else {
+                        url = registerUser(request);
+                    }
                     break;
                 default:
                     url = URL.PAGE_LOGIN;
@@ -67,7 +71,7 @@ public class UserController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("LOGIN_USER", user);
             // Sửa thành PROCESS_HOME để về thẳng trang chủ hiện sản phẩm
-            return URL.PROCESS_HOME; 
+            return URL.PROCESS_HOME;
         } else {
             request.setAttribute("ERROR", "Sai tên đăng nhập hoặc mật khẩu!");
             return URL.PAGE_LOGIN;
@@ -118,6 +122,7 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
