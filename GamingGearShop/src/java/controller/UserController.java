@@ -70,6 +70,10 @@ public class UserController extends HttpServlet {
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("LOGIN_USER", user);
+            
+            int cartCount = new DAO.CartDAO().countCartItems(userID);
+            session.setAttribute("CART_COUNT", cartCount);
+            
             // Sửa thành PROCESS_HOME để về thẳng trang chủ hiện sản phẩm
             return URL.PROCESS_HOME;
         } else {
