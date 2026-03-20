@@ -235,15 +235,14 @@
                                         </div>
                                     </c:if>
 
-                                    <%-- Đã thay <a> thành <div> để không click được --%>
-                                    <div class="img-wrap">
+                                    <%-- SẢN PHẨM VẪN CLICK ĐƯỢC NHƯ BÌNH THƯỜNG --%>
+                                    <a href="MainController?action=detail&productID=${product.productID}" class="img-wrap">
                                         <img src="${product.imageURL}" alt="${product.productName}">
-                                    </div>
+                                    </a>
 
-                                    <%-- Đã thay <a> thành <div> để không click được --%>
-                                    <div class="item-name" title="${product.productName}">
+                                    <a href="MainController?action=detail&productID=${product.productID}" class="item-name text-decoration-none" title="${product.productName}">
                                         ${product.productName}
-                                    </div>
+                                    </a>
 
                                     <div class="item-price">${product.priceFormat} ₫</div>
 
@@ -268,12 +267,13 @@
                             </div>
                         </c:forEach>
                     </div>
-                </div> <%-- KẾT THÚC CỘT SẢN PHẨM --%>
-            </div> <%-- KẾT THÚC ROW G-4 CHIA CỘT --%>
+                </div> <%-- KẾT THÚC CỘT SẢN PHẨM (col-lg-9) --%>
+                
+            </div> <%-- KẾT THÚC ROW CHIA CỘT (row g-4) --%>
 
-            <%-- PHÂN TRANG NẰM CHÍNH GIỮA TRANG WEB (BÊN NGOÀI KHUNG ROW G-4) --%>
+            <%-- ĐÂY RỒI: ĐƯA HẲN PHÂN TRANG RA NGOÀI CÙNG ĐỂ NÓ NẰM GIỮA TOÀN BỘ MÀN HÌNH --%>
             <c:if test="${endPage > 1}">
-                <div class="w-100 d-flex justify-content-center mt-5">
+                <div class="w-100 d-flex justify-content-center" style="margin-top: 40px;">
                     <nav>
                         <ul class="pagination soft-pagination m-0">
                             <c:forEach begin="1" end="${endPage}" var="i">
@@ -307,7 +307,7 @@
 
         </div> <%-- KẾT THÚC CONTAINER CHÍNH --%>
 
-        <%-- ===== FOOTER ===== --%>
+        <%-- ===== FOOTER (CÁC LINK KHÔNG CLICK ĐƯỢC NỮA) ===== --%>
         <footer class="footer">
             <div class="footer-inner">
                 <div class="footer-grid">
@@ -320,34 +320,36 @@
                             với giá tốt nhất thị trường. Cam kết bảo hành uy tín.
                         </p>
                         <div class="footer-social">
-                            <a href="#" class="social-btn"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="social-btn"><i class="bi bi-youtube"></i></a>
-                            <a href="#" class="social-btn"><i class="bi bi-tiktok"></i></a>
-                            <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+                            <span class="social-btn"><i class="bi bi-facebook"></i></span>
+                            <span class="social-btn"><i class="bi bi-youtube"></i></span>
+                            <span class="social-btn"><i class="bi bi-tiktok"></i></span>
+                            <span class="social-btn"><i class="bi bi-instagram"></i></span>
                         </div>
                     </div>
-                    <%-- Cột "Về Chúng Tôi" đã được gỡ bỏ --%>
+                    
+                    <%-- Cột "Về Chúng Tôi" đã được gỡ bỏ hoàn toàn --%>
+                    
                     <div>
                         <div class="footer-col-title">Hỗ Trợ</div>
-                        <a href="#" class="footer-link">Chính sách đổi trả</a>
-                        <a href="#" class="footer-link">Bảo hành sản phẩm</a>
-                        <a href="#" class="footer-link">Hướng dẫn mua hàng</a>
-                        <a href="#" class="footer-link">Câu hỏi thường gặp</a>
+                        <span class="footer-link">Chính sách đổi trả</span>
+                        <span class="footer-link">Bảo hành sản phẩm</span>
+                        <span class="footer-link">Hướng dẫn mua hàng</span>
+                        <span class="footer-link">Câu hỏi thường gặp</span>
                     </div>
                     <div>
                         <div class="footer-col-title">Liên Hệ</div>
-                        <a href="#" class="footer-link">
+                        <span class="footer-link">
                             <i class="bi bi-telephone-fill"></i> 1800 6789
-                        </a>
-                        <a href="#" class="footer-link">
+                        </span>
+                        <span class="footer-link">
                             <i class="bi bi-envelope-fill"></i> support@gaminggear.vn
-                        </a>
-                        <a href="#" class="footer-link">
+                        </span>
+                        <span class="footer-link">
                             <i class="bi bi-geo-alt-fill"></i> TP. Hồ Chí Minh
-                        </a>
-                        <a href="#" class="footer-link">
+                        </span>
+                        <span class="footer-link">
                             <i class="bi bi-clock-fill"></i> 8:00 - 22:00 mỗi ngày
-                        </a>
+                        </span>
                     </div>
                 </div>
                 <div class="footer-bottom">
