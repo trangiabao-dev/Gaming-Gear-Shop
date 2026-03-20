@@ -4,7 +4,7 @@ public class URL {
 
     // ===== TRANG KHÁCH HÀNG =====
     public static final String PAGE_HOME     = "view/home.jsp";
-    public static final String PAGE_LOGIN    = "view/login.jsp";
+    public static final String PAGE_LOGIN    = "view/Login.jsp";
     public static final String PAGE_REGISTER = "view/register.jsp";
     public static final String PAGE_CART     = "view/cart.jsp";
     public static final String PAGE_DETAIL   = "view/detail.jsp";

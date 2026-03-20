@@ -1,6 +1,6 @@
 package DAO;
 
-import Model.Cart;
+import Model.CartDTO;
 import Model.OrderDTO;
 import Model.OrderDetailDTO;
 import Model.ProductDTO;
@@ -16,47 +16,45 @@ public class OrderDAO extends JPAGenericDAO<OrderDTO> {
         super(OrderDTO.class);
     }
 
-    public boolean checkOut(OrderDTO order, Cart cart) {
+    public boolean checkOutFromDB(OrderDTO order, List<CartDTO> cartItems) {
         EntityManager em = null;
         EntityTransaction trans = null;
-        boolean check = false;
-
         try {
             em = JPAUtils.getEntityManager();
             trans = em.getTransaction();
             trans.begin();
 
-            // Bước 1: Lưu Order
             em.persist(order);
-            // Lệnh BẮT BUỘC ĐI LÀM: Đẩy xuống SQL ngay để lấy ID tự tăng
             em.flush();
 
-            // Bước 2: Duyệt qua giỏ hàng
-            for (ProductDTO item : cart.getCart().values()) {
-                OrderDetailDTO detail = new OrderDetailDTO(0, item.getPrice(), item.getQuantity(), order.getOrderID(), item.getProductID());
+            for (CartDTO item : cartItems) {
+                OrderDetailDTO detail = new OrderDetailDTO(
+                        0, item.getPrice(), item.getQuantity(),
+                        order.getOrderID(), item.getProductID()
+                );
                 em.persist(detail);
 
-                ProductDTO productInDB = em.find(ProductDTO.class, item.getProductID());
-                if (productInDB != null) {
-                    productInDB.setQuantity(productInDB.getQuantity() - item.getQuantity());
-                    em.merge(productInDB);
+                // Trừ số lượng tồn kho
+                ProductDTO product = em.find(ProductDTO.class, item.getProductID());
+                if (product != null) {
+                    product.setQuantity(product.getQuantity() - item.getQuantity());
+                    em.merge(product);
                 }
             }
 
             trans.commit();
-            check = true;
-
-        } catch (PersistenceException e) {
+            return true;
+        } catch (Exception e) {
             if (trans != null && trans.isActive()) {
                 trans.rollback();
             }
             e.printStackTrace();
+            return false;
         } finally {
             if (em != null && em.isOpen()) {
                 em.close();
             }
         }
-        return check;
     }
     // Lấy danh sách đơn hàng theo userID
 

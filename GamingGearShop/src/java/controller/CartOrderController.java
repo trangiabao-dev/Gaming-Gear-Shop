@@ -1,12 +1,15 @@
 package controller;
 
+import DAO.CartDAO;
 import DAO.OrderDAO;
 import DAO.ProductDAO;
-import Model.Cart;
+import Model.CartDTO;
 import Model.OrderDTO;
+import Model.OrderDetailDTO;
 import Model.ProductDTO;
 import Model.UserDTO;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,7 +31,7 @@ public class CartOrderController extends HttpServlet {
             if (action == null) {
                 action = "viewCart";
             }
-            // Cũng ép chữ thường để đồng bộ với MainController
+
             switch (action.toLowerCase()) {
                 case "addtocart":
                     url = addToCart(request);
@@ -42,10 +45,10 @@ public class CartOrderController extends HttpServlet {
                 case "checkout":
                     url = checkout(request);
                     break;
-                case "orderhistory":          
+                case "orderhistory":
                     url = viewOrderHistory(request);
                     break;
-                case "cancelorder":          
+                case "cancelorder":
                     url = cancelOrder(request);
                     break;
                 default:
@@ -67,6 +70,13 @@ public class CartOrderController extends HttpServlet {
 
     private String addToCart(HttpServletRequest request) {
         HttpSession session = request.getSession();
+        UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+
+        // Chưa đăng nhập thì về trang login
+        if (user == null) {
+            return URL.PAGE_LOGIN;
+        }
+
         String productID = request.getParameter("productID");
         String quantityRaw = request.getParameter("quantity");
         int quantity = 1;
@@ -81,31 +91,25 @@ public class CartOrderController extends HttpServlet {
                 quantity = 1;
             }
         }
+        // Lưu xuống DB
+        new CartDAO().addToCart(user.getUserID(), productID, quantity);
 
-        ProductDAO dao = new ProductDAO();
-        ProductDTO product = dao.getProductByID(productID);
+        // Cập nhật lại số lượng trong session để navbar hiển thị đúng
+        updateCartCountSession(session, user.getUserID());
 
-        if (product != null) {
-            product.setQuantity(quantity);
-            Cart cart = (Cart) session.getAttribute("CART");
-            if (cart == null) {
-                cart = new Cart();
-            }
-            cart.add(product);
-            session.setAttribute("CART", cart);
-            session.setAttribute("message", "Đã thêm thành công: " + product.getProductName());
-        }
         return URL.PROCESS_HOME;
     }
 
     private String viewCart(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (session != null) {
-            Cart cart = (Cart) session.getAttribute("CART");
-            if (cart != null) {
-                request.setAttribute("CART_ITEMS", cart.getCart().values());
-            }
+        UserDTO user = (session != null) ? (UserDTO) session.getAttribute("LOGIN_USER") : null;
+
+        if (user != null) {
+            // Lấy giỏ hàng từ DB
+            List<CartDTO> cartItems = new CartDAO().getCartByUser(user.getUserID());
+            request.setAttribute("CART_ITEMS", cartItems);
         }
+
         String msg = request.getParameter("msg");
         if ("Success".equals(msg)) {
             request.setAttribute("PAYMENT_STATUS", "SUCCESS");
@@ -118,40 +122,45 @@ public class CartOrderController extends HttpServlet {
     private String removeFromCart(HttpServletRequest request) {
         String productID = request.getParameter("productID");
         HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("CART");
+        UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
 
-        if (cart != null && productID != null) {
-            cart.delete(productID);
-            session.setAttribute("CART", cart);
+        if (user != null && productID != null) {
+            new CartDAO().removeFromCart(user.getUserID(), productID);
+            updateCartCountSession(session, user.getUserID());
         }
-        // Gọi thẳng qua MainController để giao diện không bị lệch
         return "MainController?action=viewCart";
     }
 
     private String checkout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return "MainController?action=login";
+            return URL.PAGE_LOGIN;
         }
 
         UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
-        Cart cart = (Cart) session.getAttribute("CART");
-
         if (user == null) {
-            return "MainController?action=login";
+            return URL.PAGE_LOGIN;
         }
 
-        if (cart != null && !cart.getCart().isEmpty()) {
+        CartDAO cartDAO = new CartDAO();
+        List<CartDTO> cartItems = cartDAO.getCartByUser(user.getUserID());
+
+        if (cartItems != null && !cartItems.isEmpty()) {
             double total = 0;
-            for (ProductDTO item : cart.getCart().values()) {
+            for (CartDTO item : cartItems) {
                 total += item.getPrice() * item.getQuantity();
             }
 
-            OrderDAO dao = new OrderDAO();
-            OrderDTO order = new OrderDTO(0, new java.sql.Date(System.currentTimeMillis()), total, user.getUserID(), 1);
+            OrderDAO orderDAO = new OrderDAO();
+            OrderDTO order = new OrderDTO(0,
+                    new java.sql.Date(System.currentTimeMillis()),
+                    total, user.getUserID(), 1);
 
-            if (dao.checkOut(order, cart)) {
-                session.removeAttribute("CART");
+            if (orderDAO.checkOutFromDB(order, cartItems)) {
+                // Xóa giỏ hàng trong DB
+                cartDAO.clearCart(user.getUserID());
+                // Xóa count trong session
+                session.removeAttribute("CART_COUNT");
                 return "MainController?action=viewCart&msg=Success";
             } else {
                 return "MainController?action=viewCart&msg=Error";
@@ -163,53 +172,56 @@ public class CartOrderController extends HttpServlet {
     private String viewOrderHistory(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return "MainController?action=login";
+            return URL.PAGE_LOGIN;
         }
 
         UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
         if (user == null) {
-            return "MainController?action=login";
+            return URL.PAGE_LOGIN;
         }
 
-        OrderDAO dao = new OrderDAO();
-        List<OrderDTO> orders = dao.getOrdersByUser(user.getUserID());
+        List<OrderDTO> orders = new OrderDAO().getOrdersByUser(user.getUserID());
         request.setAttribute("ORDER_LIST", orders);
-        return URL.PAGE_ORDER_HISTORY; // Tạo constant này ở bước sau
+        return URL.PAGE_ORDER_HISTORY;
     }
 
     private String cancelOrder(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return "MainController?action=login";
+            return URL.PAGE_LOGIN;
         }
 
         UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
         if (user == null) {
-            return "MainController?action=login";
+            return URL.PAGE_LOGIN;
         }
 
         String orderIDStr = request.getParameter("orderID");
-        if (orderIDStr == null) {
-            return "MainController?action=orderHistory";
+        if (orderIDStr != null) {
+            try {
+                int orderID = Integer.parseInt(orderIDStr);
+                new OrderDAO().cancelOrder(orderID, user.getUserID());
+            } catch (NumberFormatException e) {
+            }
         }
-
-        try {
-            int orderID = Integer.parseInt(orderIDStr);
-            OrderDAO dao = new OrderDAO();
-            dao.cancelOrder(orderID, user.getUserID());
-        } catch (NumberFormatException e) {
-            /* bỏ qua */ }
-
         return "MainController?action=orderHistory";
     }
 
+    // Cập nhật số lượng sản phẩm trong giỏ vào session để navbar hiển thị
+    private void updateCartCountSession(HttpSession session, String userID) {
+        int count = new CartDAO().countCartItems(userID);
+        session.setAttribute("CART_COUNT", count);
+    }
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 }
