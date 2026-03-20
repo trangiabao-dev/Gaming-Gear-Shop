@@ -41,8 +41,8 @@
                         <a href="${pageContext.request.contextPath}/MainController?action=viewCart" class="action-btn active-nav text-decoration-none">
                             <i class="bi bi-bag-heart fs-5"></i> 
                             <span class="d-none d-xl-inline">Giỏ hàng</span>
-                            <c:if test="${not empty sessionScope.CART}">
-                                <span class="cart-bubble">${sessionScope.CART.cart.size()}</span>
+                            <c:if test="${not empty sessionScope.CART_COUNT && sessionScope.CART_COUNT > 0}">
+                                <span class="cart-bubble">${sessionScope.CART_COUNT}</span>
                             </c:if>
                         </a>
 
@@ -144,7 +144,7 @@
                                             </td>
                                             <td class="total-col">${item.price * item.quantity} ₫</td>
                                             <td class="action-col">
-                                                <a href="${pageContext.request.contextPath}/MainController?action=Remove&productID=${item.productID}" 
+                                                <a href="${pageContext.request.contextPath}/MainController?action=remove&productID=${item.productID}" 
                                                    class="btn-remove" title="Bỏ khỏi giỏ"
                                                    onclick="return confirm('Bạn có chắc muốn bỏ sản phẩm này khỏi giỏ hàng?')">
                                                     <i class="bi bi-trash3-fill"></i>
