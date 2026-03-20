@@ -42,6 +42,9 @@ public class MainController extends HttpServlet {
                 case "login":
                 case "logout":
                 case "register":
+                case "forgotpassword":
+                case "sendotp":
+                case "resetpassword":
                     url = URL.USER_CONTROLLER;
                     break;
                 case "addtocart":

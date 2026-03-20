@@ -12,7 +12,7 @@
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/auth.css" rel="stylesheet">
     </head>
-    
+
     <body class="auth-page">
 
         <div class="auth-wrapper">
@@ -77,11 +77,19 @@
                                        oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ nhận hàng!')" 
                                        oninput="this.setCustomValidity('')">
                             </div>
-                        </div>
 
-                        <button type="submit" class="btn-primary">
-                            TẠO TÀI KHOẢN
-                        </button>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" name="email" required placeholder="Nhập email của bạn..." value="${param.email}"
+                                           oninvalid="this.setCustomValidity('Vui lòng nhập email!')" 
+                                           oninput="this.setCustomValidity('')">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-primary">
+                                TẠO TÀI KHOẢN
+                            </button>
                     </form>
 
                     <div class="auth-extra">

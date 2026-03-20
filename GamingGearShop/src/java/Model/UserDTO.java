@@ -8,23 +8,25 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tblUsers")
-public class UserDTO implements Serializable{
-    
+public class UserDTO implements Serializable {
+
     @Id
     @Column(name = "userID")
     private String userID;
-    
+
     private String fullName;
     private String password;
     private int roleID;
     private String address;
     private String phone;
     private boolean status;
+    private String email;
+    private String otp;
 
     public UserDTO() {
     }
 
-    public UserDTO(String userID, String fullName, String password, int roleID, String address, String phone, boolean status) {
+    public UserDTO(String userID, String fullName, String password, int roleID, String address, String phone, boolean status, String email, String otp) {
         this.userID = userID;
         this.fullName = fullName;
         this.password = password;
@@ -32,6 +34,8 @@ public class UserDTO implements Serializable{
         this.address = address;
         this.phone = phone;
         this.status = status;
+        this.email = email;
+        this.otp = otp;
     }
 
     public UserDTO(String userID, String fullName, int roleID, String password) {
@@ -96,6 +100,22 @@ public class UserDTO implements Serializable{
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
     }
 
 }

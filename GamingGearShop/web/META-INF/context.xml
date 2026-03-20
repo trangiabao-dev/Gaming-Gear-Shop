@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/GamingGearShop"/>
+<Context path="/GamingGearShop">
+    <Parameter name="mail.from"     value="gamingearshop0321@gmail.com"  override="false"/>
+    <Parameter name="mail.password" value="geargm113"    override="false"/>
+</Context>
+

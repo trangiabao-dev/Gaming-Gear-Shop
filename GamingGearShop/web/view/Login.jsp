@@ -61,6 +61,11 @@
                         </a>
                     </div>
 
+                    <div class="auth-extra">
+                        <a href="${pageContext.request.contextPath}/MainController?action=forgotPassword">
+                            <i class="bi bi-key-fill me-1"></i>Quên mật khẩu?
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

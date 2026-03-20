@@ -9,19 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utils.PasswordUtil;
 import utils.URL;
 
 public class UserController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String action = request.getParameter("action");
         String url = URL.PAGE_HOME;
 
         try {
             if (action == null) {
-                action = "loginPage"; 
+                action = "loginPage";
             }
 
             switch (action.toLowerCase()) {
@@ -33,6 +34,15 @@ public class UserController extends HttpServlet {
                     break;
                 case "register":
                     url = registerUser(request);
+                    break;
+                case "forgotpassword":        // THÊM VÀO
+                    url = showForgotPassword(request);
+                    break;
+                case "sendotp":               // THÊM VÀO
+                    url = sendOTP(request);
+                    break;
+                case "resetpassword":         // THÊM VÀO
+                    url = resetPassword(request);
                     break;
                 default:
                     url = URL.PAGE_LOGIN;
@@ -67,7 +77,7 @@ public class UserController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("LOGIN_USER", user);
             // Sửa thành PROCESS_HOME để về thẳng trang chủ hiện sản phẩm
-            return URL.PROCESS_HOME; 
+            return URL.PROCESS_HOME;
         } else {
             request.setAttribute("ERROR", "Sai tên đăng nhập hoặc mật khẩu!");
             return URL.PAGE_LOGIN;
@@ -89,7 +99,7 @@ public class UserController extends HttpServlet {
         String confirm = request.getParameter("confirm");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
-
+        String email = request.getParameter("email");
         UserDAO dao = new UserDAO();
 
         if (!password.equals(confirm)) {
@@ -101,7 +111,9 @@ public class UserController extends HttpServlet {
             return URL.PAGE_REGISTER;
         }
 
-        UserDTO newUser = new UserDTO(userID, fullName, password, 2, address, phone, true);
+        // Mới — mã hóa password trước khi lưu
+        String hashedPassword = PasswordUtil.hashPassword(password);
+       UserDTO newUser = new UserDTO(userID, fullName, hashedPassword, 2, address, phone, true, email, null);                                                                                   
         boolean checkInsert = dao.insert(newUser);
 
         if (checkInsert) {
@@ -111,6 +123,75 @@ public class UserController extends HttpServlet {
             request.setAttribute("ERROR", "Lỗi hệ thống! Không thể tạo tài khoản.");
             return URL.PAGE_REGISTER;
         }
+
+    }
+
+    private String showForgotPassword(HttpServletRequest request) {
+        return URL.PAGE_FORGOT_PASSWORD;
+    }
+
+    private String sendOTP(HttpServletRequest request) {
+        String email = request.getParameter("email");
+
+        if (email == null || email.trim().isEmpty()) {
+            request.setAttribute("ERROR", "Vui lòng nhập email!");
+            return URL.PAGE_FORGOT_PASSWORD;
+        }
+
+        UserDAO dao = new UserDAO();
+        UserDTO user = dao.findByEmail(email.trim());
+
+        if (user == null) {
+            request.setAttribute("ERROR", "Email không tồn tại trong hệ thống!");
+            return URL.PAGE_FORGOT_PASSWORD;
+        }
+
+        String otp = utils.OTPUtil.generateOTP();
+        boolean sent = utils.OTPUtil.sendOTP(email, otp);
+
+        if (sent) {
+            dao.saveOTP(email, otp);
+            request.getSession().setAttribute("RESET_EMAIL", email);
+            request.setAttribute("SUCCESS", "Mã OTP đã được gửi về email của bạn!");
+            return URL.PAGE_VERIFY_OTP;
+        } else {
+            request.setAttribute("ERROR", "Gửi email thất bại! Vui lòng thử lại.");
+            return URL.PAGE_FORGOT_PASSWORD;
+        }
+    }
+
+    private String resetPassword(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("RESET_EMAIL");
+        String inputOTP = request.getParameter("otp");
+        String newPass = request.getParameter("newPassword");
+        String confirmPass = request.getParameter("confirmPassword");
+
+        if (!newPass.equals(confirmPass)) {
+            request.setAttribute("ERROR", "Mật khẩu xác nhận không khớp!");
+            return URL.PAGE_VERIFY_OTP;
+        }
+
+        UserDAO dao = new UserDAO();
+        UserDTO user = dao.findByEmail(email);
+
+        if (user == null || !inputOTP.equals(user.getOtp())) {
+            request.setAttribute("ERROR", "Mã OTP không đúng!");
+            return URL.PAGE_VERIFY_OTP;
+        }
+
+        // Mã hóa password mới trước khi lưu
+        String hashedPassword = PasswordUtil.hashPassword(newPass);
+        boolean updated = dao.resetPassword(email, hashedPassword);
+
+        if (updated) {
+            session.removeAttribute("RESET_EMAIL");
+            request.setAttribute("SUCCESS", "Đặt lại mật khẩu thành công! Vui lòng đăng nhập.");
+            return URL.PAGE_LOGIN;
+        } else {
+            request.setAttribute("ERROR", "Lỗi hệ thống! Vui lòng thử lại.");
+            return URL.PAGE_VERIFY_OTP;
+        }
     }
 
     @Override
@@ -118,6 +199,7 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
