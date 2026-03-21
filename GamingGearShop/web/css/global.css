@@ -9,7 +9,7 @@ body {
     background-color: #f4f5f7;
     color: #1e293b;
     padding-top: 110px;
-    overflow-x: clip; /* đổi từ hidden sang clip — clip không làm chết sticky */
+    overflow-x: hidden;
 }
 
 a {

@@ -1,9 +1,11 @@
 package controller;
 
+import DAO.BannerDAO;
 import DAO.BrandDAO;
 import DAO.CategoryDAO;
 import DAO.FeedbackDAO;
 import DAO.ProductDAO;
+import Model.BannerDTO;
 import Model.FeedbackDTO;
 import Model.ProductDTO;
 import java.io.IOException;
@@ -65,6 +67,10 @@ public class ProductController extends HttpServlet {
         // Đưa Menu hiện lên Web
         request.setAttribute("listCategory", cDAO.getAllCategories());
         request.setAttribute("listBrand", bDAO.getAllBrands());
+        
+        BannerDAO bannerDAO = new BannerDAO();
+        List<BannerDTO> bannerList = bannerDAO.getActiveBanners();
+        request.setAttribute("BANNER_LIST", bannerList);
         
         // Xử lý phân trang
         int indexPage = 1;
