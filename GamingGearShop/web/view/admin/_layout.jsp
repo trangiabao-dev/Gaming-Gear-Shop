@@ -83,6 +83,11 @@
                     <i class="bi bi-receipt"></i> Đơn Hàng
                 </a>
 
+                <a href="${pageContext.request.contextPath}/AdminController?action=feedback_list"
+                   class="menu-item ${param.action == 'feedback_list' ? 'active' : ''}">
+                    <i class="bi bi-chat-square-text"></i> Đánh Giá
+                </a>
+
             </div>
 
             <div class="sidebar-footer">

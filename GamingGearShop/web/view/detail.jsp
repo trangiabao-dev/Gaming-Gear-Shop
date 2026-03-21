@@ -137,7 +137,64 @@
 
         <div class="product-box feedback-section">
             <h3 class="description-title mb-4">Đánh giá từ người dùng</h3>
+            <c:if test="${param.feedMsg == 'ok'}">
+                <div style="background:#dcfce7;color:#16a34a;padding:12px 18px;border-radius:12px;font-weight:600;font-size:0.88rem;margin-bottom:20px;">
+                    <i class="bi bi-check-circle-fill"></i> Cảm ơn bạn đã đánh giá sản phẩm!
+                </div>
+            </c:if>
+            <c:if test="${param.feedMsg == 'notbought'}">
+                <div style="background:#fef3c7;color:#d97706;padding:12px 18px;border-radius:12px;font-weight:600;font-size:0.88rem;margin-bottom:20px;">
+                    <i class="bi bi-exclamation-triangle-fill"></i> Bạn cần mua sản phẩm này trước khi đánh giá.
+                </div>
+            </c:if>
+            <c:if test="${param.feedMsg == 'empty'}">
+                <div style="background:#fef3c7;color:#d97706;padding:12px 18px;border-radius:12px;font-weight:600;font-size:0.88rem;margin-bottom:20px;">
+                    <i class="bi bi-exclamation-triangle-fill"></i> Vui lòng nhập nội dung đánh giá.
+                </div>
+            </c:if>
 
+            <c:choose>
+                <c:when test="${not empty sessionScope.LOGIN_USER}">
+                    <div style="background:#f8fafc;border-radius:20px;padding:25px;margin-bottom:30px;">
+                        <h4 class="description-title mb-3">Viết đánh giá của bạn</h4>
+                        <form action="${pageContext.request.contextPath}/FeedbackController" method="POST">
+                            <input type="hidden" name="action" value="addFeedback"/>
+                            <input type="hidden" name="productID" value="${detail.productID}"/>
+
+                            <div style="margin-bottom:16px;">
+                                <label style="font-weight:700;color:#334155;font-size:0.9rem;display:block;margin-bottom:8px;">Đánh giá:</label>
+                                <div id="starPicker" style="display:flex;gap:6px;font-size:1.8rem;cursor:pointer;">
+                                    <span data-val="1" style="color:#fbbf24;">★</span>
+                                    <span data-val="2" style="color:#fbbf24;">★</span>
+                                    <span data-val="3" style="color:#fbbf24;">★</span>
+                                    <span data-val="4" style="color:#fbbf24;">★</span>
+                                    <span data-val="5" style="color:#fbbf24;">★</span>
+                                </div>
+                                <input type="hidden" name="rating" id="ratingValue" value="5"/>
+                            </div>
+
+                            <div style="margin-bottom:16px;">
+                                <label style="font-weight:700;color:#334155;font-size:0.9rem;display:block;margin-bottom:8px;">Nội dung:</label>
+                                <textarea name="content" rows="3" required
+                                          style="width:100%;padding:12px 15px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;font-weight:500;font-size:0.9rem;font-family:'Montserrat',sans-serif;resize:vertical;"
+                                          placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm này..."></textarea>
+                            </div>
+
+                            <button type="submit"
+                                    style="background:linear-gradient(135deg,#e45464,#d70018);color:#fff;border:none;padding:11px 28px;border-radius:50px;font-weight:700;font-size:0.9rem;cursor:pointer;font-family:'Montserrat',sans-serif;">
+                                <i class="bi bi-send-fill me-2"></i>Gửi Đánh Giá
+                            </button>
+                        </form>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div style="background:#fef3c7;color:#d97706;padding:12px 18px;border-radius:12px;font-weight:600;font-size:0.88rem;margin-bottom:20px;">
+                        <i class="bi bi-person-lock me-2"></i>
+                        <a href="${pageContext.request.contextPath}/MainController?action=login" style="color:#d97706;font-weight:800;">Đăng nhập</a>
+                        để viết đánh giá.
+                    </div>
+                </c:otherwise>
+            </c:choose>
             <div class="feedback-list">
                 <c:forEach items="${productFeedbacks}" var="fb">
                     <div class="feedback-item">
@@ -173,5 +230,31 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            const stars = document.querySelectorAll('#starPicker span');
+            const ratingInput = document.getElementById('ratingValue');
+
+            stars.forEach(star => {
+                star.addEventListener('click', function () {
+                    const val = parseInt(this.dataset.val);
+                    ratingInput.value = val;
+                    stars.forEach(s => {
+                        s.style.color = parseInt(s.dataset.val) <= val ? '#fbbf24' : '#e2e8f0';
+                    });
+                });
+                star.addEventListener('mouseover', function () {
+                    const val = parseInt(this.dataset.val);
+                    stars.forEach(s => {
+                        s.style.color = parseInt(s.dataset.val) <= val ? '#fbbf24' : '#e2e8f0';
+                    });
+                });
+                star.addEventListener('mouseout', function () {
+                    const val = parseInt(ratingInput.value);
+                    stars.forEach(s => {
+                        s.style.color = parseInt(s.dataset.val) <= val ? '#fbbf24' : '#e2e8f0';
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

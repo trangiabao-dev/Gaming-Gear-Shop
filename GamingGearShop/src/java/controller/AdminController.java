@@ -51,7 +51,7 @@ public class AdminController extends HttpServlet {
 
         try {
             switch (action) {
-                // ===== SẢN PHẨM =====
+                // SẢN PHẨM
                 case "product_list":
                     showProductList(request, response);
                     break;
@@ -74,7 +74,7 @@ public class AdminController extends HttpServlet {
                     productStatus(request, response, true);
                     break;
 
-                // ===== NGƯỜI DÙNG =====
+                // NGƯỜI DÙNG
                 case "user_list":
                     showUserList(request, response);
                     break;
@@ -82,7 +82,7 @@ public class AdminController extends HttpServlet {
                     userStatus(request, response);
                     break;
 
-                // ===== DANH MỤC =====
+                // DANH MỤC
                 case "category_list":
                     showCategoryList(request, response);
                     break;
@@ -105,7 +105,7 @@ public class AdminController extends HttpServlet {
                     categoryStatus(request, response, true);
                     break;
 
-                // ===== THƯƠNG HIỆU =====
+                // THƯƠNG HIỆU
                 case "brand_list":
                     showBrandList(request, response);
                     break;
@@ -128,7 +128,7 @@ public class AdminController extends HttpServlet {
                     brandStatus(request, response, true);
                     break;
 
-                // ===== ORDER =====
+                // ORDER
                 case "order_list":
                     showOrderList(request, response);
                     break;
@@ -139,7 +139,7 @@ public class AdminController extends HttpServlet {
                     updateOrderStatus(request, response);
                     break;
 
-                //====== Khách Hàng =======
+                // Khách Hàng
                 case "user_create_page":
                     showUserForm(request, response, null);
                     break;
@@ -153,6 +153,10 @@ public class AdminController extends HttpServlet {
                     updateUser(request, response);
                     break;
 
+                // Đánh Giá
+                case "feedback_list":
+                    showFeedbackList(request, response);
+                    break;
                 default:
                     showProductList(request, response);
                     break;
@@ -530,26 +534,25 @@ public class AdminController extends HttpServlet {
         }
 
         String fileName = filePart.getSubmittedFileName();
+        if (fileName == null || fileName.isEmpty()) {
+            return null;
+        }
 
         String fileNameLower = fileName.toLowerCase();
-        if (!fileNameLower.endsWith(".jpg")
-                && !fileNameLower.endsWith(".jpeg")
-                && !fileNameLower.endsWith(".png")
-                && !fileNameLower.endsWith(".gif")
+        if (!fileNameLower.endsWith(".jpg") && !fileNameLower.endsWith(".jpeg")
+                && !fileNameLower.endsWith(".png") && !fileNameLower.endsWith(".gif")
                 && !fileNameLower.endsWith(".webp")) {
             return null;
         }
 
-        String fileExtension = fileName.substring(fileName.lastIndexOf("."));
-        String savedFileName = productID + fileExtension;
+        // Lấy đuôi file và đặt tên theo productID
+        String ext = fileName.substring(fileName.lastIndexOf("."));
+        String savedFileName = productID + ext;
 
+        // Lưu vào thư mục deploy — Listener đã đảm bảo thư mục tồn tại
         String uploadDir = getServletContext().getRealPath("/uploads/products");
-        File dir = new File(uploadDir);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-
         filePart.write(uploadDir + File.separator + savedFileName);
+
         return "uploads/products/" + savedFileName;
     }
 
@@ -663,6 +666,12 @@ public class AdminController extends HttpServlet {
         } catch (Exception e) {
         }
         request.getRequestDispatcher(URL.PAGE_ADMIN_ORDER_FORM).forward(request, response);
+    }
+
+    private void showFeedbackList(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setAttribute("FEEDBACK_LIST", new DAO.FeedbackDAO().getAllFeedbacks());
+        request.getRequestDispatcher("view/admin/feedback-list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

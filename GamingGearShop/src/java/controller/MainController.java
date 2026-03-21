@@ -57,7 +57,8 @@ public class MainController extends HttpServlet {
                     url = URL.CART_ORDER_CONTROLLER;
                     break;
                 case "addfeedback":
-//                    url = URL.ADD_FEED_BACK_CONTROLLER;
+                case "deletefeedback":
+                    url = URL.FEEDBACK_CONTROLLER;
                     break;
                 default:
                     url = URL.PRODUCT_CONTROLLER;
