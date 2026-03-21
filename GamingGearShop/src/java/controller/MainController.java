@@ -49,8 +49,9 @@ public class MainController extends HttpServlet {
                     break;
                 case "addtocart":
                 case "viewcart":
-                case "remove":     // Khớp với mọi kiểu gõ từ JSP
-                case "checkout":   // Khớp với mọi kiểu gõ từ JSP
+                case "remove":     
+                case "checkout":
+                case "confirmpayment":
                 case "orderhistory":
                 case "cancelorder":
                     url = URL.CART_ORDER_CONTROLLER;

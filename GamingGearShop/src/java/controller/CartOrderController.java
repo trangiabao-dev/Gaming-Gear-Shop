@@ -45,6 +45,9 @@ public class CartOrderController extends HttpServlet {
                 case "checkout":
                     url = checkout(request);
                     break;
+                case "confirmpayment":
+                    url = confirmPayment(request);
+                    break;
                 case "orderhistory":
                     url = viewOrderHistory(request);
                     break;
@@ -145,30 +148,71 @@ public class CartOrderController extends HttpServlet {
         CartDAO cartDAO = new CartDAO();
         List<CartDTO> cartItems = cartDAO.getCartByUser(user.getUserID());
 
-        if (cartItems != null && !cartItems.isEmpty()) {
-            double total = 0;
-            for (CartDTO item : cartItems) {
-                total += item.getPrice() * item.getQuantity();
-            }
-
-            OrderDAO orderDAO = new OrderDAO();
-            OrderDTO order = new OrderDTO(0,
-                    new java.sql.Date(System.currentTimeMillis()),
-                    total, user.getUserID(), 1);
-
-            if (orderDAO.checkOutFromDB(order, cartItems)) {
-                // Xóa giỏ hàng trong DB
-                cartDAO.clearCart(user.getUserID());
-                // Xóa count trong session
-                session.removeAttribute("CART_COUNT");
-                return "MainController?action=viewCart&msg=Success";
-            } else {
-                return "MainController?action=viewCart&msg=Error";
-            }
+        if (cartItems == null || cartItems.isEmpty()) {
+            return "MainController?action=viewCart&msg=Empty";
         }
+
+        // Tính tổng tiền
+        double total = 0;
+        for (CartDTO item : cartItems) {
+            total += item.getPrice() * item.getQuantity();
+        }
+
+        // Lưu tổng tiền vào session để hiện trên trang payment
+        // CHƯA lưu DB — chờ user bấm xác nhận
+        session.setAttribute("PENDING_TOTAL", total);
+
+        // Set attribute để hiển thị trên payment.jsp
+        request.setAttribute("PAYMENT_TOTAL", (long) total);
+        request.setAttribute("PAYMENT_ORDER_ID", System.currentTimeMillis());
+
+        return URL.PAGE_PAYMENT;
+    }
+
+   private String confirmPayment(HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+    if (session == null) return URL.PAGE_LOGIN;
+
+    UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+    if (user == null) return URL.PAGE_LOGIN;
+
+    CartDAO cartDAO = new CartDAO();
+    List<CartDTO> cartItems = cartDAO.getCartByUser(user.getUserID());
+
+    if (cartItems == null || cartItems.isEmpty()) {
         return "MainController?action=viewCart&msg=Empty";
     }
 
+    Double total = (Double) session.getAttribute("PENDING_TOTAL");
+    if (total == null) return "MainController?action=viewCart";
+
+    // Lưu xuống DB
+    OrderDAO orderDAO = new OrderDAO();
+    OrderDTO order = new OrderDTO(0,
+            new java.sql.Date(System.currentTimeMillis()),
+            total, user.getUserID(), 1);
+
+    if (orderDAO.checkOutFromDB(order, cartItems)) {
+        // Xóa giỏ hàng
+        cartDAO.clearCart(user.getUserID());
+        session.removeAttribute("CART_COUNT");
+        session.removeAttribute("PENDING_TOTAL");
+
+        // Gửi email xác nhận nếu user có email
+        if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+            utils.OTPUtil.sendOrderConfirmation(
+                user.getEmail(),
+                user.getFullName(),
+                order.getOrderID(),
+                total
+            );
+        }
+
+        return "MainController?action=viewCart&msg=Success";
+    } else {
+        return "MainController?action=viewCart&msg=Error";
+    }
+}
     private String viewOrderHistory(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {

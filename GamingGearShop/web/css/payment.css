@@ -1,0 +1,209 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 21, 2026, 9:15:33 PM
+    Author     : LEGION
+*/
+
+/* ===== PAYMENT PAGE ===== */
+
+body {
+    background: var(--color-background-tertiary);
+}
+
+.payment-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px 60px;
+}
+
+.payment-card {
+    background: var(--color-background-primary);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* HEADER */
+.payment-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.payment-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #e53935, #b71c1c);
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.payment-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 6px;
+}
+
+.payment-subtitle {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+/* TỔNG TIỀN */
+.payment-amount {
+    background: linear-gradient(135deg, #ffeaea, #fff5f5);
+    border: 2px solid #ffcdd2;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.amount-label {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.amount-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #e53935;
+}
+
+/* QR CODE */
+.qr-wrapper {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.qr-box {
+    background: white;
+    border: 3px solid #f5f5f5;
+    border-radius: 16px;
+    padding: 16px;
+    display: inline-block;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.qr-img {
+    width: 200px;
+    height: 200px;
+    display: block;
+}
+
+.qr-note {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+/* THÔNG TIN NGÂN HÀNG */
+.bank-info-box {
+    background: var(--color-background-secondary);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+}
+
+.bank-info-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-border-tertiary);
+}
+
+.bank-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+.bank-row + .bank-row {
+    border-top: 1px solid var(--color-border-tertiary);
+}
+
+.bank-label {
+    color: var(--color-text-secondary);
+}
+
+.bank-value {
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
+
+.bank-value.highlight {
+    color: #e53935;
+    font-weight: 600;
+}
+
+/* ĐẾM NGƯỢC */
+.countdown-box {
+    text-align: center;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin-bottom: 20px;
+    padding: 10px;
+    background: var(--color-background-secondary);
+    border-radius: 8px;
+}
+
+.countdown-timer {
+    font-weight: 700;
+    color: #e53935;
+    font-size: 16px;
+}
+
+/* NÚT */
+.btn-confirm {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #e53935, #b71c1c);
+    color: white !important;
+    text-align: center;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 12px;
+    transition: opacity 0.2s;
+    letter-spacing: 0.5px;
+}
+
+.btn-confirm:hover {
+    opacity: 0.9;
+    color: white;
+}
+
+.btn-back {
+    display: block;
+    text-align: center;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px;
+}
+
+.btn-back:hover {
+    color: var(--color-text-primary);
+}

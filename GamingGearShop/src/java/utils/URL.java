@@ -12,6 +12,7 @@ public class URL {
     public static final String PAGE_ORDER_HISTORY = "view/order-history.jsp";
     public static final String PAGE_FORGOT_PASSWORD = "view/forgot-password.jsp";
     public static final String PAGE_VERIFY_OTP = "view/verify-otp.jsp";
+    public static final String PAGE_PAYMENT = "view/payment.jsp";
 
     // ===== TRANG ADMIN =====
     public static final String PAGE_ADMIN_PRODUCT = "view/admin/product-list.jsp";
