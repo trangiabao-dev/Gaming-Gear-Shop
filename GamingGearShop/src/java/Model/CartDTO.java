@@ -16,7 +16,7 @@ public class CartDTO implements Serializable {
     private String productID;
     private int quantity;
 
-//    // @Transient nghĩa là field đó không lưu xuống DB — chỉ dùng để hiển thị trên JSP!
+//    @Transient nghĩa là field đó không lưu xuống DB — chỉ dùng để hiển thị trên JSP!
 //    tblProducts đã có sẵn productName và price rồi
 //→ Lưu thêm vào tblCart = dữ liệu bị trùng lặp
 //→ Nếu admin sửa giá sản phẩm → tblCart vẫn hiển thị giá cũ

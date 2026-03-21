@@ -89,49 +89,60 @@
             </div>
         </nav>
 
-        <%-- ===== BANNER ===== --%>
-        <div class="banner-section">
-            <button class="banner-arrow left" onclick="changeSlide(-1)">
-                <i class="bi bi-chevron-left"></i>
-            </button>
-
-            <div class="banner-slide active"
-                 style="background:linear-gradient(135deg,#1a0005 0%,#d70018 55%,#ff6535 100%)">
-                <div class="banner-content">
-                    <div class="banner-tag">🎮 Gaming Gear Shop</div>
-                    <h2 class="banner-title">Thiết Bị Gaming<br>Cao Cấp Chính Hãng</h2>
-                    <p class="banner-sub">Nâng tầm trải nghiệm chơi game với thiết bị đỉnh cao</p>
-                    <a href="MainController?action=home" class="banner-cta">
-                        Khám phá ngay <i class="bi bi-arrow-right"></i>
-                    </a>
-                </div>
-                <div class="banner-deco"><i class="bi bi-controller"></i></div>
-            </div>
-
-            <div class="banner-slide"
-                 style="background:linear-gradient(135deg,#0f172a 0%,#1d4ed8 55%,#38bdf8 100%)">
-                <div class="banner-content">
-                    <div class="banner-tag">⚡ Flash Sale</div>
-                    <h2 class="banner-title">Giảm Đến 30%<br>Số Lượng Có Hạn</h2>
-                    <p class="banner-sub">Nhanh tay săn deal — Ưu đãi chỉ trong hôm nay</p>
-                    <a href="MainController?action=filterPrice&min=0&max=500000" class="banner-cta">
-                        Xem ngay <i class="bi bi-arrow-right"></i>
-                    </a>
-                </div>
-                <div class="banner-deco"><i class="bi bi-lightning-fill"></i></div>
-            </div>
-
-            <button class="banner-arrow right" onclick="changeSlide(1)">
-                <i class="bi bi-chevron-right"></i>
-            </button>
-            <div class="banner-dots">
-                <button class="banner-dot active" onclick="goToSlide(0)"></button>
-                <button class="banner-dot" onclick="goToSlide(1)"></button>
-            </div>
-        </div>
-
-        <%-- ===== NỘI DUNG CHÍNH ===== --%>
+        <%-- ===== CONTAINER CHÍNH ===== --%>
         <div class="container-fluid px-4 px-lg-5 mb-5 pb-5" style="padding-top:24px;">
+
+            <%-- ===== BANNER DYNAMIC (AMBILIGHT + FADE + SMART ARROWS) ===== --%>
+            <div class="banner-section" id="bannerSection">
+                <button class="banner-arrow left" onclick="changeSlide(-1)">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+
+                <c:choose>
+                    <c:when test="${not empty BANNER_LIST}">
+                        <c:forEach var="banner" items="${BANNER_LIST}" varStatus="st">
+                            <div class="banner-slide ${st.first ? 'active' : ''}">
+                                <%-- 1. LỚP ẢNH TỎA HÀO QUANG MỜ PHÍA SAU (AMBILIGHT) --%>
+                                <img class="banner-blur-bg" src="${pageContext.request.contextPath}/${banner.imageURL}" alt="">
+
+                                <%-- 2. LỚP ẢNH CHÍNH SẮC NÉT Ở TRÊN CÙNG --%>
+                                <img class="banner-main-img" src="${pageContext.request.contextPath}/${banner.imageURL}" alt="${banner.title}">
+                            </div>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <%-- Fallback (Mặc định nếu chưa có Banner trong DB) --%>
+                        <div class="banner-slide active">
+                            <img class="banner-blur-bg" src="${pageContext.request.contextPath}/images/banner1.jpg" alt="">
+                            <img class="banner-main-img" src="${pageContext.request.contextPath}/images/banner1.jpg" alt="Default Banner">
+                        </div>
+                        <div class="banner-slide">
+                            <img class="banner-blur-bg" src="${pageContext.request.contextPath}/images/banner2.jpg" alt="">
+                            <img class="banner-main-img" src="${pageContext.request.contextPath}/images/banner2.jpg" alt="Default Banner 2">
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+
+                <button class="banner-arrow right" onclick="changeSlide(1)">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+
+                <div class="banner-dots">
+                    <c:choose>
+                        <c:when test="${not empty BANNER_LIST}">
+                            <c:forEach var="banner" items="${BANNER_LIST}" varStatus="st">
+                                <button class="banner-dot ${st.first ? 'active' : ''}" onclick="goToSlide(${st.index})"></button>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <button class="banner-dot active" onclick="goToSlide(0)"></button>
+                            <button class="banner-dot" onclick="goToSlide(1)"></button>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+
+            <%-- ===== HÀNG CHỨA SIDEBAR VÀ SẢN PHẨM ===== --%>
             <div class="row g-4">
 
                 <%-- SIDEBAR --%>
@@ -235,7 +246,6 @@
                                         </div>
                                     </c:if>
 
-                                    <%-- SẢN PHẨM VẪN CLICK ĐƯỢC NHƯ BÌNH THƯỜNG --%>
                                     <a href="MainController?action=detail&productID=${product.productID}" class="img-wrap">
                                         <img src="${product.imageURL}" alt="${product.productName}">
                                     </a>
@@ -267,13 +277,13 @@
                             </div>
                         </c:forEach>
                     </div>
-                </div> <%-- KẾT THÚC CỘT SẢN PHẨM (col-lg-9) --%>
 
-            </div> <%-- KẾT THÚC ROW CHIA CỘT (row g-4) --%>
+                </div> <%-- KẾT THÚC CỘT SẢN PHẨM --%>
+            </div> <%-- KẾT THÚC ROW CHIA CỘT --%>
 
-            <%-- ĐÂY RỒI: ĐƯA HẲN PHÂN TRANG RA NGOÀI CÙNG ĐỂ NÓ NẰM GIỮA TOÀN BỘ MÀN HÌNH --%>
+            <%-- PHÂN TRANG NẰM CHÍNH GIỮA TRANG WEB --%>
             <c:if test="${endPage > 1}">
-                <div class="w-100 d-flex justify-content-center" style="margin-top: 40px;">
+                <div class="w-100 d-flex justify-content-center mt-5 mb-4">
                     <nav>
                         <ul class="pagination soft-pagination m-0">
                             <c:forEach begin="1" end="${endPage}" var="i">
@@ -307,7 +317,7 @@
 
         </div> <%-- KẾT THÚC CONTAINER CHÍNH --%>
 
-        <%-- ===== FOOTER (CÁC LINK KHÔNG CLICK ĐƯỢC NỮA) ===== --%>
+        <%-- ===== FOOTER ===== --%>
         <footer class="footer">
             <div class="footer-inner">
                 <div class="footer-grid">
@@ -326,9 +336,7 @@
                             <span class="social-btn"><i class="bi bi-instagram"></i></span>
                         </div>
                     </div>
-
-                    <%-- Cột "Về Chúng Tôi" đã được gỡ bỏ hoàn toàn --%>
-
+                    
                     <div>
                         <div class="footer-col-title">Hỗ Trợ</div>
                         <span class="footer-link">Chính sách đổi trả</span>
@@ -336,6 +344,7 @@
                         <span class="footer-link">Hướng dẫn mua hàng</span>
                         <span class="footer-link">Câu hỏi thường gặp</span>
                     </div>
+                    
                     <div>
                         <div class="footer-col-title">Liên Hệ</div>
                         <span class="footer-link">
@@ -361,34 +370,72 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-                    var currentSlide = 0;
-                    var slides = document.querySelectorAll('.banner-slide');
-                    var dots = document.querySelectorAll('.banner-dot');
-                    var timer = null;
+            var currentSlide = 0;
+            var slides = document.querySelectorAll('.banner-slide');
+            var dots = document.querySelectorAll('.banner-dot');
+            var arrowLeft = document.querySelector('.banner-arrow.left');
+            var arrowRight = document.querySelector('.banner-arrow.right');
+            var bannerSection = document.getElementById('bannerSection');
+            var timer = null;
 
-                    function goToSlide(n) {
-                        slides[currentSlide].classList.remove('active');
-                        dots[currentSlide].classList.remove('active');
-                        currentSlide = (n + slides.length) % slides.length;
-                        slides[currentSlide].classList.add('active');
-                        dots[currentSlide].classList.add('active');
-                    }
+            function goToSlide(n) {
+                if(slides.length === 0) return;
+                slides[currentSlide].classList.remove('active');
+                if(dots.length > 0) dots[currentSlide].classList.remove('active');
+                
+                currentSlide = (n + slides.length) % slides.length;
+                
+                slides[currentSlide].classList.add('active');
+                if(dots.length > 0) dots[currentSlide].classList.add('active');
+            }
 
-                    function changeSlide(dir) {
-                        goToSlide(currentSlide + dir);
-                        resetTimer();
-                    }
+            function changeSlide(dir) {
+                goToSlide(currentSlide + dir);
+                resetTimer();
+            }
 
-                    function resetTimer() {
-                        clearInterval(timer);
-                        timer = setInterval(function () {
-                            goToSlide(currentSlide + 1);
-                        }, 4500);
-                    }
-
+            function resetTimer() {
+                clearInterval(timer);
+                if(slides.length > 1) {
                     timer = setInterval(function () {
                         goToSlide(currentSlide + 1);
                     }, 4500);
+                }
+            }
+
+            if(slides.length > 1) {
+                timer = setInterval(function () {
+                    goToSlide(currentSlide + 1);
+                }, 4500);
+            }
+
+            // MŨI TÊN THÔNG MINH (CONTEXTUAL ARROWS)
+            if (bannerSection && arrowLeft && arrowRight) {
+                bannerSection.addEventListener('mousemove', function(e) {
+                    var rect = bannerSection.getBoundingClientRect();
+                    var x = e.clientX - rect.left;
+                    var bannerWidth = bannerSection.offsetWidth;
+
+                    if (x < bannerWidth / 2) {
+                        arrowLeft.style.opacity = '1';
+                        arrowLeft.style.transform = 'translateY(-50%) translateX(0)';
+                        arrowRight.style.opacity = '0';
+                        arrowRight.style.transform = 'translateY(-50%) translateX(10px)';
+                    } else {
+                        arrowRight.style.opacity = '1';
+                        arrowRight.style.transform = 'translateY(-50%) translateX(0)';
+                        arrowLeft.style.opacity = '0';
+                        arrowLeft.style.transform = 'translateY(-50%) translateX(-10px)';
+                    }
+                });
+
+                bannerSection.addEventListener('mouseleave', function() {
+                    arrowLeft.style.opacity = '0';
+                    arrowLeft.style.transform = 'translateY(-50%) translateX(-10px)';
+                    arrowRight.style.opacity = '0';
+                    arrowRight.style.transform = 'translateY(-50%) translateX(10px)';
+                });
+            }
         </script>
 
     </body>

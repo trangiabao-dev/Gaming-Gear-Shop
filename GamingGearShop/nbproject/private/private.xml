@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/PRJ301/Gaming-Gear-Shop/GamingGearShop/web/view/cart.jsp</file>
             <file>file:/D:/PRJ301/Gaming-Gear-Shop/GamingGearShop/web/META-INF/context.xml</file>
             <file>file:/D:/PRJ301/Gaming-Gear-Shop/GamingGearShop/src/java/Model/FeedbackDTO.java</file>
@@ -57,6 +58,31 @@
             <file>file:/D:/PRJ301/Gaming-Gear-Shop/GamingGearShop/src/java/utils/PasswordUtil.java</file>
             <file>file:/D:/PRJ301/Gaming-Gear-Shop/GamingGearShop/web/view/admin/category-form.jsp</file>
             <file>file:/D:/PRJ301/Gaming-Gear-Shop/GamingGearShop/src/java/DAO/UserDAO.java</file>
+=======
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/controller/AdminController.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/web/view/Login.jsp</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/web/WEB-INF/web.xml</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/controller/ProductController.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/web/view/home.jsp</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/utils/URL.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/DAO/OrderDAO.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/web/css/global.css</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/web/view/cart.jsp</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/web/view/order-history.jsp</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/DAO/ProductDAO.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/controller/MainController.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/web/view/error.jsp</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/Model/BannerDTO.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/controller/UserController.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/DAO/BannerDAO.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/conf/persistence.xml</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/controller/CartOrderController.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/web/view/detail.jsp</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/web/css/home.css</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/web/view/register.jsp</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/src/java/DAO/JPAGenericDAO.java</file>
+            <file>file:/D:/GitHub%20Desktop/GitHub/Gaming%20Shop/GamingGearShop/web/view/verify-otp.jsp</file>
+>>>>>>> 1fe8e32583c25709d7c7e92a1481815f1fba2b6d
         </group>
     </open-files>
 </project-private>

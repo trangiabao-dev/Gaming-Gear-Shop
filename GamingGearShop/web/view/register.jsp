@@ -103,6 +103,7 @@
                         <button type="submit" class="btn-primary">
                             TẠO TÀI KHOẢN
                         </button>
+
                     </form>
 
                     <div class="auth-extra">
