@@ -3,7 +3,6 @@ package utils;
 public class URL {
 
     // ===== TRANG KHÁCH HÀNG =====
-
     public static final String PAGE_HOME = "view/home.jsp";
     public static final String PAGE_LOGIN = "view/login.jsp";
     public static final String PAGE_REGISTER = "view/register.jsp";
@@ -23,6 +22,8 @@ public class URL {
     public static final String PAGE_ADMIN_BRAND = "view/admin/brand-list.jsp";
     public static final String PAGE_ADMIN_BRAND_FORM = "view/admin/brand-form.jsp";
     public static final String PAGE_ADMIN_ORDER = "view/admin/order-list.jsp";
+    public static final String PAGE_ADMIN_USER_FORM = "view/admin/user-form.jsp";
+    public static final String PAGE_ADMIN_ORDER_FORM = "view/admin/order-form.jsp";
 
     // ===== CÁC CONTROLLER =====
     public static final String PRODUCT_CONTROLLER = "ProductController";

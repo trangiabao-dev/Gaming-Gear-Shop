@@ -26,9 +26,9 @@ import utils.URL;
  * @author ACER
  */
 @MultipartConfig(
-    fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
-    maxFileSize = 1024 * 1024 * 10,       // 10MB
-    maxRequestSize = 1024 * 1024 * 50     // 50MB
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50 // 50MB
 )
 public class AdminController extends HttpServlet {
 
@@ -132,11 +132,25 @@ public class AdminController extends HttpServlet {
                 case "order_list":
                     showOrderList(request, response);
                     break;
+                case "order_detail":
+                    showOrderDetail(request, response);
+                    break;
                 case "update_order_status":
                     updateOrderStatus(request, response);
                     break;
-                case "":
 
+                //====== Khách Hàng =======
+                case "user_create_page":
+                    showUserForm(request, response, null);
+                    break;
+                case "user_edit_page":
+                    showUserEditPage(request, response);
+                    break;
+                case "user_insert":
+                    insertUser(request, response);
+                    break;
+                case "user_update":
+                    updateUser(request, response);
                     break;
 
                 default:
@@ -558,6 +572,97 @@ public class AdminController extends HttpServlet {
             e.printStackTrace();
         }
         response.sendRedirect("AdminController?action=order_list");
+    }
+
+    private void showUserForm(HttpServletRequest request, HttpServletResponse response,
+            UserDTO user) throws ServletException, IOException {
+        request.setAttribute("EDIT_USER", user);
+        request.getRequestDispatcher(URL.PAGE_ADMIN_USER_FORM).forward(request, response);
+    }
+
+    private void showUserEditPage(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String userID = request.getParameter("userID");
+        UserDTO user = new UserDAO().findById(userID);
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/" + URL.PROCESS_ADMIN_USER);
+            return;
+        }
+        showUserForm(request, response, user);
+    }
+
+    private void insertUser(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String userID = request.getParameter("userID");
+        String fullName = request.getParameter("fullName");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        int roleID = Integer.parseInt(request.getParameter("roleID"));
+
+        UserDAO dao = new UserDAO();
+        if (dao.checkDuplicate(userID)) {
+            request.setAttribute("ERROR", "ID '" + userID + "' đã tồn tại!");
+            showUserForm(request, response, null);
+            return;
+        }
+
+        String hashed = utils.PasswordUtil.hashPassword(password);
+        UserDTO newUser = new UserDTO(userID, fullName, hashed, roleID, address, phone, true, email, null);
+        boolean ok = dao.insert(newUser);
+
+        if (ok) {
+            response.sendRedirect(request.getContextPath() + "/" + URL.PROCESS_ADMIN_USER + "&msg=insert_ok");
+        } else {
+            request.setAttribute("ERROR", "Lỗi khi thêm người dùng!");
+            showUserForm(request, response, null);
+        }
+    }
+
+    private void updateUser(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String userID = request.getParameter("userID");
+        String fullName = request.getParameter("fullName");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        int roleID = Integer.parseInt(request.getParameter("roleID"));
+
+        UserDAO dao = new UserDAO();
+        UserDTO user = dao.findById(userID);
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/" + URL.PROCESS_ADMIN_USER);
+            return;
+        }
+
+        user.setFullName(fullName);
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setAddress(address);
+        user.setRoleID(roleID);
+
+        boolean ok = dao.update(user);
+        if (ok) {
+            response.sendRedirect(request.getContextPath() + "/" + URL.PROCESS_ADMIN_USER + "&msg=update_ok");
+        } else {
+            request.setAttribute("ERROR", "Lỗi khi cập nhật!");
+            showUserForm(request, response, user);
+        }
+    }
+
+    private void showOrderDetail(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String orderIDStr = request.getParameter("orderID");
+        try {
+            int orderID = Integer.parseInt(orderIDStr);
+            OrderDAO dao = new OrderDAO();
+            OrderDTO order = dao.findById(orderID);
+            request.setAttribute("ORDER_DETAIL", order);
+            request.setAttribute("ORDER_DETAILS", dao.getDetailsByOrderID(orderID));
+        } catch (Exception e) {
+        }
+        request.getRequestDispatcher(URL.PAGE_ADMIN_ORDER_FORM).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
