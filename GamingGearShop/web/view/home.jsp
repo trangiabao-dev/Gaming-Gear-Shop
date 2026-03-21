@@ -92,7 +92,7 @@
         <%-- ===== CONTAINER CHÍNH ===== --%>
         <div class="container-fluid px-4 px-lg-5 mb-5 pb-5" style="padding-top:24px;">
 
-            <%-- ===== BANNER DYNAMIC ===== --%>
+            <%-- ===== BANNER DYNAMIC (AMBILIGHT + FADE + SMART ARROWS) ===== --%>
             <div class="banner-section" id="bannerSection">
                 <button class="banner-arrow left" onclick="changeSlide(-1)">
                     <i class="bi bi-chevron-left"></i>
@@ -102,12 +102,16 @@
                     <c:when test="${not empty BANNER_LIST}">
                         <c:forEach var="banner" items="${BANNER_LIST}" varStatus="st">
                             <div class="banner-slide ${st.first ? 'active' : ''}">
+                                <%-- 1. LỚP ẢNH TỎA HÀO QUANG MỜ PHÍA SAU (AMBILIGHT) --%>
                                 <img class="banner-blur-bg" src="${pageContext.request.contextPath}/${banner.imageURL}" alt="">
+
+                                <%-- 2. LỚP ẢNH CHÍNH SẮC NÉT Ở TRÊN CÙNG --%>
                                 <img class="banner-main-img" src="${pageContext.request.contextPath}/${banner.imageURL}" alt="${banner.title}">
                             </div>
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
+                        <%-- Fallback (Mặc định nếu chưa có Banner trong DB) --%>
                         <div class="banner-slide active">
                             <img class="banner-blur-bg" src="${pageContext.request.contextPath}/images/banner1.jpg" alt="">
                             <img class="banner-main-img" src="${pageContext.request.contextPath}/images/banner1.jpg" alt="Default Banner">
@@ -277,7 +281,7 @@
                 </div> <%-- KẾT THÚC CỘT SẢN PHẨM --%>
             </div> <%-- KẾT THÚC ROW CHIA CỘT --%>
 
-            <%-- PHÂN TRANG --%>
+            <%-- PHÂN TRANG NẰM CHÍNH GIỮA TRANG WEB --%>
             <c:if test="${endPage > 1}">
                 <div class="w-100 d-flex justify-content-center mt-5 mb-4">
                     <nav>
@@ -405,7 +409,7 @@
                 }, 4500);
             }
 
-            // LƯU Ý: ĐIỀU KHIỂN MŨI TÊN THÔNG MINH DỰA TRÊN CHUỘT
+            // MŨI TÊN THÔNG MINH (CONTEXTUAL ARROWS)
             if (bannerSection && arrowLeft && arrowRight) {
                 bannerSection.addEventListener('mousemove', function(e) {
                     var rect = bannerSection.getBoundingClientRect();
@@ -413,13 +417,11 @@
                     var bannerWidth = bannerSection.offsetWidth;
 
                     if (x < bannerWidth / 2) {
-                        // Chuột bên trái
                         arrowLeft.style.opacity = '1';
                         arrowLeft.style.transform = 'translateY(-50%) translateX(0)';
                         arrowRight.style.opacity = '0';
                         arrowRight.style.transform = 'translateY(-50%) translateX(10px)';
                     } else {
-                        // Chuột bên phải
                         arrowRight.style.opacity = '1';
                         arrowRight.style.transform = 'translateY(-50%) translateX(0)';
                         arrowLeft.style.opacity = '0';
@@ -428,7 +430,6 @@
                 });
 
                 bannerSection.addEventListener('mouseleave', function() {
-                    // Chuột rời khỏi banner
                     arrowLeft.style.opacity = '0';
                     arrowLeft.style.transform = 'translateY(-50%) translateX(-10px)';
                     arrowRight.style.opacity = '0';

@@ -150,81 +150,78 @@ a {
 /* 🎮 HOME STYLE - CHỈ TRANG HOME                       */
 /* ==================================================== */
 
-/* ===== BANNER DYNAMIC (AMBILIGHT + FADE + SMART ARROWS) ===== */
+/* ===== BANNER DYNAMIC (HIỆU ỨNG AMBILIGHT NÂNG CẤP + NHẤP NHÁY) ===== */
 .banner-section {
     position: relative;
     width: 100%;
     max-width: 1400px;
-    margin: 0 auto 60px auto; 
-    overflow: visible; /* Bắt buộc visible để hào quang tràn ra ngoài */
+    margin: 0 auto 60px auto; /* Chừa không gian rộng phía dưới cho hào quang tỏa ra */
+    overflow: visible; /* QUAN TRỌNG NHẤT: Xóa bỏ overflow: hidden để lớp mờ có thể tràn ra ngoài khung */
     background: transparent;
     border: none;
-    min-height: 400px; /* Chống giật khung khi chuyển slide */
+    min-height: 400px; /* Điều chỉnh chiều cao cố định để không bị giật slide */
 }
 
-/* HIỆU ỨNG FADE MƯỢT MÀ */
+/* --- THAY ĐỔI Ở ĐÂY ĐỂ TẠO HIỆU ỨNG FADE MƯỢT MÀ --- */
 .banner-slide {
     width: 100%;
-    position: absolute; 
+    position: absolute; /* Xếp chồng các ảnh lên nhau */
     top: 0;
     left: 0;
-    opacity: 0; 
-    visibility: hidden; 
-    transition: opacity 0.8s ease-in-out, visibility 0.8s; 
+    opacity: 0; /* Mặc định cho tàng hình hết */
+    visibility: hidden; /* Ẩn đi để không chắn chuột */
+    transition: opacity 0.8s ease-in-out, visibility 0.8s; /* Hiệu ứng mờ dần trong 0.8s */
     z-index: 1;
 }
 
+/* Ảnh nào có class active sẽ hiện lên */
 .banner-slide.active {
     opacity: 1;
     visibility: visible;
-    z-index: 2; 
-    position: relative; 
+    z-index: 2; /* Nổi lên trên cùng */
+    position: relative; /* Trả lại relative cho ảnh active để container phình ra */
 }
 
-/* 1. LỚP ẢNH MỜ (AMBILIGHT) */
+/* 1. LỚP ẢNH TỎA HÀO QUANG MỜ PHÍA SAU (AMBILIGHT) */
 .banner-blur-bg {
     position: absolute;
-    top: 15px; 
-    left: -3%; 
-    width: 106%; 
+    top: 15px; /* Đẩy xuống 1 xíu để bóng rọi xuống dưới */
+    left: -3%; /* Kéo giãn sang 2 bên */
+    width: 106%; /* Phình to hơn ảnh thật 6% */
     height: 100%;
     object-fit: cover;
-    filter: blur(45px) saturate(1.4); 
-    opacity: 0.65; 
+    filter: blur(50px) saturate(1.4); /* Làm mờ mạnh mẽ 50px và kích màu rực rỡ lên */
+    opacity: 0.7; /* Làm dịu đi để không cướp spotlight của ảnh chính */
     z-index: 0;
     border-radius: 30px;
 }
 
-/* 2. LỚP ẢNH CHÍNH (SẮC NÉT) */
+/* 2. LỚP ẢNH CHÍNH (NẰM TRÊN CÙNG, SẮC NÉT) */
 .banner-main-img {
     position: relative;
     width: 100%;
     height: auto;
     object-fit: contain;
     display: block;
-    z-index: 1; 
-    border-radius: 20px; 
-    border: 1px solid rgba(255, 255, 255, 0.4); 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); 
+    z-index: 1; /* Nằm đè lên lớp mờ */
+    border-radius: 20px; /* Bo góc ảnh chính */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Viền mỏng như kính trong suốt */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Bóng đen nhẹ vật lý */
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
+/* HIỆU ỨNG RÊ CHUỘT VÀO ẢNH CHÍNH */
 .banner-section:hover .banner-main-img {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-/* NÚT MŨI TÊN THÔNG MINH (PULSE EFFECT) */
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6); }
-    70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-}
-
+/* --- NÚT MŨI TÊN CHUYỂN SLIDE (CONTEXTUAL + PULSE EFFECT) --- */
 .banner-arrow {
     position: absolute;
     top: 50%;
-    background: rgba(255,255,255,0.9);
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.8);
     border: none;
     color: #1e293b;
     width: 44px;
@@ -232,29 +229,42 @@ a {
     border-radius: 50%;
     font-size: 1.2rem;
     cursor: pointer;
-    transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s; 
+    transition: opacity 0.4s ease, transform 0.4s ease; /* Hiệu ứng mờ dần + Phóng to */
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    opacity: 0; /* Ẩn mặc định, JS sẽ điều khiển */
-    transform: translateY(-50%);
+    z-index: 10; /* Nằm trên cùng */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    opacity: 0; /* Ẩn mặc định */
+}
+
+/* HIỆU ỨNG NHÁY CHUỘT KHI HOVER VÀO NÚT MŨI TÊN (PULSE EFFECT) */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
 }
 
 .banner-arrow:hover {
     background: #ffffff;
     color: #d70018;
-    animation: pulse 1.5s infinite; 
+    transform: translateY(-50%) scale(1.1);
+    animation: pulse 1s infinite; /* Bắt đầu hiệu ứng nhấp nháy */
 }
 
-.banner-arrow.left  { left: 20px; }
-.banner-arrow.right { right: 20px; }
+.banner-arrow.left  { left: 20px; transform: translateY(-50%) translateX(-10px); }
+.banner-arrow.right { right: 20px; transform: translateY(-50%) translateX(10px); }
 
-/* CHẤM TRÒN */
+/* --- DOTS --- */
 .banner-dots {
     position: absolute;
-    bottom: -35px; 
+    bottom: -30px; /* Kéo dấu chấm xuống hẳn bên dưới để không che ảnh */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -265,14 +275,14 @@ a {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #cbd5e1; 
+    background: #cbd5e1; /* Màu xám nhạt */
     border: none;
     cursor: pointer;
     transition: 0.3s;
     padding: 0;
 }
 .banner-dot.active {
-    background: #d70018; 
+    background: #d70018; /* Chấm đỏ nổi bật */
     width: 25px;
     border-radius: 4px;
 }

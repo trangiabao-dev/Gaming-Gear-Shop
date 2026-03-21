@@ -11,51 +11,42 @@
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/auth.css" rel="stylesheet">
     </head>
-    <body class="auth-page">
 
+    <body class="auth-page">
         <div class="auth-wrapper">
             <div class="auth-container wide-container">
 
-                <%-- BÊN TRÁI --%>
                 <div class="auth-left">
                     <h1 class="brand-glow">Gaming Gear Shop</h1>
                     <p class="brand-desc">
                         🚀 Gia nhập cộng đồng Game thủ đỉnh cao.<br><br>
-                        Tạo tài khoản ngay hôm nay để nhận các ưu đãi độc quyền
-                        và theo dõi đơn hàng dễ dàng.
+                        Tạo tài khoản ngay hôm nay để nhận các ưu đãi độc quyền và theo dõi đơn hàng dễ dàng.
                     </p>
                 </div>
 
-                <%-- BÊN PHẢI --%>
                 <div class="auth-right">
                     <h2>Đăng Ký</h2>
 
-                    <%-- Hiển thị lỗi nếu có --%>
                     <c:if test="${not empty ERROR}">
-                        <div class="auth-error">
-                            <i class="bi bi-exclamation-triangle-fill"></i> ${ERROR}
-                        </div>
+                        <div class="alert alert-danger">${ERROR}</div>
                     </c:if>
 
-                    <form action="${pageContext.request.contextPath}/MainController"
-                          method="post">
-                        <input type="hidden" name="action" value="register"/>
+                    <form action="${pageContext.request.contextPath}/MainController" method="post">
+                        <input type="hidden" name="action" value="register" />
 
-                        <%-- Hàng 1: Tên đăng nhập + Họ tên --%>
+                        <%-- Hàng 1: ID + Họ tên --%>
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Tên đăng nhập</label>
                                 <input type="text" name="userID" required
-                                       placeholder="Nhập ID..."
-                                       value="${param.userID}"
-                                       oninvalid="this.setCustomValidity('Vui lòng nhập ID!')"
+                                       placeholder="Nhập ID..." value="${param.userID}"
+                                       oninvalid="this.setCustomValidity('Vui lòng nhập ID đăng nhập!')"
                                        oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                 <label>Họ và tên</label>
                                 <input type="text" name="fullName" required
-                                       placeholder="Họ tên đầy đủ..."
-                                       value="${param.fullName}"
+                                       placeholder="Họ tên đầy đủ..." value="${param.fullName}"
                                        oninvalid="this.setCustomValidity('Vui lòng nhập Họ và tên!')"
                                        oninput="this.setCustomValidity('')">
                             </div>
@@ -84,31 +75,29 @@
                             <div class="form-group">
                                 <label>Số điện thoại</label>
                                 <input type="tel" name="phone" required
-                                       placeholder="Nhập số điện thoại (10 số)..."
-                                       value="${param.phone}"
-                                       pattern="[0-9]{10}"
-                                       title="Số điện thoại phải gồm đúng 10 chữ số"
-                                       oninvalid="this.setCustomValidity('Vui lòng nhập đúng 10 số!')"
+                                       placeholder="Nhập số điện thoại (10 số)..." value="${param.phone}"
+                                       pattern="[0-9]{10}" title="Số điện thoại phải gồm đúng 10 chữ số"
+                                       oninvalid="this.setCustomValidity('Vui lòng nhập đúng định dạng 10 số!')"
                                        oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                 <label>Địa chỉ nhận hàng</label>
                                 <input type="text" name="address" required
-                                       placeholder="Nhập địa chỉ chi tiết..."
-                                       value="${param.address}"
-                                       oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ!')"
+                                       placeholder="Nhập địa chỉ chi tiết..." value="${param.address}"
+                                       oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ nhận hàng!')"
                                        oninput="this.setCustomValidity('')">
                             </div>
                         </div>
 
-                        <%-- Hàng 4: Email (1 cột full width) --%>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" name="email" required
-                                   placeholder="Nhập email của bạn..."
-                                   value="${param.email}"
-                                   oninvalid="this.setCustomValidity('Vui lòng nhập email!')"
-                                   oninput="this.setCustomValidity('')">
+                        <%-- Hàng 4: Email (1 cột) --%>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" name="email" required
+                                       placeholder="Nhập email của bạn..." value="${param.email}"
+                                       oninvalid="this.setCustomValidity('Vui lòng nhập email!')"
+                                       oninput="this.setCustomValidity('')">
+                            </div>
                         </div>
 
                         <button type="submit" class="btn-primary">
@@ -119,18 +108,14 @@
 
                     <div class="auth-extra">
                         Đã có tài khoản?
-                        <a href="${pageContext.request.contextPath}/MainController?action=login">
-                            Đăng nhập tại đây
-                        </a>
+                        <a href="${pageContext.request.contextPath}/MainController?action=login">Đăng nhập tại đây</a>
                     </div>
 
                     <div class="auth-home">
-                        <a href="${pageContext.request.contextPath}/MainController?action=home"
-                           class="home-link">
+                        <a href="${pageContext.request.contextPath}/MainController?action=home" class="home-link">
                             ← Quay về Trang chủ
                         </a>
                     </div>
-
                 </div>
             </div>
         </div>
