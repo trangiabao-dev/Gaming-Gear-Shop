@@ -254,7 +254,7 @@
                                         ${product.productName}
                                     </a>
 
-                                    <div class="item-price">${product.priceFormat} ₫</div>
+                                    <div class="item-price">${product.priceFormat} VNĐ</div>
 
                                     <form action="MainController" method="POST" class="mt-auto">
                                         <input type="hidden" name="productID" value="${product.productID}">
@@ -348,10 +348,10 @@
                     <div>
                         <div class="footer-col-title">Liên Hệ</div>
                         <span class="footer-link">
-                            <i class="bi bi-telephone-fill"></i> 1800 6789
+                            <i class="bi bi-telephone-fill"></i> 0982556013
                         </span>
                         <span class="footer-link">
-                            <i class="bi bi-envelope-fill"></i> support@gaminggear.vn
+                            <i class="bi bi-envelope-fill"></i> gearshopgaming@gmail.com 
                         </span>
                         <span class="footer-link">
                             <i class="bi bi-geo-alt-fill"></i> TP. Hồ Chí Minh

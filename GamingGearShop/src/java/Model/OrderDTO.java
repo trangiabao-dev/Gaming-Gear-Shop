@@ -2,6 +2,8 @@ package Model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.NumberFormat;
+import java.util.Locale;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +24,7 @@ public class OrderDTO implements Serializable {
     private double total;
     private String userID;
     private int status;
-
+        
     public OrderDTO() {
     }
 
@@ -73,4 +75,5 @@ public class OrderDTO implements Serializable {
     public void setStatus(int status) {
         this.status = status;
     }
+    
 }

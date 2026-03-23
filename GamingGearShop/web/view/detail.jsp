@@ -106,7 +106,7 @@
                 </p>
 
                 <div class="money"> 
-                    ${detail.priceFormat} ₫
+                    ${detail.priceFormat} VNĐ
                 </div>
 
                 <form action="${pageContext.request.contextPath}/MainController" method="POST" class="buying-form">

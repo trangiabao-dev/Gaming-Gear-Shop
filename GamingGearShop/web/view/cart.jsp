@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <c:if test="${empty sessionScope.LOGIN_USER}">
     <c:redirect url="/MainController?action=login"/>
@@ -69,7 +70,6 @@
                                             </li>
                                             <li><hr class="dropdown-divider"></li>
                                             </c:if>
-                                        <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MainController?action=orderhistory">
                                                 <i class="bi bi-clock-history me-2"></i>Lịch sử đơn hàng</a>
                                         </li>
@@ -138,11 +138,11 @@
                                         <tr>
                                             <td>${counter.count}</td>
                                             <td class="product-name-col">${item.productName}</td>
-                                            <td class="price-col">${item.price} ₫</td>
+                                            <td class="price-col">${item.priceFormat} VNĐ</td>
                                             <td>
                                                 <span class="quantity-badge">${item.quantity}</span>
                                             </td>
-                                            <td class="total-col">${item.price * item.quantity} ₫</td>
+                                            <td class="total-col">${item.totalFormat} VNĐ</td>
                                             <td class="action-col">
                                                 <a href="${pageContext.request.contextPath}/MainController?action=remove&productID=${item.productID}" 
                                                    class="btn-remove" title="Bỏ khỏi giỏ"
@@ -160,7 +160,9 @@
                         <div class="cart-summary">
                             <div class="summary-text">
                                 <h3>Tổng thanh toán:</h3>
-                                <div class="final-price">${total} ₫</div>
+                                <div class="final-price">
+                                    <fmt:formatNumber value="${total}" type="number" groupingUsed="true"/> VNĐ
+                                </div>
                             </div>
 
                             <div class="text-end">

@@ -528,7 +528,6 @@ public class AdminController extends HttpServlet {
     private String imageProcessing(HttpServletRequest request, String productID)
             throws IOException, ServletException {
         Part filePart = request.getPart("imageFile");
-
         if (filePart == null || filePart.getSize() == 0) {
             return null;
         }
@@ -545,14 +544,19 @@ public class AdminController extends HttpServlet {
             return null;
         }
 
-        // Lấy đuôi file và đặt tên theo productID
         String ext = fileName.substring(fileName.lastIndexOf("."));
         String savedFileName = productID + ext;
 
-        // Lưu vào thư mục deploy — Listener đã đảm bảo thư mục tồn tại
-        String uploadDir = getServletContext().getRealPath("/uploads/products");
+        // Lưu ra ngoài project — không bao giờ bị mất khi redeploy
+        String uploadDir = "D:/GitHub Desktop/GitHub/Gaming Shop/GamingGearShop/web/uploads/products";
+        File dir = new File(uploadDir);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
         filePart.write(uploadDir + File.separator + savedFileName);
 
+        // Trả về đường dẫn ảo — cần config Tomcat đọc được
         return "uploads/products/" + savedFileName;
     }
 

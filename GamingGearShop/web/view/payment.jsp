@@ -37,7 +37,7 @@
             <%-- TỔNG TIỀN --%>
             <div class="payment-amount">
                 <span class="amount-label">Số tiền cần thanh toán</span>
-                <span class="amount-value">${PAYMENT_TOTAL} ₫</span>
+                <span class="amount-value">${PAYMENT_TOTAL} VNĐ</span>
             </div>
 
             <%-- QR CODE --%>

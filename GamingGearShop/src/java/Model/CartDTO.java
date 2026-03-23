@@ -1,6 +1,8 @@
 package Model;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 import javax.persistence.*;
 
 @Entity
@@ -25,7 +27,9 @@ public class CartDTO implements Serializable {
     private String productName;
     @Transient
     private double price;
-
+    
+    private static final NumberFormat PRICE_FORMAT = NumberFormat.getInstance(new Locale("vi", "VN"));
+    
     public CartDTO() {
     }
 
@@ -81,5 +85,13 @@ public class CartDTO implements Serializable {
 
     public void setPrice(double v) {
         this.price = v;
+    }
+    
+    public String getPriceFormat(){
+        return PRICE_FORMAT.format(this.price);
+    }
+    
+    public String getTotalFormat(){
+        return PRICE_FORMAT.format(this.price * this.quantity);
     }
 }

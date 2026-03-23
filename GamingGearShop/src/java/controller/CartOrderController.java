@@ -23,7 +23,7 @@ public class CartOrderController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         String action = request.getParameter("action");
         String url = URL.PAGE_HOME;
 
